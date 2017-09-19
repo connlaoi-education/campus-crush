@@ -1,5 +1,5 @@
 <?php
-	// FILE FOR DATABASE CONNECTIVITY
+	// FILE FOR GENERAL FUNCTIONS
 	$filename = "functions.php";
 	$authors = "Connlaoi";
 	
