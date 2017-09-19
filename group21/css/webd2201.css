@@ -1,0 +1,180 @@
+/*
+    Name: Jeremy Power
+    File: lab2.html
+    Date: 29 May 2017
+    This is the stylesheet file for the powerj
+    website for webd2201 at durham college.
+*/
+
+body {
+	background-color: #ccc;
+	color: #062E22;
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+p {
+	font-style: italic;
+}
+
+img {
+	padding: 10px;
+}
+
+th {
+	padding: 10px;
+}
+
+caption {
+	padding: 10px;
+	font-size: 24px;
+}
+
+a {
+	font-size: 20px;
+}
+
+hr {
+	width: 95%;
+}
+
+a:link {
+	color: #1B3F8B;
+}
+a:visited {
+	color: #131A25;
+}
+a:hover {
+	color: #90D4F2;
+}
+a:active {
+	color: #ED6E67;
+}
+
+em {
+	font-size: 40pt;
+	font-style: normal;
+	font-family: Arial, Verdana;
+	text-decoration: underline;
+}
+
+.tt1 {
+	font-size: 20pt;
+	font-weight: bold;
+	font-family: "Comic Sans MS", Verdana
+}
+
+
+.inside-tables tr{
+	background-color: #05A26D;
+}
+
+#schedule p{
+	font-style: normal;
+	padding: 10px;
+	text-align: center;
+}
+#container
+{
+	margin: 0 auto;
+	width: 1200px;
+	background: #fff;
+}
+
+#header
+{
+	background: #ffb6c1;
+	padding: 20px;
+}
+
+#header h1
+ { 
+			margin: 0;
+			display: inline;
+}
+#header img
+ { 
+			vertical-align: middle;
+			width: 150px;
+}
+
+#sites
+{
+	float: left;
+	width: 1200px;
+	background: #333;
+}
+
+#sites ul
+{
+	margin: 0;
+	padding: 0;
+}
+
+#sites ul li
+{
+	list-style-type: none;
+	display: inline;
+}
+
+#sites li a
+{
+	display: block;
+	float: left;
+	padding: 5px 10px;
+	color: #fff;
+	text-decoration: none;
+	border-right: 1px solid #fff;
+}
+
+#sites li a:hover { 
+				background-color: #ccc; 
+				color: #000;
+}
+
+#navigation
+{
+	clear: left;
+	float: left;
+	width: 240px;
+	padding: 10px 0;
+	margin: 0 20px 0 0;
+	display: inline;
+}
+
+#navigation h3 { margin: 0 0 0 10px; }
+
+#content-container
+{
+	float: left;
+	width: 1200px;
+	background-color: #fff;
+	background-image: url(../images/styles/background.png);
+	/* go up a directory, and then work down into images/styles directory */
+	background-repeat: repeat-y;
+	
+}
+
+#content
+{
+
+	float: right;
+	width: 860px;
+	padding: 20px 0;
+	margin: 0px 25px 0px 0px;
+	display: inline;
+}
+
+#content h2 { margin: 0; }
+
+
+#footer
+{
+	clear: both;
+	background: #ffb6c1;
+	text-align: right;
+	padding: 20px;
+	height: 1%;
+}
+#footer img{
+	vertical-align: middle;
+}
