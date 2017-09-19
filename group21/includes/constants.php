@@ -24,11 +24,11 @@
 	
 	// define database connector values for BOTH local and server for easy swapping
 	define(DATABASE_HOST_LOCAL, '127.0.0.1', false);
-	define(DATABASE_HOST_SERVER, 'opentech2.durhamcollege.org:/var/www/html/group21/', true);
+	define(DATABASE_HOST_SERVER, 'opentech2.durhamcollege.org', true);
 	// define group database name
 	define(DATABASE_NAME, 'group21_db', true);
 	// define admin user and password
-	define(DATABASE_USER, 'admin', true);
-	define(DATABASE_PASSWORD, 'restricted1nf0', true);
+	define(DATABASE_USER, 'smithc', true);
+	define(DATABASE_PASSWORD, '100483385', false);
 	
 ?>
