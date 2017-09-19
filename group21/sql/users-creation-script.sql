@@ -13,46 +13,51 @@ CREATE TABLE users(
 	first_name CHAR(20) NOT NULL,
 	last_name CHAR(30) NOT NULL,
 	email_address CHAR(255) NOT NULL,
+	account_type CHAR(1) NOT NULL,
 	enroll_date DATE NOT NULL,
 	last_access DATE NOT NULL
 	);
 
-INSERT INTO users(id, password, first_name, last_name, email_address, enroll_date, last_access) VALUES (
+INSERT INTO users(id, password, first_name, last_name, email_address, account_type, enroll_date, last_access) VALUES (
 	'admin',
 	'restricted1nf0',
 	'Administrator',
 	'Privileges',
-	'group21_webd3201@durhamcollege.ca',
+	'group21@durhamcollege.ca',
+	'a',
+	'2017-08-01',
+	'2017-08-02'
+);
+
+INSERT INTO users(id, password, first_name, last_name, email_address, account_type, enroll_date, last_access) VALUES (
+	'csmith',
+	'cats123',
+	'Connlaoi',
+	'Smith',
+	'connlaoi.smith@durhamcollege.ca',
+	'c',
 	'2017-09-01',
 	'2017-09-02'
 );
 
-INSERT INTO users(id, password, first_name, last_name, email_address, enroll_date, last_access) VALUES (
-	'hpotter',
-	'lightning',
-	'Harry',
-	'Potter',
-	'harry.potter@gryffindor.com',
+INSERT INTO users(id, password, first_name, last_name, email_address, account_type, enroll_date, last_access) VALUES (
+	'jpower',
+	'dogs123',
+	'Jeremy',
+	'Power',
+	'jeremy.power@durhamcollege.ca',
+	'c',
 	'2017-09-01',
 	'2017-09-02'
 );
 
-INSERT INTO users(id, password, first_name, last_name, email_address, enroll_date, last_access) VALUES (
-	'hgranger',
-	'dobby',
-	'Hermione',
-	'Granger',
-	'hermione.granger@gryffindor.com',
-	'2017-09-01',
-	'2017-09-02'
-);
-
-INSERT INTO users(id, password, first_name, last_name, email_address, enroll_date, last_access) VALUES (
-	'rweasley',
-	'snoggin',
-	'Ronald',
-	'Weasley',
-	'ron.weasley@gryffindor.com',
+INSERT INTO users(id, password, first_name, last_name, email_address, account_type, enroll_date, last_access) VALUES (
+	'lyminh',
+	'birds123',
+	'Ly',
+	'Tri Minh',
+	'tri.minh.ly@durhamcollege.ca',
+	'c',
 	'2017-09-01',
 	'2017-09-02'
 );

@@ -34,7 +34,7 @@
             <div id="navigation">
                 <ul>
                     <li><a href="http://opentech2.durhamcollege.org/webd3201/group21/index.php">Home</a></li>
-                    <li><a href="http://opentech2.durhamcollege.org/webd3201/group21/login.php">Login</a></li>
+                    <li><a href="http://opentech2.durhamcollege.org/webd3201/group21/user-login.php">Login</a></li>
                 </ul>
             </div>
             <div id="content">
