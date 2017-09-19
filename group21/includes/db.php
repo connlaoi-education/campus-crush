@@ -13,5 +13,4 @@
 		$conn = pg_connect("host="DATABASE_HOST_LOCAL "dbname="DATABASE_NAME "user="DATABASE_USER "password="DATABASE_PASSWORD);
 		return $conn;
 	}
-
 ?>
