@@ -19,8 +19,6 @@
 <?php include 'header.php'; ?>
 
 <!-- HTML -->
-<object>
-
 <span class="titleh3">Description</span>
 <p class="content"><?php echo $description; ?></p>
 
@@ -28,7 +26,6 @@
 <hr />
 <br />
 
-	<br />
 
 <?php
 
@@ -129,6 +126,5 @@
 <p class="content">
 	<?php echo $connecting ?>
 </p>
-</object>
 <!-- Include Footer PHP -->
  <?php include 'footer.php'; ?>

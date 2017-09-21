@@ -23,6 +23,6 @@
 	</p>
 	<p>and the website <a href ="http://www.durhamcollege.ca"> Durham College </a>
 	</p>
-	<p><a href="http://www.durhamcollege.ca"> <img src="images/dc_logo.jpg" alt="DC Logo" height="200" width="400"/> </a></p>
+	<p><a href="http://www.durhamcollege.ca"> <img src="./images/dc_logo.png" alt="DC Logo" height="200" width="400"/> </a></p>
 	
 <?php include 'footer.php'; ?>
