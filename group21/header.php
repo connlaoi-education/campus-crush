@@ -23,13 +23,12 @@
 <body>
     <div id="container">
         <div id="header">
-            <img src="./images/dc_logo.png" alt="Campus Crush" />
+            <a href="./index.php"><img src="./images/dc_logo.png" alt="Campus Crush" /></a>
             <?php echo "<h1>$banner</h1>";?>
         </div>
         <div id="content-container">
             <div id="navigation">
                 <ul>
-                    <li><a href="./index.php">Home</a></li>
                     <li><a href="./user-login.php">Login</a></li>
                 </ul>
             </div>

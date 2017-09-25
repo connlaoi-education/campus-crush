@@ -6,7 +6,7 @@
 -- DROP existing Users table if necessary
 DROP TABLE IF EXISTS users;
 
--- CREATE users table with id, password, first name, last name, email address, enroll date, and last access.
+-- CREATE users table with id, password, first name, last name, email address, account type, enroll date, and last access.
 CREATE TABLE users(
 	id CHAR(20) PRIMARY KEY,
 	password CHAR(20) NOT NULL,
