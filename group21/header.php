@@ -17,13 +17,13 @@
     <link rel="stylesheet" href="./css/crush.css" type="text/css" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title><?php echo "$title";?></title>
-    <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="./images/cc_logo.png" />
 </head>
 
 <body>
     <div id="container">
         <div id="header">
-            <a href="./index.php"><img src="./images/dc_logo.png" alt="Campus Crush" /></a>
+            <a href="./index.php"><img src="./images/cc_logo.png" alt="Campus Crush" /></a>
             <?php echo "<h1>$banner</h1>";?>
         </div>
         <div id="content-container">

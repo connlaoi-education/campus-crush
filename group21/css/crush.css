@@ -9,8 +9,8 @@
 */
 
 body {
-	background-color: #000000;
-	color: #DCDCDC;
+	background-color: #f7f7f7;
+	color: #73ba44;
 	font-family: Roboto, sans-serif;
 }
 
@@ -40,34 +40,38 @@ hr {
 }
 
 a:link {
-	color: #1B3F8B;
+	color: #285C9B;
+	text-decoration: none;
 }
 a:visited {
-	color: #131A25;
+	color: #285C9B;
+	text-decoration: none;
 }
 a:hover {
-	color: #90D4F2;
+	color: #285C9B;
+	text-decoration: underline;
 }
 a:active {
-	color: #ED6E67;
+	color: #73ba44;
+	text-decoration: underline;
 }
 
 em {
 	font-size: 40pt;
 	font-style: normal;
-	font-family: Arial, Verdana;
+	font-family: Roboto, sans-serif;
 	text-decoration: underline;
 }
 
 .tt1 {
 	font-size: 20pt;
 	font-weight: bold;
-	font-family: "Comic Sans MS", Verdana
+	font-family: Roboto, sans-serif;
 }
 
 
 .inside-tables tr{
-	background-color: #05A26D;
+	background-color: #73ba44;
 }
 
 #schedule p{
@@ -79,31 +83,33 @@ em {
 {
 	margin: 0 auto;
 	width: 1200px;
-	background: #fff;
+	background: #f7f7f7;
 }
 
 #header
 {
-	background: #ffb6c1;
+	background: #4A7C59;
 	padding: 20px;
+	height: 10%;
 }
 
 #header h1
  { 
-			margin: 0;
-			display: inline;
+	margin: 0;
+	display: inline;
+	color: #285C9B;
 }
 #header img
  { 
-			vertical-align: middle;
-			width: 150px;
+	vertical-align: middle;
+	width: 150px;
 }
 
 #sites
 {
 	float: left;
 	width: 1200px;
-	background: #333;
+	background: #f7f7f7;
 }
 
 #sites ul
@@ -129,8 +135,8 @@ em {
 }
 
 #sites li a:hover { 
-				background-color: #ccc; 
-				color: #000;
+	background-color: #ccc; 
+	color: #000;
 }
 
 #navigation
@@ -143,17 +149,16 @@ em {
 	display: inline;
 }
 
-#navigation h3 { margin: 0 0 0 10px; }
+#navigation h3 
+{ 
+	margin: 0 0 0 10px; 
+}
 
 #content-container
 {
 	float: left;
 	width: 1200px;
-	background-color: #fff;
-	background-image: url(../images/styles/background.png);
-	/* go up a directory, and then work down into images/styles directory */
-	background-repeat: repeat-y;
-	
+	background-color: #f7f7f7;
 }
 
 #content
@@ -164,6 +169,7 @@ em {
 	padding: 20px 0;
 	margin: 0px 25px 0px 0px;
 	display: inline;
+	height: 80%;
 }
 
 #content h2 { margin: 0; }
@@ -172,7 +178,7 @@ em {
 #footer
 {
 	clear: both;
-	background: #ffb6c1;
+	background: #4A7C59;
 	text-align: right;
 	padding: 20px;
 	height: 1%;
