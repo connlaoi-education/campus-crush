@@ -21,7 +21,7 @@
 <!-- HTML -->
 <span class="titleh3">Description</span>
 <p class="content"><?php echo $description; ?></p>
-
+<p class="content"><?php echo "Example account: csmith , cats123" ?></p>
 <br />
 <hr />
 <br />
