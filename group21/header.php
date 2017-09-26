@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="./css/crush.css" type="text/css" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title><?php echo "$title";?></title>
-    <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="./images/cc_logo.png" />
 </head>
 
 <body>
@@ -29,14 +29,13 @@
         <div id="content-container">
             <div id="navigation">
                 <ul>
-                    <li><a href="./index.php">Home</a></li>
                     <li><a href="./user-login.php">Login</a></li>
-					<li><a href="./user-dashboard.php">User Dashboard</a></li>
-                    <li><a href="./user-register.php">User Register</a></li>
+					<li><a href="./user-dashboard.php">Dashboard</a></li>
+					<li><a href="./user-register.php">Register</a></li>
 					<li><a href="./profile-create.php">Profile Create</a></li>
+					<li><a href="./profile-search.php">Profile Search</a></li>					
+                    <li><a href="./profile-search-results.php">Search Results</a></li>
                     <li><a href="./profile-display.php">Profile Display</a></li>
-					<li><a href="./profile-search.php">Profile Search</a></li>
-                    <li><a href="./profile-search-results.php">Profile Search Results</a></li>
                 </ul>
             </div>
             <div id="content">

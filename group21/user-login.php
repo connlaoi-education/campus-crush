@@ -4,8 +4,8 @@
 		$createddate = "September 19 2017";
 		$updateddate = "xxxx xx 2017";
 		$filename = "user-login.php";
-		$banner = "Welcome back to Campus Crush!";
-		$description = "We need a description here....";
+		$banner = "Campus Crush - Welcome back!";
+		$description = "There is no easier way to meet new people on campus!";
 ?>
 <!--
 		Creator:      Connlaoi Smith
@@ -19,13 +19,12 @@
 <?php include 'header.php'; ?>
 
 <!-- HTML -->
-<span class="titleh3">Description</span>
+<span class="titleh3">No need for nonsense...</span>
 <p class="content"><?php echo $description; ?></p>
 <p class="content"><?php echo "Example account: csmith , cats123" ?></p>
 <br />
 <hr />
 <br />
-
 
 <?php
 

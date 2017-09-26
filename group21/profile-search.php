@@ -1,11 +1,11 @@
 <!-- Lab Info Variables -->
 <?php
-		$title = "Campus Crush - Login";
+		$title = "Campus Crush - Search";
 		$createddate = "September 19 2017";
 		$updateddate = "xxxx xx 2017";
-		$filename = "user-login.php";
-		$banner = "Welcome back to Campus Crush!";
-		$description = "We need a description here....";
+		$filename = "profile-search.php";
+		$banner = "Campus Crush - User Search";
+		$description = "Find your Friends - Or your Crush";
 ?>
 <!--
 		Creator:      Connlaoi Smith
@@ -19,7 +19,6 @@
 <?php include 'header.php'; ?>
 
 <!-- HTML -->
-<span class="titleh3">Description</span>
 <p class="content"><?php echo $description; ?></p>
 
 <br />

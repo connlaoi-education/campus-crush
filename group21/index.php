@@ -1,12 +1,12 @@
 <!-- Page Info Variables -->
 <?php
-	$title = "Index";
+	$title = "Campus Crush - Home";
 	
 	$createddate = "May 9 2017";
-	$updateddate = "June 12 2017";
+	$updateddate = "Sep 24 2017";
 	$filename = "index.php";
-	$banner = "Campus Crush - Home";
-	$description = "This will be an overall summary of the WEBD-3201 content.";
+	$banner = "Campus Crush";
+	$description = "FIND COMFORT DURING YOUR COLLEGE EXPERIENCE";
 ?>
 <!--
 	Creator:      Minh Tri, Ly - Group 21
@@ -19,6 +19,7 @@
 <!-- Include Header PHP -->
 <?php include 'header.php'; ?>
 
-	<p>FIND YOUR MATCH</p>
+	<h1><?php echo $description; ?></h1>
+	<p>Don't let your dreams be dreams... Reach out to your College Crush now!</p>
 	
 <?php include 'footer.php'; ?>
