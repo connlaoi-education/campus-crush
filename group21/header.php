@@ -17,19 +17,26 @@
     <link rel="stylesheet" href="./css/crush.css" type="text/css" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title><?php echo "$title";?></title>
-    <link rel="shortcut icon" type="image/x-icon" href="./images/cc_logo.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico" />
 </head>
 
 <body>
     <div id="container">
         <div id="header">
-            <a href="./index.php"><img src="./images/cc_logo.png" alt="Campus Crush" /></a>
+            <img src="./images/cc_logo.png" alt="Campus Crush" />
             <?php echo "<h1>$banner</h1>";?>
         </div>
         <div id="content-container">
             <div id="navigation">
                 <ul>
+                    <li><a href="./index.php">Home</a></li>
                     <li><a href="./user-login.php">Login</a></li>
+					<li><a href="./user-dashboard.php">User Dashboard</a></li>
+                    <li><a href="./user-register.php">User Register</a></li>
+					<li><a href="./profile-create.php">Profile Create</a></li>
+                    <li><a href="./profile-display.php">Profile Display</a></li>
+					<li><a href="./profile-search.php">Profile Search</a></li>
+                    <li><a href="./profile-search-results.php">Profile Search Results</a></li>
                 </ul>
             </div>
             <div id="content">
