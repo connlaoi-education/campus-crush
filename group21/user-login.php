@@ -33,7 +33,7 @@
 	$output = "";
 	$results = "";
 	$connecting = "";
-	
+
 	if($_SERVER["REQUEST_METHOD"] == "GET")
 	{
 		$username = "";
@@ -61,7 +61,7 @@
 			$connection = db_connect();
 			$sql = "SELECT id, password, first_name, last_name, email_address, enroll_date, last_access
 			FROM users
-			WHERE id = '" . $username . "' AND password = '" . $password . "'";
+			WHERE id = '" . $username . "' AND password = '" . md5($password) . "'";
 			$results = pg_query($connection, $sql);
 			$records = pg_num_rows($results);
 			

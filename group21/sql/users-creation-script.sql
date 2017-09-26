@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS users;
 -- CREATE users table with id, password, first name, last name, email address, account type, enroll date, and last access.
 CREATE TABLE users(
 	id CHAR(20) PRIMARY KEY,
-	password CHAR(20) NOT NULL,
+	password CHAR(32) NOT NULL,
 	first_name CHAR(20) NOT NULL,
 	last_name CHAR(30) NOT NULL,
 	email_address CHAR(255) NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE users(
 
 INSERT INTO users(id, password, first_name, last_name, email_address, account_type, enroll_date, last_access) VALUES (
 	'admin',
-	'restricted1nf0',
+	'7f256b0f754fb894682eeb554883b679',
 	'Administrator',
 	'Privileges',
 	'group21@durhamcollege.ca',
@@ -31,7 +31,7 @@ INSERT INTO users(id, password, first_name, last_name, email_address, account_ty
 
 INSERT INTO users(id, password, first_name, last_name, email_address, account_type, enroll_date, last_access) VALUES (
 	'csmith',
-	'cats123',
+	'1492c81e612369f45f5509dfe8270b3c',
 	'Connlaoi',
 	'Smith',
 	'connlaoi.smith@durhamcollege.ca',
@@ -42,7 +42,7 @@ INSERT INTO users(id, password, first_name, last_name, email_address, account_ty
 
 INSERT INTO users(id, password, first_name, last_name, email_address, account_type, enroll_date, last_access) VALUES (
 	'jpower',
-	'dogs123',
+	'0bdd6a22ce32c25322f0b86f2a83d2d9',
 	'Jeremy',
 	'Power',
 	'jeremy.power@durhamcollege.ca',
@@ -53,7 +53,7 @@ INSERT INTO users(id, password, first_name, last_name, email_address, account_ty
 
 INSERT INTO users(id, password, first_name, last_name, email_address, account_type, enroll_date, last_access) VALUES (
 	'lyminh',
-	'birds123',
+	'a97957182ad58593d01717d158d57893',
 	'Ly',
 	'Tri Minh',
 	'tri.minh.ly@durhamcollege.ca',
