@@ -15,7 +15,6 @@
 
 <head>
     <link rel="stylesheet" href="./css/crush.css" type="text/css" />
-	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title><?php echo "$title";?></title>
     <link rel="shortcut icon" type="image/x-icon" href="./images/cc_logo.png" />
