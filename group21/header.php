@@ -23,7 +23,7 @@
 <body>
     <div id="container">
         <div id="header">
-            <img src="./images/cc_logo.png" alt="Campus Crush" />
+            <a href="./index.php"><img src="./images/cc_logo.png" alt="Campus Crush" /></a>
             <?php echo "<h1>$banner</h1>";?>
         </div>
         <div id="content-container">
