@@ -1,6 +1,6 @@
 <!-- Lab Info Variables -->
 <?php
-		$title = "Campus Crush - Dashboard";
+		$title = "Campus Crush - Dash";
 		$createddate = "September 19 2017";
 		$updateddate = "xxxx xx 2017";
 		$filename = "user-dashboard.php";

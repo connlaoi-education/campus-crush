@@ -11,7 +11,7 @@
 body {
 	background-color: #f7f7f7;
 	color: #73ba44;
-	font-family: Roboto, sans-serif;
+	font-family: 'Roboto Slab', serif;
 }
 
 p {
@@ -59,14 +59,14 @@ a:active {
 em {
 	font-size: 40pt;
 	font-style: normal;
-	font-family: Roboto, sans-serif;
+	font-family: 'Roboto Slab', serif;
 	text-decoration: underline;
 }
 
 .tt1 {
 	font-size: 20pt;
 	font-weight: bold;
-	font-family: Roboto, sans-serif;
+	font-family: 'Roboto Slab', serif;
 }
 
 
