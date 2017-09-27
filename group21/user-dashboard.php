@@ -6,6 +6,7 @@
 		$filename = "user-dashboard.php";
 		$banner = "Campus Crush - Dashboard";
 		$description = "Hello, User Name";
+
 ?>
 <!--
 		Creator:      Connlaoi Smith
@@ -19,7 +20,7 @@
 <?php include 'header.php'; ?>
 
 <!-- HTML -->
-<p class="content"><?php echo $description; ?></p>
+<p class="content"><?php echo $description;  ?></p>
 
 <br />
 <hr />
