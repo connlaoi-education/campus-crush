@@ -58,10 +58,10 @@
 		{
 			$connecting = "Please be patient, we are retrieving your account. <br/> This may takes a few moments...";
 			$connection = db_connect();
-			$sql = "SELECT id, password, first_name, last_name, email_address, enroll_date, last_access
+			$results = pg_prepare($connection, "select_id_pass", 'SELECT id, password, first_name, last_name, email_address, enroll_date, last_access
 			FROM users
-			WHERE id = '" . $username . "' AND password = '" . md5($password) . "'";
-			$results = pg_query($connection, $sql);
+			WHERE id = $1 AND password = $2');
+			$results = pg_execute($connection, "select_id_pass", array($username, md5($password)));
 			$records = pg_num_rows($results);
 			
 			
@@ -69,16 +69,15 @@
 			{
 				$output = "Welcome, " . pg_fetch_result($results, 0, "first_name") . " " . pg_fetch_result($results, 0, "last_name") . "<br/>Your current email address is " . pg_fetch_result($results, 0, "email_address") . "<br/> Last Login: " . pg_fetch_result($results, 0, "last_access");
 				$connection = db_connect();
-				$sql = "UPDATE users SET last_access = '" . date("Y-m-d",time()) . "' WHERE id = '" . $username . "'";
-				$results = pg_query($connection, $sql);
+
+				$results = pg_prepare($connection, "date_update", 'UPDATE users SET last_access = current_date WHERE id = $1');
+				$results = pg_execute($connection, "date_update", array($username));
 			}
 			elseif($records < 1)
 			{		
 				$connection = db_connect();
-				$sql = "SELECT id, password, first_name, last_name, email_address, enroll_date, last_access
-				FROM users
-				WHERE id = '" . $username . "'";
-				$results = pg_query($connection, $sql);
+				$results = pg_prepare($connection, "find_user", "SELECT id, password, first_name, last_name, email_address, enroll_date, last_access FROM users WHERE id = $1");
+				$results = pg_execute($connection, "find_user", array($username));
 				$records = pg_num_rows($results);
 				
 				if($records >=1)
