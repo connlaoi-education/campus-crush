@@ -72,6 +72,7 @@
 
 				$results = pg_prepare($connection, "date_update", 'UPDATE users SET last_access = current_date WHERE id = $1');
 				$results = pg_execute($connection, "date_update", array($username));
+				header("Location:user-dashboard.php");
 			}
 			elseif($records < 1)
 			{		
