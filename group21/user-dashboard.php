@@ -19,10 +19,11 @@
 <!-- Include Header PHP -->
 <?php include 'header.php'; ?>
 
+
 <!-- HTML -->
-<p class="content"><?php if(isset($_SESSION["username"])) {
-   echo("Hello " . $_SESSION["username"]);
-}  ?></p>
+<p class="content"><?php 
+   echo($_SESSION['output']);
+  ?></p>
 
 <br />
 <hr />
