@@ -26,6 +26,11 @@ th {
 	padding: 10px;
 }
 
+textarea {
+   font-family: inherit;
+   font-size: inherit;
+}
+
 caption {
 	padding: 10px;
 	font-size: 24px;
