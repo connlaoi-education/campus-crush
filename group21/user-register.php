@@ -34,7 +34,7 @@
 			<td><input type="password" name="pass" value="" size="20" /></td>
 		</tr>
 		<tr>
-			<td>Confrim Password</td>
+			<td>Confirm Password</td>
 			<td><input type="password" name="pass2" value="" size="20" /></td>
 		</tr>
 		<tr>
