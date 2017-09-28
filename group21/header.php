@@ -10,7 +10,8 @@
 	require('includes/db.php');
 	require('includes/functions.php');
 	?>
-    <?php ob_start(); ?>
+    <?php ob_start();
+    session_start() ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
@@ -29,13 +30,19 @@
         <div id="content-container">
             <div id="navigation">
                 <ul>
-                    <li><a href="./user-login.php">Login</a></li>
+                    <?php
+                    if(!isset($_SESSION['username'])) {
+                    echo('<li><a href="./user-login.php">Login</a></li>
+                    <li><a href="./user-register.php">Register</a></li>');
+                } else {
+                    echo('
 					<li><a href="./user-dashboard.php">Dashboard</a></li>
-					<li><a href="./user-register.php">Register</a></li>
 					<li><a href="./profile-create.php">Profile Create</a></li>
 					<li><a href="./profile-search.php">Profile Search</a></li>					
                     <li><a href="./profile-search-results.php">Search Results</a></li>
-                    <li><a href="./profile-display.php">Profile Display</a></li>
+                    <li><a href="./profile-display.php">Profile Display</a></li> ');
+                }
+                    ?>
                 </ul>
             </div>
             <div id="content">

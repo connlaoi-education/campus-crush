@@ -19,8 +19,18 @@
 <!-- Include Header PHP -->
 <?php include 'header.php'; ?>
 
+<?php
+if(isset($_GET['username'])) {
+  $_SESSION["username"] = base64_decode($_GET['username']);
+} else {
+
+}
+?>
+
 <!-- HTML -->
-<p class="content"><?php echo $description;  ?></p>
+<p class="content"><?php if(isset($_SESSION["username"])) {
+   echo("Hello " . $_SESSION["username"]);
+}  ?></p>
 
 <br />
 <hr />
