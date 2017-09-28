@@ -11,11 +11,12 @@
 body {
 	background-color: #f7f7f7;
 	color: #73ba44;
-	font-family: 'Roboto Slab', serif;
+	font-family: 'Roboto Slab';
 }
 
 p {
 	font-style: italic;
+   font-family: inherit;
 }
 
 img {
@@ -79,11 +80,6 @@ em {
 	background-color: #73ba44;
 }
 
-#schedule p{
-	font-style: normal;
-	padding: 10px;
-	text-align: center;
-}
 #container
 {
 	margin: 0 auto;
