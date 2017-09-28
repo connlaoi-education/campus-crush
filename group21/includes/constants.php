@@ -28,7 +28,7 @@
 	// define group database name
 	define("DATABASE_NAME", 'group21_db', true);
 	// define admin user and password
-	define("DATABASE_USER", 'group21_admin', true);
-	define("DATABASE_PASSWORD", 'password', false);
+	define("DATABASE_USER", 'powerj', true);
+	define("DATABASE_PASSWORD", 'acif9998', false);
 	
 ?>
