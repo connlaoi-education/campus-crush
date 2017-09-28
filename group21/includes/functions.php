@@ -9,7 +9,7 @@
 	// display the footer copyright information
 	function display_copyright() {
 		// save copyright year and group name to string for output
-		$footer_info = "&copy; " . date("Y") . " Group 21"; 
+		$footer_info = "&copy; " . date("Y") . " Connlaoi Smith, Jeremy Power, Minh Tri Ly"; 
 		return $footer_info;
 	}
 	
