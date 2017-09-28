@@ -27,8 +27,7 @@
             <a href="./index.php"><img src="./images/cc_logo.png" alt="Campus Crush" /></a>
             <?php echo "<h1>$banner</h1>";?>
         </div>
-        <div id="content-container">
-            <div id="navigation">
+        <div id="sites">
                 <ul>
                     <?php
                     if(!isset($_SESSION['username'])) {
@@ -36,13 +35,14 @@
                     <li><a href="./user-register.php">Register</a></li>');
                 } else {
                     echo('
-					<li><a href="./user-dashboard.php">Dashboard</a></li>
-					<li><a href="./profile-create.php">Profile Create</a></li>
-					<li><a href="./profile-search.php">Profile Search</a></li>					
+                    <li><a href="./user-dashboard.php">Dashboard</a></li>
+                    <li><a href="./profile-create.php">Profile Create</a></li>
+                    <li><a href="./profile-search.php">Profile Search</a></li>                  
                     <li><a href="./profile-search-results.php">Search Results</a></li>
                     <li><a href="./profile-display.php">Profile Display</a></li> ');
                 }
                     ?>
                 </ul>
-            </div>
+        </div>
+        <div id="content-container">
             <div id="content">
