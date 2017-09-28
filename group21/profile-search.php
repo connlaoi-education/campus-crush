@@ -24,10 +24,15 @@
 <br />
 <hr />
 
-<?php
-$content = file_get_contents('http://loripsum.net/api');
-echo("<p>" . $content . "</p>");
-?>
+<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+  <table>
+    <tr>
+      <td class="tt1">Search:</td>
+      <td><input type="text" name="searchbar" value="" size="20" /></td>
+      <td><input type="submit" value="Search" /></td>
+    </tr>
+  </table>
+</form>
 
 <br />
 
