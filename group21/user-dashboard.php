@@ -29,7 +29,7 @@
 
 <?php
 $content = file_get_contents('http://loripsum.net/api');
-echo("<p>" . $content . "</p>");
+echo($content);
 ?>
 
 <br />
