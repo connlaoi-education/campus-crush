@@ -1,4 +1,4 @@
-<!-- Lab Info Variables -->
+<!-- Page Info -->
 <?php
 		$title = "Campus Crush - Register";
 		$createddate = "September 19 2017";
@@ -8,11 +8,11 @@
 		$description = "Sign up quickly and easily - start meeting new people now!";
 ?>
 <!--
-		Creator:      Connlaoi Smith
-        Filename:    <?php echo $filename; ?>
-        Created:      <?php echo $createddate; ?>
-        Updated:     <?php echo $updateddate; ?>
-        Description: <?php echo $description; ?>
+	Creator:      Jeremy Power
+	Filename:    <?php echo $filename; ?>
+	Created:      <?php echo $createddate; ?>
+	Updated:     <?php echo $updateddate; ?>
+	Description: <?php echo $description; ?>
 -->
 
 <!-- Include Header PHP -->

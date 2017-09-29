@@ -1,4 +1,4 @@
-<!-- Page Info Variables -->
+<!-- Page Info -->
 <?php
 	$title = "Campus Crush - Home";
 	
