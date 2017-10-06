@@ -41,7 +41,8 @@
                     <li><a href="./profile-create.php">Profile Create</a></li>
                     <li><a href="./profile-search.php">Profile Search</a></li>                  
                     <li><a href="./profile-search-results.php">Search Results</a></li>
-                    <li><a href="./profile-display.php">Profile Display</a></li> ');
+                    <li><a href="./profile-display.php">Profile Display</a></li>
+                    <li style="float: right;"><a href="./user-logout.php">Logout</a></li> ');
                 }
                     ?>
                 </ul>
