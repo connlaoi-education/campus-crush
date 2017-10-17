@@ -26,9 +26,9 @@
 	define("DATABASE_HOST_LOCAL", 'localhost:8443', true);
 	define("DATABASE_HOST_SERVER", '127.0.0.1', true);
 	// define group database name
-	define("DATABASE_NAME", 'lym_db', true);
+	define("DATABASE_NAME", 'group21_db', true);
 	// define admin user and password
-	define("DATABASE_USER", 'lym', true);
-	define("DATABASE_PASSWORD", '100647354', false);
+	define("DATABASE_USER", 'group21_admin', true);
+	define("DATABASE_PASSWORD", 'password', false);
 	
 ?>
