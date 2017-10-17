@@ -1,4 +1,4 @@
-<!-- Lab Info Variables -->
+<!-- Page Info -->
 <?php
 		$title = "Campus Crush - Login";
 		$createddate = "September 19 2017";
@@ -8,16 +8,21 @@
 		$description = "There is no easier way to meet new people on campus!";
 ?>
 <!--
-		Creator:      Connlaoi Smith
-        Filename:    <?php echo $filename; ?>
-        Created:      <?php echo $createddate; ?>
-        Updated:     <?php echo $updateddate; ?>
-        Description: <?php echo $description; ?>
+	Creator:      Connlaoi Smith
+	Filename:    <?php echo $filename; ?>
+	Created:      <?php echo $createddate; ?>
+	Updated:     <?php echo $updateddate; ?>
+	Description: <?php echo $description; ?>
 -->
 
 <!-- Include Header PHP -->
 <?php include 'header.php'; ?>
-
+<?php 
+  if(isset($_SESSION["message"])) {
+    echo("<p style=\"color: red\">" . $_SESSION["message"] . "</p>");
+    unset($_SESSION["message"]);
+  }
+  ?>
 <!-- HTML -->
 <span class="titleh3">No need for nonsense...</span>
 <p class="content"><?php echo $description; ?></p>

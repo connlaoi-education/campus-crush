@@ -1,4 +1,4 @@
-<!-- Lab Info Variables -->
+<!-- Page Info -->
 <?php
 		$title = "Campus Crush";
 		$createddate = "September 19 2017";
@@ -8,11 +8,11 @@
 		$description = "User Name";
 ?>
 <!--
-		Creator:      Connlaoi Smith
-        Filename:    <?php echo $filename; ?>
-        Created:      <?php echo $createddate; ?>
-        Updated:     <?php echo $updateddate; ?>
-        Description: <?php echo $description; ?>
+	Creator:      Connlaoi Smith
+	Filename:    <?php echo $filename; ?>
+	Created:      <?php echo $createddate; ?>
+	Updated:     <?php echo $updateddate; ?>
+	Description: <?php echo $description; ?>
 -->
 
 <!-- Include Header PHP -->
@@ -26,7 +26,7 @@
 
 <?php
 $content = file_get_contents('http://loripsum.net/api');
-echo("<p>" . $content . "</p>");
+echo($content);
 ?>
 
 

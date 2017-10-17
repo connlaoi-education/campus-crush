@@ -16,6 +16,7 @@ body {
 
 p {
 	font-style: italic;
+   font-family: inherit;
 }
 
 img {
@@ -79,11 +80,6 @@ em {
 	background-color: #73ba44;
 }
 
-#schedule p{
-	font-style: normal;
-	padding: 10px;
-	text-align: center;
-}
 #container
 {
 	margin: 0 auto;

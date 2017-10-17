@@ -1,19 +1,19 @@
-<!-- Lab Info Variables -->
+<!-- Page Info -->
 <?php
-		$title = "Campus Crush - Dash";
-		$createddate = "September 19 2017";
-		$updateddate = "xxxx xx 2017";
-		$filename = "user-dashboard.php";
-		$banner = "Campus Crush - Dashboard";
-		$description = "Hello, User Name";
+    $title = "Campus Crush - Dash";
+    $createddate = "September 19 2017";
+    $updateddate = "xxxx xx 2017";
+    $filename = "user-dashboard.php";
+    $banner = "Campus Crush - Dashboard";
+    $description = "Hello, User Name";
 
 ?>
 <!--
-		Creator:      Connlaoi Smith
-        Filename:    <?php echo $filename; ?>
-        Created:      <?php echo $createddate; ?>
-        Updated:     <?php echo $updateddate; ?>
-        Description: <?php echo $description; ?>
+  Creator:      Jeremy Power
+  Filename:    <?php echo $filename; ?>
+  Created:      <?php echo $createddate; ?>
+  Updated:     <?php echo $updateddate; ?>
+  Description: <?php echo $description; ?>
 -->
 
 <!-- Include Header PHP -->
@@ -22,6 +22,10 @@
 
 <!-- HTML -->
 <p class="content"><?php 
+  if(isset($_SESSION["message"])) {
+    echo("<p>" . $_SESSION["message"] . "</p>");
+    unset($_SESSION["message"]);
+  }
    echo($_SESSION['output']);
   ?></p>
 
@@ -29,7 +33,7 @@
 
 <?php
 $content = file_get_contents('http://loripsum.net/api');
-echo("<p>" . $content . "</p>");
+echo($content);
 ?>
 
 <br />
