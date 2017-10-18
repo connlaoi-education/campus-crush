@@ -38,7 +38,7 @@
                 } else {
                     echo('
                     <li><a href="./user-dashboard.php">Dashboard</a></li> ');
-                    if(getProperty("users", "account_type", $_SESSION['username']) == 'i') {
+                    if($_SESSION['account_type'] == INCOMPLETE) {
                     echo('
                     <li><a href="./profile-create.php">Profile Create</a></li>');
                     } else {
