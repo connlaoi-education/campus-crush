@@ -51,7 +51,7 @@
 		$first_name = "";
 		$last_name = "";
 		$email = "";
-		$account_type = "c";
+		$account_type = "i";
 	}
 	
 	elseif($_SERVER["REQUEST_METHOD"] == "POST")
@@ -62,6 +62,7 @@
 		$first_name = trim($_POST["first"]);
 		$last_name = trim($_POST["last"]);
 		$email = trim($_POST["email"]);
+		$account_type = "i";
 		
 		if(!isset($username) || $username == "")
 		{
@@ -149,33 +150,25 @@
 		if($error == "")
 		{
 			
-			$connection = pg_connect("host=127.0.0.1 dbname=lym_db user=lym password=100647354" );
-			$sql = "SELECT users.id, users.password, users.first_name, users.last_name, users.email_address, users.account_type, users.enroll_date, users.last_access
-			FROM users
-			WHERE id = '" . $username . "' AND password = '" . md5($password) . "'";
-			$results = pg_query($connection, $sql);
+			$connection = db_connect();
+			$results = pg_prepare($connection, "select_id_pass", "SELECT users.id, users.password, users.first_name, users.last_name, users.email_address, users.account_type, users.enroll_date, users.last_access FROM users WHERE id = $1 AND password = $2");
+			$results = pg_execute($connection, "select_id_pass", array($username, md5($password)));
 			$records = pg_num_rows($results);
 			
 			if($records >= 1)
 			{
-				$error_2 = "Error: Your login info already exists in the database.";	
+				$error_2 = "Error: Your login info already exists in the database.";
 			}
 						
 			else
 			{	
 				$today = date("Y-m-d", time());
-				$connection = pg_connect("host=127.0.0.1 dbname=lym_db user=lym password=100647354" );  
-				$sql = "INSERT INTO users(id, password, first_name, last_name, email_address, account_type, enroll_date, last_access) VALUES (
-				'" . $username ."', 
-				'" . md5($password) . "', 
-				'" . $first_name . "', 
-				'" . $last_name . "', 
-				'" . $email . "',
-				'" . $account_type . "', 				
-				'" . $today . "', 
-				'" . $today . "');";
-				pg_query($connection, $sql);
-	            $_SESSION['register'] = "Registration successful, plese try login";
+				$connection = db_connect();
+
+				$results = pg_prepare($connection, "insert_user", 'INSERT INTO users (id, password, first_name, last_name, email_address, account_type, enroll_date, last_access) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)');
+				$results = pg_execute($connection, "insert_user", array($username, md5($password), $first_name,
+				$last_name, $email, $account_type, $today, $today));
+	      $_SESSION['register'] = "Registration successful, please try login";
 				header("Location:user-login.php");
 				ob_flush();
 			}
