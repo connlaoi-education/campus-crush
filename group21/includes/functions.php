@@ -12,6 +12,15 @@
 		$footer_info = "&copy; " . date("Y") . " Connlaoi Smith, Jeremy Power, Minh Tri Ly"; 
 		return $footer_info;
 	}
+
+	function isLoggedIn() {
+		if(isset($_SESSION['username'])) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	
 	// NEW STUFF HERE
 ?>

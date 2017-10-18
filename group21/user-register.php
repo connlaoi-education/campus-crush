@@ -16,7 +16,13 @@
 -->
 
 <!-- Include Header PHP -->
-<?php include 'header.php'; ?>
+<?php include 'header.php';
+
+if(isLoggedIn()) { 
+	header("Location:user-dashboard.php");
+	ob_flush();
+}
+	?>
 <?php 
   if(isset($_SESSION["message"])) {
     echo("<p style=\"color: red\">" . $_SESSION["message"] . "</p>");
