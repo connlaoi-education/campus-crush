@@ -13,4 +13,11 @@
 		$conn = pg_connect("host=". DATABASE_HOST_SERVER . " dbname=" . DATABASE_NAME . " user=" . DATABASE_USER . " password=" . DATABASE_PASSWORD);
 		return $conn;
 	}
+
+	function getProperty($table, $property, $id) {
+		$connection = db_connect();
+		$results = pg_prepare($connection, "get_property", "SELECT " . $property . " FROM " . $table . " WHERE id = $1");
+		$results = pg_execute($connection, "get_property", array($id));
+		return pg_fetch_result($results, 0, $property);
+	}
 ?>

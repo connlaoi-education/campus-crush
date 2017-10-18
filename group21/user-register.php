@@ -159,7 +159,6 @@
 			{
 				$error_2 = "Error: Your login info already exists in the database.";
 			}
-						
 			else
 			{	
 				$today = date("Y-m-d", time());
