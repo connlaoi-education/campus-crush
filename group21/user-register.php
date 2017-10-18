@@ -57,7 +57,7 @@ if(isLoggedIn()) {
 		$first_name = "";
 		$last_name = "";
 		$email = "";
-		$account_type = "i";
+		$account_type = INCOMPLETE;
 	}
 	
 	elseif($_SERVER["REQUEST_METHOD"] == "POST")
@@ -68,7 +68,7 @@ if(isLoggedIn()) {
 		$first_name = trim($_POST["first"]);
 		$last_name = trim($_POST["last"]);
 		$email = trim($_POST["email"]);
-		$account_type = "i";
+		$account_type = INCOMPLETE;
 		
 		if(!isset($username) || $username == "")
 		{
