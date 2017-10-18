@@ -45,6 +45,10 @@ if(isLoggedIn()) {
 	$error_2 = "";
 	$results1 = "";
 	$results2 = "";
+    $years = array();
+    for ($i=date("Y"); $i >= 1900; $i--) { 
+         array_push($years, $i);
+       }
 
 
 	define("MAX_LAST_NAME_LENGTH", 30);
@@ -57,6 +61,9 @@ if(isLoggedIn()) {
 		$first_name = "";
 		$last_name = "";
 		$email = "";
+		$day = "";
+		$month = "";
+		$year = "";
 		$account_type = INCOMPLETE;
 	}
 	
@@ -68,6 +75,9 @@ if(isLoggedIn()) {
 		$first_name = trim($_POST["first"]);
 		$last_name = trim($_POST["last"]);
 		$email = trim($_POST["email"]);
+		$day = trim($_POST["day"]);
+		$month = trim($_POST["month"]);
+		$year = trim($_POST["year"]);
 		$account_type = INCOMPLETE;
 		
 		if(!isset($username) || $username == "")
@@ -142,6 +152,24 @@ if(isLoggedIn()) {
 			$error .= "Your first name must be less than 30 characters. <br/>";
 			$last_name = "";
 		}
+
+		if(!is_numeric($day) || !is_numeric($year))
+		{
+			$error .= "Invalid Birthdate. <br/>";
+			$day = "";
+			$year = "";
+			$month = "";
+		} else if(!checkdate($month, $day, $year)) {
+			$error .= "Invalid Birthdate. <br/>";
+			$day = "";
+			$year = "";
+			$month = "";
+		} else if(calculate_age($year . "-" . $month . "-" . $day) < 18) {
+			$error .= "Must be over 18 to use the site. <br/>";
+			$day = "";
+			$year = "";
+			$month = "";
+		}
 		
 		if (!isset($email) || $email == "")
 		{
@@ -200,7 +228,7 @@ if(isLoggedIn()) {
 			<td><input type="password" name="pass" value="<?php echo $password; ?>" size="20" /></td>
 		</tr>
 		<tr>
-			<td>Confirm Password</td>
+			<td>Confirm Password  </td>
 			<td><input type="password" name="pass2" value="<?php echo $password2; ?>" size="20" /></td>
 		</tr>
 		<tr>
@@ -215,6 +243,34 @@ if(isLoggedIn()) {
 			<td>Email Address</td>
 			<td><input type="text" name="email" value="<?php echo $email; ?>" size="20" /></td>
 		</tr>
+		<tr><td><br/></td></tr>
+		<tr>
+			<td>Birthday</td>
+			<td>Day: <input type="text" name="day" value="<?php echo $day ?>" size="5">
+			  Month
+				<select name="month">
+					<option value="1">January</option>
+					<option value="2">February</option>
+					<option value="3">March</option>
+					<option value="4">April</option>
+					<option value="5">May</option>
+					<option value="6">June</option>
+					<option value="7">July</option>
+					<option value="8">August</option>
+					<option value="9">September</option>
+					<option value="10">October</option>
+					<option value="11">November</option>
+					<option value="12">December</option>
+				</select>  Year
+			<select name="year">
+				<?php
+				for ($i=0; $i < count($years); $i++) { 
+					echo "<option>" . $years[$i] . "</option>";
+				}
+				?>
+			</select>
+		</tr>
+		<tr><td><br/></td></tr>
 		<tr>
 			<td><input type="submit" value="Register" /></td>
 			<td><input type="reset" value="Reset" /></td>

@@ -12,7 +12,7 @@
 	require('includes/functions.php');
 	?>
     <?php ob_start();
-    session_start() ?>
+    session_start(); ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
