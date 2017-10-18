@@ -16,8 +16,23 @@
 -->
 
 <!-- Include Header PHP -->
-<?php include 'header.php'; ?>
+<?php include 'header.php';
 
+if(isLoggedIn()) {
+	header("Location:user-dashboard.php");
+	ob_flush();
+}
+	?>
+<p class="content"><?php 
+  if(isset($_SESSION["message"])) {
+    echo("<p style=\"color: red\">" . $_SESSION["message"] . "</p>");
+    unset($_SESSION["message"]);
+  }
+   if(isset($_SESSION["register"])) {
+     echo("<p style=\"color: red\">" . $_SESSION['register'] . "</p>");
+	 unset($_SESSION["register"]);
+   }
+  ?></p>
 <!-- HTML -->
 <span class="titleh3">No need for nonsense...</span>
 <p class="content"><?php echo $description; ?></p>

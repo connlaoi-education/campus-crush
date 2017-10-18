@@ -12,7 +12,7 @@
 	require('includes/functions.php');
 	?>
     <?php ob_start();
-    session_start() ?>
+    session_start(); ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
@@ -37,11 +37,17 @@
                     <li><a href="./user-register.php">Register</a></li>');
                 } else {
                     echo('
-                    <li><a href="./user-dashboard.php">Dashboard</a></li>
-                    <li><a href="./profile-create.php">Profile Create</a></li>
-                    <li><a href="./profile-search.php">Profile Search</a></li>                  
-                    <li><a href="./profile-search-results.php">Search Results</a></li>
-                    <li><a href="./profile-display.php">Profile Display</a></li> ');
+                    <li><a href="./user-dashboard.php">Dashboard</a></li> ');
+                    if(getProperty("users", "account_type", $_SESSION['username']) == 'i') {
+                    echo('
+                    <li><a href="./profile-create.php">Profile Create</a></li>');
+                    } else {
+                    echo('
+                    <li><a href="./profile-display.php">Profile Display</a></li>');
+                }
+                    echo('
+                    <li><a href="./profile-search.php">Profile Search</a></li>
+                    <li style="float: right;"><a href="./user-logout.php">Logout</a></li> ');
                 }
                     ?>
                 </ul>

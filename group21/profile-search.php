@@ -16,7 +16,13 @@
 -->
 
 <!-- Include Header PHP -->
-<?php include 'header.php'; ?>
+<?php include 'header.php';
+
+if(!isLoggedIn()) { 
+  header("Location:user-login.php");
+  ob_flush();
+}
+  ?>
 
 <!-- HTML -->
 <p class="content"><?php echo $description; ?></p>
