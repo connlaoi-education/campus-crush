@@ -13,6 +13,13 @@
 		return $footer_info;
 	}
 
+	    // returns the users age as an integer based on registration birthdate
+    function calculate_Age($birthdate) {
+        //calculate age
+        $age = date_diff(date_create($birthdate), date_create('now'))->y;
+        return $age;
+    }
+
 	function isLoggedIn() {
 		if(isset($_SESSION['username'])) {
 			return true;
