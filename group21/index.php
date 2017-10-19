@@ -21,6 +21,6 @@
 
 	<h1><?php echo $description; ?></h1>
 	<p>Don't let your dreams be dreams... Reach out to your College Crush now!</p>
-	<img title="" src="durhamcollege.ca/wp-content/uploads/redesign-homepage-hero-openhouse-03.jpg" alt="North Oshawa Campus" style="display: none;">
+	<img src="./images/index_north_oshawa.png" alt="North Oshawa Campus">
 	
 <?php include 'footer.php'; ?>

@@ -21,6 +21,7 @@ p {
 
 img {
 	padding: 10px;
+	width: 1070px;
 }
 
 th {
@@ -95,13 +96,14 @@ em {
 }
 
 #header h1
- { 
+{ 
 	margin: 0;
 	display: inline;
 	color: #285C9B;
 }
+
 #header img
- { 
+{ 
 	vertical-align: middle;
 	width: 150px;
 }
@@ -135,7 +137,8 @@ em {
 	border-right: 1px solid #fff;
 }
 
-#sites li a:hover { 
+#sites li a:hover 
+{ 
 	background-color: #ccc; 
 	color: #000;
 }
@@ -164,17 +167,18 @@ em {
 
 #content
 {
-
 	float: left;
-	width: 860px;
+	width: 840px;
 	padding: 20px 0;
 	margin: 0px 25px 0px 50px;
 	display: inline;
 	height: 80%;
 }
 
-#content h2 { margin: 0; }
-
+#content h2 
+{ 
+	margin: 0; 
+}
 
 #footer
 {
@@ -184,6 +188,8 @@ em {
 	padding: 20px;
 	height: 1%;
 }
-#footer img{
+
+#footer img
+{
 	vertical-align: middle;
 }

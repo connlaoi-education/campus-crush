@@ -1,12 +1,12 @@
 -- Author: Connlaoi Smith
--- File: users-creation-script.sql
+-- File: users.sql
 -- Created: September 19 2017
 -- WEBD 3201
 
 -- DROP existing Users table if necessary
 DROP TABLE IF EXISTS users;
 
--- CREATE users table with id, password, first name, last name, email address, account type, enroll date, and last access.
+-- CREATE users table with id, password, first name, last name, email address, account type, enroll date, last access, and profile status.
 CREATE TABLE users(
 	id CHAR(20) PRIMARY KEY,
 	password CHAR(32) NOT NULL,
@@ -15,10 +15,11 @@ CREATE TABLE users(
 	email_address CHAR(255) NOT NULL,
 	account_type CHAR(1) NOT NULL,
 	enroll_date DATE NOT NULL,
-	last_access DATE NOT NULL
+	last_access DATE NOT NULL,
+	profile_status INTEGER NOT NULL
 	);
 
-INSERT INTO users(id, password, first_name, last_name, email_address, account_type, enroll_date, last_access) VALUES (
+INSERT INTO users(id, password, first_name, last_name, email_address, account_type, enroll_date, last_access, profile_status) VALUES (
 	'admin',
 	'7f256b0f754fb894682eeb554883b679',
 	'Administrator',
@@ -26,10 +27,11 @@ INSERT INTO users(id, password, first_name, last_name, email_address, account_ty
 	'group21@durhamcollege.ca',
 	'a',
 	'2017-08-01',
-	'2017-08-02'
+	'2017-08-02',
+	1
 );
 
-INSERT INTO users(id, password, first_name, last_name, email_address, account_type, enroll_date, last_access) VALUES (
+INSERT INTO users(id, password, first_name, last_name, email_address, account_type, enroll_date, last_access, profile_status) VALUES (
 	'csmith',
 	'1492c81e612369f45f5509dfe8270b3c',
 	'Connlaoi',
@@ -37,10 +39,11 @@ INSERT INTO users(id, password, first_name, last_name, email_address, account_ty
 	'connlaoi.smith@durhamcollege.ca',
 	'c',
 	'2017-09-01',
-	'2017-09-02'
+	'2017-09-02',
+	0
 );
 
-INSERT INTO users(id, password, first_name, last_name, email_address, account_type, enroll_date, last_access) VALUES (
+INSERT INTO users(id, password, first_name, last_name, email_address, account_type, enroll_date, last_access, profile_status) VALUES (
 	'jpower',
 	'0bdd6a22ce32c25322f0b86f2a83d2d9',
 	'Jeremy',
@@ -48,10 +51,11 @@ INSERT INTO users(id, password, first_name, last_name, email_address, account_ty
 	'jeremy.power@durhamcollege.ca',
 	'c',
 	'2017-09-01',
-	'2017-09-02'
+	'2017-09-02',
+	0
 );
 
-INSERT INTO users(id, password, first_name, last_name, email_address, account_type, enroll_date, last_access) VALUES (
+INSERT INTO users(id, password, first_name, last_name, email_address, account_type, enroll_date, last_access, profile_status) VALUES (
 	'lyminh',
 	'a97957182ad58593d01717d158d57893',
 	'Ly',
@@ -59,5 +63,6 @@ INSERT INTO users(id, password, first_name, last_name, email_address, account_ty
 	'tri.minh.ly@durhamcollege.ca',
 	'c',
 	'2017-09-01',
-	'2017-09-02'
+	'2017-09-02',
+	0
 );
