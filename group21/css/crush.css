@@ -168,7 +168,8 @@ em {
 #content
 {
 	float: left;
-	width: 840px;
+	width: 1070px;
+	text-align: center;
 	padding: 20px 0;
 	margin: 0px 25px 0px 50px;
 	display: inline;
