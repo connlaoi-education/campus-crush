@@ -28,7 +28,7 @@ INSERT INTO users(id, password, first_name, last_name, email_address, account_ty
 	'a',
 	'2017-08-01',
 	'2017-08-02',
-	1
+	'1'
 );
 
 INSERT INTO users(id, password, first_name, last_name, email_address, account_type, enroll_date, last_access, profile_status) VALUES (
@@ -40,7 +40,7 @@ INSERT INTO users(id, password, first_name, last_name, email_address, account_ty
 	'c',
 	'2017-09-01',
 	'2017-09-02',
-	0
+	'0'
 );
 
 INSERT INTO users(id, password, first_name, last_name, email_address, account_type, enroll_date, last_access, profile_status) VALUES (
@@ -52,7 +52,7 @@ INSERT INTO users(id, password, first_name, last_name, email_address, account_ty
 	'c',
 	'2017-09-01',
 	'2017-09-02',
-	0
+	'0'
 );
 
 INSERT INTO users(id, password, first_name, last_name, email_address, account_type, enroll_date, last_access, profile_status) VALUES (
