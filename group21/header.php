@@ -53,8 +53,9 @@
                  //show to admin
                     echo('<li><a href="./profile-search.php">Search</a></li>');
                 }
+
+                    //show to all users
                     echo('
-                        //show to all users
                      <li><a href="./profile-search.php">Update User Info</a></li>
                      <li><a href="./user-password-request.php">Change Password</a></li>
                      <li style="float: right;"><a href="./user-logout.php">Logout</a></li> ');
