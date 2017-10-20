@@ -25,23 +25,23 @@
 
 	function getProperty($table, $property, $id) {
 		$connection = db_connect();
-		$results = pg_prepare($connection, "get_property", "SELECT " . $property . " FROM " . $table . " WHERE id = $1");
+		$results = pg_prepare($connection, "get_property_where", "SELECT " . $property . " FROM " . $table . " WHERE id = $1");
 		$results = pg_execute($connection, "get_property", array($id));
 		return pg_fetch_result($results, 0, $property);
 	}
 
 	function getAllProperty($table, $property) {
 		$connection = db_connect();
-		$results = pg_prepare($connection, "get_property", "SELECT " . $property . " FROM " . $table);
-		$results = pg_execute($connection, "get_property");
-		return pg_fetch_result($results, 0, $property);
+		$sql = "SELECT " . $property . " FROM " . $table;
+		$results = pg_query($connection, $sql);
+		return pg_fetch_all($results);
 	}
 
 	function buildDropDown($name, $table, $property) {
 		$array = getAllProperty($table, $property);
 		echo("<select name=\"" . $name . "\">");
-		for ($i=0; $i < $count($array); $i++) { 
-			echo("<option value=\"" . i . "\">" . $array[i] . "</option");
+		for ($i=0; $i < count($array); $i++) { 
+			echo("<option value=\"" . $i . "\">" . $array[$i][$property] . "</option>\n");
 		}
 		echo("</select>");
 	}
