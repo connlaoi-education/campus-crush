@@ -179,18 +179,18 @@ CREATE TABLE months(
 	month_id INTEGER NOT NULL PRIMARY KEY,
 	month_name VARCHAR(9) NOT NULL
 ); 
-INSERT INTO campuses(campus_id, campus_name) VALUES('1','January');
-INSERT INTO campuses(campus_id, campus_name) VALUES('2','February');
-INSERT INTO campuses(campus_id, campus_name) VALUES('3','March');
-INSERT INTO campuses(campus_id, campus_name) VALUES('4','April');
-INSERT INTO campuses(campus_id, campus_name) VALUES('5','May');
-INSERT INTO campuses(campus_id, campus_name) VALUES('6','June');
-INSERT INTO campuses(campus_id, campus_name) VALUES('7','July');
-INSERT INTO campuses(campus_id, campus_name) VALUES('8','August');
-INSERT INTO campuses(campus_id, campus_name) VALUES('9','September');
-INSERT INTO campuses(campus_id, campus_name) VALUES('10','October');
-INSERT INTO campuses(campus_id, campus_name) VALUES('11','November');
-INSERT INTO campuses(campus_id, campus_name) VALUES('12','December');
+INSERT INTO months(month_id, month_name) VALUES('1','January');
+INSERT INTO months(month_id, month_name) VALUES('2','February');
+INSERT INTO months(month_id, month_name) VALUES('3','March');
+INSERT INTO months(month_id, month_name) VALUES('4','April');
+INSERT INTO months(month_id, month_name) VALUES('5','May');
+INSERT INTO months(month_id, month_name) VALUES('6','June');
+INSERT INTO months(month_id, month_name) VALUES('7','July');
+INSERT INTO months(month_id, month_name) VALUES('8','August');
+INSERT INTO months(month_id, month_name) VALUES('9','September');
+INSERT INTO months(month_id, month_name) VALUES('10','October');
+INSERT INTO months(month_id, month_name) VALUES('11','November');
+INSERT INTO months(month_id, month_name) VALUES('12','December');
 
 
 
