@@ -38,8 +38,6 @@ if(!isLoggedIn()) {
 <br />
 
 <?php
-
-
 // if admin user
 if(getUserAccount('id', 'account_type') == 'a')
 {
