@@ -3,7 +3,7 @@
 -- Created: September 19 2017
 -- WEBD 3201
 
---DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS users;
 
 -- CREATE primary user table
 CREATE TABLE users(

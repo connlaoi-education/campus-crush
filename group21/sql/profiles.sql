@@ -4,20 +4,20 @@
 -- WEBD 3201
 
 -- DROP existing tables if necessary
--- DROP TABLE IF EXISTS profiles;
--- DROP TABLE IF EXISTS genders;
--- DROP TABLE IF EXISTS images;
--- DROP TABLE IF EXISTS cities;
--- DROP TABLE IF EXISTS relationships;
--- DROP TABLE IF EXISTS statuses;
--- DROP TABLE IF EXISTS religions;
--- DROP TABLE IF EXISTS education;
--- DROP TABLE IF EXISTS races;
--- DROP TABLE IF EXISTS habits;
--- DROP TABLE IF EXISTS exercises;
--- DROP TABLE IF EXISTS residences;
--- DROP TABLE IF EXISTS campuses;
--- DROP TABLE IF EXISTS months;
+DROP TABLE IF EXISTS profiles;
+DROP TABLE IF EXISTS genders;
+DROP TABLE IF EXISTS images;
+DROP TABLE IF EXISTS cities;
+DROP TABLE IF EXISTS relationships;
+DROP TABLE IF EXISTS statuses;
+DROP TABLE IF EXISTS religions;
+DROP TABLE IF EXISTS education;
+DROP TABLE IF EXISTS races;
+DROP TABLE IF EXISTS habits;
+DROP TABLE IF EXISTS exercises;
+DROP TABLE IF EXISTS residences;
+DROP TABLE IF EXISTS campuses;
+DROP TABLE IF EXISTS months;
 
 
 -- CREATE tertiary tables
