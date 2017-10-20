@@ -37,8 +37,10 @@ if(!isLoggedIn()) {
 	$error_2 = "";
 	$results = "";
 	$results2 = "";
+
+
 	if($_SERVER["REQUEST_METHOD"] == "GET")
-	{
+	{	
 		$gender = "";
 		$gender_sought = "";
 		$city = "";
@@ -57,6 +59,26 @@ if(!isLoggedIn()) {
 		$residence_type = "";
 		$campus = "";
 		$account_type = CLIENT;
+        if ($_SESSION["first"] == 1) {
+		$_SESSION['gender'] = "";
+		$_SESSION['gender_sought'] = "";
+		$_SESSION['city'] = "";
+		//$image = trim($_POST["image"]);
+		$_SESSION['headline'] = "";
+		$_SESSION['self_description'] = "";
+		$_SESSION['match_description'] = "";
+		$_SESSION['relationship_sought'] = "";
+		$_SESSION['relationship_status'] = "";
+		$_SESSION['preferred_age_minimum'] = "";
+		$_SESSION['preferred_age_maximum'] = "";
+		$_SESSION['religions'] = "";
+        $_SESSION['races'] = "";
+		$_SESSION['education_experience'] = "";
+		$_SESSION['habit'] = "";
+		$_SESSION['exercise'] = "";
+		$_SESSION['residence_type'] = "";
+		$_SESSION['campus'] = "";
+		}
 	}
 	
 	elseif($_SERVER["REQUEST_METHOD"] == "POST")
@@ -105,13 +127,12 @@ if(!isLoggedIn()) {
 	if($error == "")
 		{	
 				$connection = db_connect();
-
+                
 				$results = pg_prepare($connection, "update_profile", 'UPDATE users SET user_id = $1, gender = $2, gender_sought = $3, city = $4, image = $5, headline = $6, self_description = $7, match_description = $8, relationship_sought = $9, relationship_status = $10, preferred_age_minimum = $11, preferred_age_maximum = $12, religion_sought = $13, education_experience = $14, race = $15, habit = $16, exercise = $17, residence_type = $18, campus = $19 WHERE user_id = $1') ;
 			    $results = pg_execute($connection, "update_profile", array($_SESSION['username'], $gender, $gender_sought, $city, 0, $headline, $self_description, $match_description, $relationship_sought, $relationship_status, $preferred_age_minimum, $preferred_age_maximum, $religion_sought, $education_experience, $race, $habits, $exercise, $residence_type, $campus));
-	            
+
 				$_SESSION['profile_insert'] = "New profile update ";
-
-
+                $_SESSION['first'] = 1;
                 header("Location:dashboard.php");
                 
 				ob_flush();

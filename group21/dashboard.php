@@ -33,8 +33,13 @@ if(!isLoggedIn()) {
     unset($_SESSION["message"]);
   }
    echo($_SESSION['output']);
+   if(isset($_SESSION["output2"])) {
+   echo($_SESSION['output2']);
+   }
+   $_SESSION["first"] = 1;
   if(isset($_SESSION["profile_insert"])) {
     echo("<p style=\"color: red\">"  . $_SESSION["profile_insert"] . "</p>");
+    $_SESSION["first"] = 0;
   }
   ?></p>
 
