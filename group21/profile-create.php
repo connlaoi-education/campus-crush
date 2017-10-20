@@ -57,6 +57,25 @@ if(!isLoggedIn()) {
 		$residence_type = "";
 		$campus = "";
 		$account_type = CLIENT;
+		
+		$_SESSION['gender'] = "";
+		$_SESSION['gender_sought'] = "";
+		$_SESSION['city'] = "";
+		//$image = trim($_POST["image"]);
+		$_SESSION['headline'] = "";
+		$_SESSION['self_description'] = "";
+		$_SESSION['match_description'] = "";
+		$_SESSION['relationship_sought'] = "";
+		$_SESSION['relationship_status'] = "";
+		$_SESSION['preferred_age_minimum'] = "";
+		$_SESSION['preferred_age_maximum'] = "";
+		$_SESSION['religions'] = "";
+        $_SESSION['races'] = "";
+		$_SESSION['education_experience'] = "";
+		$_SESSION['habit'] = "";
+		$_SESSION['exercise'] = "";
+		$_SESSION['residence_type'] = "";
+		$_SESSION['campus'] = "";
 	}
 	
 	elseif($_SERVER["REQUEST_METHOD"] == "POST")
@@ -81,7 +100,25 @@ if(!isLoggedIn()) {
 		$campus = trim($_POST["campuses"]);
 		$account_type = CLIENT;
 
-	
+		$_SESSION['gender'] = trim($_POST["gender"]);
+		$_SESSION['gender_sought'] = trim($_POST["gender_sought"]);
+		$_SESSION['city'] = trim($_POST["city"]);
+		//$image = trim($_POST["image"]);
+		$_SESSION['headline'] = trim($_POST["headline"]);
+		$_SESSION['self_description'] = trim($_POST["self_description"]);
+		$_SESSION['match_description'] = trim($_POST["match_description"]);
+		$_SESSION['relationship_sought'] = trim($_POST["relationship_sought"]);
+		$_SESSION['relationship_status'] = trim($_POST["relationship_status"]);
+		$_SESSION['preferred_age_minimum'] = trim($_POST["preferred_age_minimum"]);
+		$_SESSION['preferred_age_maximum'] = trim($_POST["preferred_age_maximum"]);
+		$_SESSION['religions'] = trim($_POST["religions"]);
+        $_SESSION['races'] = trim($_POST["races"]);
+		$_SESSION['education_experience'] = trim($_POST["education_experience"]);
+		$_SESSION['habit'] = trim($_POST["habit"]);
+		$_SESSION['exercise'] = trim($_POST["exercise"]);
+		$_SESSION['residence_type'] = trim($_POST["residence_type"]);
+		$_SESSION['campus'] = trim($_POST["campuses"]);
+
 	
 	if($error == "")
 		{	
@@ -102,7 +139,7 @@ if(!isLoggedIn()) {
   }
 	
 ?>
-	<br />
+<br />
 	<h2 class="highlight">
 		<?php echo $error; ?>
 	</h2>
@@ -137,16 +174,16 @@ if(!isLoggedIn()) {
 	
     <tr>
       <td valign="top">Headline:</td>
-      <td ><textarea rows="4" cols="50" name="headline">Enter text here...</textarea></td>
+      <td ><textarea rows="4" cols="50" name="headline"><?php echo $_SESSION['headline'] ?></textarea></td>
     </tr>
 	
     <tr>
       <td valign="top">Self Description:</td>
-      <td ><textarea rows="4" cols="50" name="self_description">Enter text here...</textarea></td>
+      <td ><textarea rows="4" cols="50" name="self_description"><?php echo $_SESSION['self_description'] ?></textarea></td>
     </tr>
     <tr>
       <td valign="top">Match Description:</td>
-      <td><textarea rows="4" cols="50" name="match_description">Enter text here...</textarea></td>
+      <td><textarea rows="4" cols="50" name="match_description"><?php echo $_SESSION['match_description'] ?></textarea></td>
     </tr>
 		<tr>
       <td valign="top">Relationship Sought:</td>
@@ -162,13 +199,13 @@ if(!isLoggedIn()) {
     <tr>
 		<tr>
       <td>Prefered age minimum</td>
-      <td><input type="text" name="preferred_age_minimum" value="" size="20" /></td>
+      <td><input type="text" name="preferred_age_minimum" value="<?php echo $_SESSION['preferred_age_minimum'] ?>" size="20" /></td>
     </tr>
 	
     <tr>
 		<tr>
       <td>Prefered age maximum</td>
-      <td><input type="text" name="preferred_age_maximum" value="" size="20" /></td>
+      <td><input type="text" name="preferred_age_maximum" value="<?php echo $_SESSION['preferred_age_maximum'] ?>" size="20" /></td>
         </tr>
     </tr>
 	
@@ -223,6 +260,7 @@ if(!isLoggedIn()) {
 <br />
 <br />
 <br />
+
 
 
 

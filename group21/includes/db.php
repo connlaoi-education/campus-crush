@@ -43,7 +43,7 @@
 		for ($i=0; $i < count($array); $i++) { 
 		    if ($_SESSION[$name] == $i)
 			{
-				echo("<option value=\"" . $i . " selected\">" . $array[$i][$property] . "</option>\n");
+				echo("<option value=\"" . $i . "\" selected>" . $array[$i][$property] . "</option>\n");
 		    }
 			else
 			{
@@ -58,9 +58,8 @@
 		$first = true;
 
 		for ($i=0; $i < count($array); $i++) { 
-			if ($first) {
+			if ($_SESSION[$name] == $i) {
 			echo("<input type=\"radio\" name=\"" . $name . "\" value=\"" . $i . "\" checked>" . $array[$i][$property] . "<br/>\n");
-			$first = false;
 			} else {
 			echo("<input type=\"radio\" name=\"" . $name . "\" value=\"" . $i . "\"/>" . $array[$i][$property] . "<br/>\n");
 			}
