@@ -37,7 +37,7 @@
                     <li><a href="./user-register.php">Register</a></li>');
                 } else {
                     echo('
-                    <li><a href="./user-dashboard.php">Dashboard</a></li> ');
+                    <li><a href="./dashboard.php">Dashboard</a></li> ');
                     if($_SESSION['account_type'] == INCOMPLETE) {
                     echo('
                     <li><a href="./profile-create.php">Profile Create</a></li>');
