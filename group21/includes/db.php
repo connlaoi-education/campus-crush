@@ -29,4 +29,20 @@
 		$results = pg_execute($connection, "get_property", array($id));
 		return pg_fetch_result($results, 0, $property);
 	}
+
+	function getAllProperty($table, $property) {
+		$connection = db_connect();
+		$results = pg_prepare($connection, "get_property", "SELECT " . $property . " FROM " . $table);
+		$results = pg_execute($connection, "get_property");
+		return pg_fetch_result($results, 0, $property);
+	}
+
+	function buildDropDown($name, $table, $property) {
+		$array = getAllProperty($table, $property);
+		echo("<select name=\"" . $name . "\">");
+		for ($i=0; $i < $count($array); $i++) { 
+			echo("<option value=\"" . i . "\">" . $array[i] . "</option");
+		}
+		echo("</select>");
+	}
 ?>
