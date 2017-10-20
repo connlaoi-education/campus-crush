@@ -5,8 +5,7 @@
     $updateddate = "xxxx xx 2017";
     $filename = "dashboard.php";
     $banner = "Campus Crush - Dashboard";
-    $description = "Hello, User Name";
-
+    $description = "Hello, User";
 ?>
 <!--
   Creator:      Jeremy Power

@@ -46,7 +46,7 @@ if(isLoggedIn()) {
 	$results1 = "";
 	$results2 = "";
     $years = array();
-    for ($i=date("Y"); $i >= 1900; $i--) { 
+    for ($i=date("Y"); $i >= 1935; $i--) { 
          array_push($years, $i);
        }
 
