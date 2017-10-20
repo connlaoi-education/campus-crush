@@ -26,7 +26,7 @@
 	function getProperty($table, $property, $id) {
 		$connection = db_connect();
 		$results = pg_prepare($connection, "get_property_where", "SELECT " . $property . " FROM " . $table . " WHERE id = $1");
-		$results = pg_execute($connection, "get_property", array($id));
+		$results = pg_execute($connection, "get_property_where", array($id));
 		return pg_fetch_result($results, 0, $property);
 	}
 
