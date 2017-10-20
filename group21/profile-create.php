@@ -79,10 +79,7 @@ if(!isLoggedIn()) {
 		$residence_type = trim($_POST["residence_type"]);
 		$campus = trim($_POST["campuses"]);
 		$account_type = CLIENT;
-		if(strlen($image) < MINIMUM_ID_LENGTH)
-		{
-			$error .= "You must enter a username to continue... <br/>";
-		}
+
 	
 	
 	if($error == "")
@@ -96,7 +93,7 @@ if(!isLoggedIn()) {
 				$results = pg_prepare($connection, "update_account", 'UPDATE users SET account_type = $1 WHERE id = $2');
 				$results = pg_execute($connection, "update_account", array($account_type, $_SESSION['username']));
                 $_SESSION['account_type'] = CLIENT;
-
+                header("Location:dashboard.php");
 				
 				
 				ob_flush();

@@ -33,6 +33,9 @@ if(!isLoggedIn()) {
     unset($_SESSION["message"]);
   }
    echo($_SESSION['output']);
+  if(isset($_SESSION["profile_insert"])) {
+    echo("<p>" . $_SESSION["profile_insert"] . "</p>");
+  }
   ?></p>
 
 <br />
