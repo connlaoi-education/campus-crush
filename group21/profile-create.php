@@ -83,7 +83,6 @@ if(!isLoggedIn()) {
 		{
 			$error .= "You must enter a username to continue... <br/>";
 		}
-	}
 	
 	
 	if($error == "")
@@ -103,6 +102,7 @@ if(!isLoggedIn()) {
 				ob_flush();
                 
 		}
+  }
 	
 ?>
 	<br />
