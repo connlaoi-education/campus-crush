@@ -88,7 +88,7 @@ if(!isLoggedIn()) {
 				$connection = db_connect();
 
 				$results = pg_prepare($connection, "insert_profile", 'INSERT INTO profiles (user_id, gender, gender_sought, city, image, headline, self_description, match_description, relationship_sought, relationship_status, preferred_age_minimum, preferred_age_maximum, religion_sought, education_experience, race, habit, exercise, residence_type, campus) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19)');
-			    $results = pg_execute($connection, "insert_profile", array($_SESSION['username'], $gender, $gender_sought, $city, 1, $headline, $self_description, $match_description, $relationship_sought, $relationship_status, $preferred_age_minimum, $preferred_age_maximum, $religion_sought, $education_experience, $race, $habits, $exercise, $residence_type, $campus));
+			    $results = pg_execute($connection, "insert_profile", array($_SESSION['username'], $gender, $gender_sought, $city, 0, $headline, $self_description, $match_description, $relationship_sought, $relationship_status, $preferred_age_minimum, $preferred_age_maximum, $religion_sought, $education_experience, $race, $habits, $exercise, $residence_type, $campus));
 	            
 				$_SESSION['profile_insert'] = "New profile insert";
 				$results = pg_prepare($connection, "update_account", 'UPDATE users SET account_type = $1 WHERE id = $2');
