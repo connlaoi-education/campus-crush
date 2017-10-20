@@ -125,23 +125,27 @@ if(!isLoggedIn()) {
 	<tr>
       <td valign="top">City:</td>
       <td>
-	<?php buildDropDown("city", "cities", "city_name"); ?>
-
+	       <?php buildDropDown("city", "cities", "city_name");
+         $imageAddress = getProperty('images', 'image_address', 0, "image_id"); ?>
     </tr>
     <tr>
       <td>Image</td>
-      <td><input type="text" name="image" value="" size="20" /></td>
+      <td><img style="height: 64px; width: 64px;" src="<?php echo($imageAddress); ?>"/></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><button type="button">Browse</button></td>
     </tr>
     <tr>
 	
     <tr>
       <td valign="top">Headline:</td>
-      <td><textarea rows="4" cols="50" name="headline">Enter text here...</textarea></td>
+      <td ><textarea rows="4" cols="50" name="headline">Enter text here...</textarea></td>
     </tr>
 	
     <tr>
       <td valign="top">Self Description:</td>
-      <td><textarea rows="4" cols="50" name="self_description">Enter text here...</textarea></td>
+      <td ><textarea rows="4" cols="50" name="self_description">Enter text here...</textarea></td>
     </tr>
     <tr>
       <td valign="top">Match Description:</td>
