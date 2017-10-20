@@ -36,18 +36,22 @@
                     echo('<li><a href="./user-login.php">Login</a></li>
                     <li><a href="./user-register.php">Register</a></li>');
                 } else {
-                    echo('
-                    <li><a href="./dashboard.php">Dashboard</a></li> ');
                     if($_SESSION['account_type'] == INCOMPLETE) {
                     echo('
                     <li><a href="./profile-create.php">Profile Create</a></li>');
                     } else {
-                    echo('
-                    <li><a href="./profile-display.php">Profile Display</a></li>');
+                    echo(
+                    '<li><a href="./dashboard.php">Dashboard</a></li>');
+                    if($_SESSION['account_type'] == CLIENT) {
+                     echo('<li><a href="./profile-display.php">Profile</a></li>
+                     <li><a href="./profile-create.php">Update Profile</a></li>');
+                 }
+                    echo('<li><a href="./profile-search.php">Search</a></li>');
                 }
                     echo('
-                    <li><a href="./profile-search.php">Profile Search</a></li>
-                    <li style="float: right;"><a href="./user-logout.php">Logout</a></li> ');
+                     <li><a href="./profile-search.php">Update User Info</a></li>
+                     <li><a href="./user-password-request.php">Change Password</a></li>
+                     <li style="float: right;"><a href="./user-logout.php">Logout</a></li> ');
                 }
                     ?>
                 </ul>
