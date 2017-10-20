@@ -41,8 +41,22 @@
 		$array = getAllProperty($table, $property);
 		echo("<select name=\"" . $name . "\">");
 		for ($i=0; $i < count($array); $i++) { 
-			echo("<option value=\"" . $i . "\">" . $array[$i][$property] . "</option>\n");
+			echo("<option value=\"" . ($i+1) . "\">" . $array[$i][$property] . "</option>\n");
 		}
 		echo("</select>");
+	}
+
+	function buildRadioButton($name, $table, $property) {
+		$array = getAllProperty($table, $property);
+		$first = true;
+
+		for ($i=0; $i < count($array); $i++) { 
+			if ($first) {
+			echo("<input type=\"radio\" name=\"" . $name . "\" value=\"" . ($i+1) . "\" checked>" . $array[$i][$property] . "<br/>\n");
+			$first = false;
+			} else {
+			echo("<input type=\"radio\" name=\"" . $name . "\" value=\"" . ($i+1) . "\"/>" . $array[$i][$property] . "<br/>\n");
+			}
+		}
 	}
 ?>
