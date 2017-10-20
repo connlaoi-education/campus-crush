@@ -5,7 +5,7 @@
 
 -- DROP existing tables if necessary
 -- DROP TABLE IF EXISTS profiles;
--- DROP TABLE IF EXISTS genders;
+-- DROP TABLE IF EXISTS sexuality;
 -- DROP TABLE IF EXISTS images;
 -- DROP TABLE IF EXISTS cities;
 -- DROP TABLE IF EXISTS relationships;
@@ -29,10 +29,9 @@ CREATE TABLE genders(
 	gender_id SMALLINT NOT NULL PRIMARY KEY,
 	gender_type VARCHAR(40) NOT NULL
 );
-INSERT INTO genders(gender_id, gender_type) VALUES('0','Straight');
-INSERT INTO genders(gender_id, gender_type) VALUES('1','Bi');
-INSERT INTO genders(gender_id, gender_type) VALUES('2','Gay');
-INSERT INTO genders(gender_id, gender_type) VALUES('3','Other');
+INSERT INTO genders(gender_id, gender_type) VALUES('0','Male');
+INSERT INTO genders(gender_id, gender_type) VALUES('1','Female');
+INSERT INTO genders(gender_id, gender_type) VALUES('2','Other');
 
 
 -- CITIES
@@ -204,10 +203,10 @@ CREATE TABLE profiles(
 	gender_sought SMALLINT NOT NULL REFERENCES genders(gender_id),
 	city INTEGER NOT NULL REFERENCES cities(city_id),
 	image SMALLINT NOT NULL REFERENCES images(image_id),
-	headline VARCHAR(100),
-	self_description VARCHAR(1000),
-	match_description VARCHAR(1000),
-	relationship_sought INTEGER NOT NULL REFERENCES SELECT * relationships(relationship_id),
+	headline VARCHAR(100) NOT NULL,
+	self_description VARCHAR(1000) NOT NULL,
+	match_description VARCHAR(1000) NOT NULL,
+	relationship_sought INTEGER NOT NULL REFERENCES relationships(relationship_id),
 	relationship_status INTEGER NOT NULL REFERENCES statuses(status_id),
 	preferred_age_minimum INTEGER NOT NULL,
 	preferred_age_maximum INTEGER NOT NULL,
@@ -222,4 +221,4 @@ CREATE TABLE profiles(
 
 -- ADMIN PROFILE
 INSERT INTO profiles(user_id, gender, gender_sought, city, image, headline, self_description, match_description, relationship_sought, relationship_status, preferred_age_minimum, preferred_age_maximum, religion_sought, education_experience, race, habit, exercise, residence_type, campus) 
-VALUES ('admin','0','0','0','0','Campus Crush Administrator','','','0','0','0','0','0','0','0','0','0','0','0');
+VALUES ('admin','0','0','0','0','Campus Crush Administrator','None','None','0','0','0','0','0','0','0','0','0','0','0');
