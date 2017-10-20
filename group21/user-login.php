@@ -94,6 +94,7 @@ if(isLoggedIn()) {
 
 				$_SESSION['username'] = $dataArray['id'];
 				$_SESSION['account_type'] = $dataArray['account_type'];
+				$_SESSION['first_name'] = $dataArray['first_name'];
 
     		setcookie("UserCookie", $_SESSION['username'], time() + COOKIE_DURATION);
 
