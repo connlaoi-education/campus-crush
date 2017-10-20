@@ -5,7 +5,7 @@
     $updateddate = "xxxx xx 2017";
     $filename = "dashboard.php";
     $banner = "Campus Crush - Dashboard";
-    $description = "Hello, Welcome!";
+    $description = "Hello, ";
 	$userFirstName = ""
 ?>
 <!--
@@ -23,6 +23,7 @@ if(!isLoggedIn()) {
   header("Location:user-login.php");
   ob_flush();
 }
+$description .= getProperty('users','first_name',$_SESSION['username']);
   ?>
 
 
@@ -33,18 +34,16 @@ if(!isLoggedIn()) {
     unset($_SESSION["message"]);
   }
    echo($_SESSION['output']);
-  if(isset($_SESSION["profile_insert"])) {
-    echo("<p style=\"color: red\">"  . $_SESSION["profile_insert"] . "</p>");
-  }
   ?></p>
+<p class="content"><?php 
+  if(isset($_SESSION["profile_insert"])) {
+	      echo("<p>" . $_SESSION["profile_insert"] . "</p>");
 
+  ?></p>
 <br />
-
 <?php
-$content = file_get_contents('http://loripsum.net/api'); // for testing
-	
 // if admin user
-if($_SESSION["account_type"] == ADMIN)
+if(getUserAccount('id', 'account_type') == 'a')
 {
 	// LOAD ADMIN TOOLS in tabs(?)
 	
@@ -54,11 +53,11 @@ if($_SESSION["account_type"] == ADMIN)
 }
 
 // if complete user
-elseif($_SESSION["account_type"] == CLIENT)
+elseif(getUserAccount('id', 'account_type') == 'c')
 {
 	// LOAD USER DASHBOARD
 	
-
+	$content = file_get_contents('http://loripsum.net/api'); // for testing
 	echo($content); // for testing
 	
 	// User Profile Picture
@@ -67,7 +66,7 @@ elseif($_SESSION["account_type"] == CLIENT)
 }
 
 // if incomplete user
-elseif($_SESSION["account_type"] == INCOMPLETE)
+elseif(getUserAccount('id', 'account_type') == 'i')
 {
 	  // Redirect  incomplete profiles to profile creation
 	  header("Location:profile-create.php");

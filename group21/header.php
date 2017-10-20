@@ -48,7 +48,7 @@
                     //show to complete users
                     if($_SESSION['account_type'] == CLIENT) {
                      echo('<li><a href="./profile-display.php">Profile</a></li>
-                     <li><a href="./profile-create.php">Update Profile</a></li>');
+                     <li><a href="./profile-update.php">Update Profile</a></li>');
                  }
                  //show to admin
                     echo('<li><a href="./profile-search.php">Search</a></li>');

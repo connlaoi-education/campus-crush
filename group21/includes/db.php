@@ -41,7 +41,14 @@
 		$array = getAllProperty($table, $property);
 		echo("<select name=\"" . $name . "\">\n");
 		for ($i=0; $i < count($array); $i++) { 
-			echo("<option value=\"" . $i . "\">" . $array[$i][$property] . "</option>\n");
+		    if ($_SESSION[$name] == $i)
+			{
+				echo("<option value=\"" . $i . " selected\">" . $array[$i][$property] . "</option>\n");
+		    }
+			else
+			{
+				echo("<option value=\"" . $i . "\">" . $array[$i][$property] . "</option>\n");
+			}
 		}
 		echo("</select>");
 	}
