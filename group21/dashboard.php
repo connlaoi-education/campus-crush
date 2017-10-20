@@ -5,7 +5,8 @@
     $updateddate = "xxxx xx 2017";
     $filename = "dashboard.php";
     $banner = "Campus Crush - Dashboard";
-    $description = "Hello, User";
+    $description = "Hello, ";
+	$userFirstName = ""
 ?>
 <!--
   Creator:      Jeremy Power
@@ -22,6 +23,7 @@ if(!isLoggedIn()) {
   header("Location:user-login.php");
   ob_flush();
 }
+$description .= getProperty('users','first_name',$_SESSION['username']);
   ?>
 
 
