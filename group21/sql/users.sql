@@ -6,7 +6,7 @@
 -- DROP existing Users table if necessary
 --DROP TABLE IF EXISTS users;
 
--- CREATE users table with id, password, first name, last name, email address, account type, enroll date, last access.
+-- CREATE user table
 CREATE TABLE users(
 	id VARCHAR(20) PRIMARY KEY,
 	password CHAR(32) NOT NULL,
@@ -17,7 +17,8 @@ CREATE TABLE users(
 	enroll_date DATE NOT NULL,
 	last_access DATE NOT NULL
 	);
-
+	
+-- CREATE initial user data
 INSERT INTO users(id, password, first_name, last_name, email_address, account_type, enroll_date, last_access) VALUES (
 	'admin',
 	'7f256b0f754fb894682eeb554883b679',
@@ -29,7 +30,7 @@ INSERT INTO users(id, password, first_name, last_name, email_address, account_ty
 	'2017-08-02'
 );
 
-INSERT INTO users(id, password, first_name, last_name, email_address, account_type, enroll_date, last_access, profile_status) VALUES (
+INSERT INTO users(id, password, first_name, last_name, email_address, account_type, enroll_date, last_access) VALUES (
 	'csmith',
 	'1492c81e612369f45f5509dfe8270b3c',
 	'Connlaoi',
@@ -40,7 +41,7 @@ INSERT INTO users(id, password, first_name, last_name, email_address, account_ty
 	'2017-09-02'
 );
 
-INSERT INTO users(id, password, first_name, last_name, email_address, account_type, enroll_date, last_access, profile_status) VALUES (
+INSERT INTO users(id, password, first_name, last_name, email_address, account_type, enroll_date, last_access) VALUES (
 	'jpower',
 	'0bdd6a22ce32c25322f0b86f2a83d2d9',
 	'Jeremy',
@@ -51,7 +52,7 @@ INSERT INTO users(id, password, first_name, last_name, email_address, account_ty
 	'2017-09-02'
 );
 
-INSERT INTO users(id, password, first_name, last_name, email_address, account_type, enroll_date, last_access, profile_status) VALUES (
+INSERT INTO users(id, password, first_name, last_name, email_address, account_type, enroll_date, last_access) VALUES (
 	'lyminh',
 	'a97957182ad58593d01717d158d57893',
 	'Ly',
@@ -61,3 +62,4 @@ INSERT INTO users(id, password, first_name, last_name, email_address, account_ty
 	'2017-09-01',
 	'2017-09-02'
 );
+
