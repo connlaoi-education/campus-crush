@@ -19,7 +19,7 @@
 <?php include 'header.php';
 
 if(isLoggedIn()) { 
-	header("Location:user-dashboard.php");
+	header("Location:dashboard.php");
 	ob_flush();
 }
 	?>
@@ -164,7 +164,7 @@ if(isLoggedIn()) {
 			$day = "";
 			$year = "";
 			$month = "";
-		} else if(calculate_age($year . "-" . $month . "-" . $day) < 18) {
+		} else if(calculate_Age($year . "-" . $month . "-" . $day) < 18) {
 			$error .= "Must be over 18 to use the site. <br/>";
 			$day = "";
 			$year = "";

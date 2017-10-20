@@ -3,10 +3,9 @@
 -- Created: September 19 2017
 -- WEBD 3201
 
--- DROP existing Users table if necessary
 --DROP TABLE IF EXISTS users;
 
--- CREATE user table
+-- CREATE primary user table
 CREATE TABLE users(
 	id VARCHAR(20) PRIMARY KEY,
 	password CHAR(32) NOT NULL,

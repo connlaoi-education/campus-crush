@@ -3,7 +3,7 @@
     $title = "Campus Crush - Dash";
     $createddate = "September 19 2017";
     $updateddate = "xxxx xx 2017";
-    $filename = "user-dashboard.php";
+    $filename = "dashboard.php";
     $banner = "Campus Crush - Dashboard";
     $description = "Hello, User Name";
 
@@ -38,8 +38,37 @@ if(!isLoggedIn()) {
 <br />
 
 <?php
-$content = file_get_contents('http://loripsum.net/api');
-echo($content);
+
+
+// if admin user
+if(getUserAccount('id', 'account_type') == 'a')
+{
+	// LOAD ADMIN TOOLS in tabs(?)
+	
+	// Database Moderation (Delete Account, Send Password Reset Email,etc)
+	// User Summaries (Graphs, Charts, etc)
+	
+}
+
+// if complete user
+elseif(getUserAccount('id', 'account_type') == 'c')
+{
+	// LOAD USER DASHBOARD
+	
+	$content = file_get_contents('http://loripsum.net/api'); // for testing
+	echo($content); // for testing
+	
+	// User Profile Picture
+	// Account Summary (User & Profile Information grouped for efficiency)
+	
+}
+
+// if incomplete user
+elseif(getUserAccount('id', 'account_type') == 'i')
+{
+	  // Redirect  incomplete profiles to profile creation
+	  header("Location:profile-create.php");
+}
 ?>
 
 <br />
