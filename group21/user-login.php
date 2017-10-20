@@ -19,7 +19,7 @@
 <?php include 'header.php';
 
 if(isLoggedIn()) {
-	header("Location:user-dashboard.php");
+	header("Location:dashboard.php");
 	ob_flush();
 }
 	?>
@@ -101,7 +101,7 @@ if(isLoggedIn()) {
 				if($_SESSION['account_type'] == INCOMPLETE) {
 					header("Location:profile-create.php");
 				} else {
-					header("Location:user-dashboard.php");
+					header("Location:dashboard.php");
 				}
     		ob_flush();
 			}
