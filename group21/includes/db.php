@@ -23,9 +23,9 @@
 
 	$results = pg_prepare($connection, "select_id_pass", 'SELECT id, password, first_name, last_name, email_address, enroll_date, last_access FROM users WHERE id = $1 AND password = $2');
 
-	function getProperty($table, $property, $id) {
+	function getProperty($table, $property, $id, $idName) {
 		$connection = db_connect();
-		$results = pg_prepare($connection, "get_property_where", "SELECT " . $property . " FROM " . $table . " WHERE id = $1");
+		$results = pg_prepare($connection, "get_property_where", "SELECT " . $property . " FROM " . $table . " WHERE " . $idName . " = $1");
 		$results = pg_execute($connection, "get_property_where", array($id));
 		return pg_fetch_result($results, 0, $property);
 	}
@@ -37,25 +37,37 @@
 		return pg_fetch_all($results);
 	}
 
-	function buildDropDown($name, $table, $property) {
-		$array = getAllProperty($table, $property);
-		echo("<select name=\"" . $name . "\">");
-		for ($i=0; $i < count($array); $i++) { 
-			echo("<option value=\"" . ($i+1) . "\">" . $array[$i][$property] . "</option>\n");
-		}
-		echo("</select>");
-	}
+     function buildDropDown($name, $table, $property) {
+        $array = getAllProperty($table, $property);
+        echo("<select name=\"" . $name . "\">\n");
+        for ($i=0; $i < count($array); $i++) { 
+            if ($_SESSION[$name] == $i)
+            {
+                echo("<option value=\"" . $i . "\" selected>" . $array[$i][$property] . "</option>\n");
+            }
+            else
+            {
+                if ($i == 0)
+                {echo("<option value=\"" . $i . "\"selected>" . $array[$i][$property] . "</option>\n");
+                }
+                else
+                {echo("<option value=\"" . $i . "\">" . $array[$i][$property] . "</option>\n");
+                }
+            
+            }
+        }
+        echo("</select>");
+    }
 
 	function buildRadioButton($name, $table, $property) {
 		$array = getAllProperty($table, $property);
 		$first = true;
 
 		for ($i=0; $i < count($array); $i++) { 
-			if ($first) {
-			echo("<input type=\"radio\" name=\"" . $name . "\" value=\"" . ($i+1) . "\" checked>" . $array[$i][$property] . "<br/>\n");
-			$first = false;
+			if ($_SESSION[$name] == $i) {
+			echo("<input type=\"radio\" name=\"" . $name . "\" value=\"" . $i . "\" checked>" . $array[$i][$property] . "<br/>\n");
 			} else {
-			echo("<input type=\"radio\" name=\"" . $name . "\" value=\"" . ($i+1) . "\"/>" . $array[$i][$property] . "<br/>\n");
+			echo("<input type=\"radio\" name=\"" . $name . "\" value=\"" . $i . "\"/>" . $array[$i][$property] . "<br/>\n");
 			}
 		}
 	}

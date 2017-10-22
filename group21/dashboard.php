@@ -5,7 +5,7 @@
     $updateddate = "xxxx xx 2017";
     $filename = "dashboard.php";
     $banner = "Campus Crush - Dashboard";
-    $description = "Hello, " . $_SESSION['first_name'];
+    $description = "Hello, Welcome!";
 	$userFirstName = ""
 ?>
 <!--
@@ -33,6 +33,14 @@ if(!isLoggedIn()) {
     unset($_SESSION["message"]);
   }
    echo($_SESSION['output']);
+   if(isset($_SESSION["output2"])) {
+   echo($_SESSION['output2']);
+   }
+   $_SESSION["first"] = 1;
+  if(isset($_SESSION["profile_insert"])) {
+    echo("<p style=\"color: red\">"  . $_SESSION["profile_insert"] . "</p>");
+    $_SESSION["first"] = 0;
+  }
   ?></p>
 
 <br />
@@ -51,7 +59,7 @@ if($_SESSION["account_type"] == ADMIN)
 }
 
 // if complete user
-elseif($_SESSION["account_type"] == COMPLETE)
+elseif($_SESSION["account_type"] == CLIENT)
 {
 	// LOAD USER DASHBOARD
 	

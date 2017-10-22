@@ -32,22 +32,33 @@
         <div id="sites">
                 <ul>
                     <?php
+                    //if not logged in, show login and register
                     if(!isset($_SESSION['username'])) {
                     echo('<li><a href="./user-login.php">Login</a></li>
                     <li><a href="./user-register.php">Register</a></li>');
                 } else {
-                    echo('
-                    <li><a href="./dashboard.php">Dashboard</a></li> ');
+                    //show to incomplete users
                     if($_SESSION['account_type'] == INCOMPLETE) {
                     echo('
                     <li><a href="./profile-create.php">Profile Create</a></li>');
                     } else {
-                    echo('
-                    <li><a href="./profile-display.php">Profile Display</a></li>');
+                    echo(
+                        //show to admin
+                    '<li><a href="./dashboard.php">Dashboard</a></li>');
+                    //show to complete users
+                    if($_SESSION['account_type'] == CLIENT) {
+                     echo('<li><a href="./profile-display.php">Profile</a></li>
+                     <li><a href="./profile-update.php">Update Profile</a></li>');
+                 }
+                 //show to admin
+                    echo('<li><a href="./profile-search.php">Search</a></li>');
                 }
+
+                    //show to all users
                     echo('
-                    <li><a href="./profile-search.php">Profile Search</a></li>
-                    <li style="float: right;"><a href="./user-logout.php">Logout</a></li> ');
+                     <li><a href="./user-update.php">Update User Info</a></li>
+                     <li><a href="./user-password-request.php">Change Password</a></li>
+                     <li style="float: right;"><a href="./user-logout.php">Logout</a></li> ');
                 }
                     ?>
                 </ul>
