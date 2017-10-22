@@ -15,6 +15,8 @@
 	define("MAXIMUM_FIRST_NAME_LENGTH", 20, false);
 	define("MAXIMUM_LAST_NAME_LENGTH", 30, true);
 	define("MAXIMUM_EMAIL_LENGTH", 255, true);
+
+	define("COOKIE_DURATION", 60*60*24*30, true);
 	
 	// define the user types
 	define("ADMIN", 'a', true);
@@ -30,5 +32,5 @@
 	// define admin user and password
 	define("DATABASE_USER", 'group21_admin', true);
 	define("DATABASE_PASSWORD", 'password', false);
-	
+
 ?>

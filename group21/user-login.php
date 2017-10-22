@@ -19,7 +19,7 @@
 <?php include 'header.php';
 
 if(isLoggedIn()) {
-	header("Location:user-dashboard.php");
+	header("Location:dashboard.php");
 	ob_flush();
 }
 	?>
@@ -36,7 +36,6 @@ if(isLoggedIn()) {
 <!-- HTML -->
 <span class="titleh3">No need for nonsense...</span>
 <p class="content"><?php echo $description; ?></p>
-<p class="content"><?php echo "Example account: csmith , cats123" ?></p>
 <br />
 <hr />
 <br />
@@ -50,7 +49,12 @@ if(isLoggedIn()) {
 
 	if($_SERVER["REQUEST_METHOD"] == "GET")
 	{
-		$username = "";
+		if(isset($_COOKIE["UserCookie"])) {
+			$username = trim($_COOKIE["UserCookie"]);
+		}
+		else {
+			$username = "";
+		}
 		$password = "";
 	}
 	
@@ -73,9 +77,6 @@ if(isLoggedIn()) {
 		{
 			$connecting = "Please be patient, we are retrieving your account. <br/> This may takes a few moments...";
 			$connection = db_connect();
-			$results = pg_prepare($connection, "select_id_pass", 'SELECT id, password, first_name, last_name, email_address, enroll_date, last_access
-			FROM users
-			WHERE id = $1 AND password = $2');
 			$results = pg_execute($connection, "select_id_pass", array($username, md5($password)));
 			$records = pg_num_rows($results);
 			
@@ -86,16 +87,27 @@ if(isLoggedIn()) {
 				$_SESSION['output'] = $output;
 				$connection = db_connect();
 
-				$results = pg_prepare($connection, "date_update", 'UPDATE users SET last_access = current_date WHERE id = $1');
 				$results = pg_execute($connection, "date_update", array($username));
-				$_SESSION['username'] = $username;
-				header("Location:user-dashboard.php");
+
+    		$results = pg_execute($connection, "find_user", array($username));
+    		$dataArray = pg_fetch_assoc($results);
+
+				$_SESSION['username'] = $dataArray['id'];
+				$_SESSION['account_type'] = $dataArray['account_type'];
+				$_SESSION['first_name'] = $dataArray['first_name'];
+
+    		setcookie("UserCookie", $_SESSION['username'], time() + COOKIE_DURATION);
+
+				if($_SESSION['account_type'] == INCOMPLETE) {
+					header("Location:profile-create.php");
+				} else {
+					header("Location:dashboard.php");
+				}
     		ob_flush();
 			}
 			elseif($records < 1)
 			{		
 				$connection = db_connect();
-				$results = pg_prepare($connection, "find_user", "SELECT id, password, first_name, last_name, email_address, enroll_date, last_access FROM users WHERE id = $1");
 				$results = pg_execute($connection, "find_user", array($username));
 				$records = pg_num_rows($results);
 				
@@ -117,10 +129,10 @@ if(isLoggedIn()) {
 ?>
 	<br />
 	<h2 class="highlight">
-		<?php echo $error ?>
+		<?php echo $error; ?>
 	</h2>
 	<h2 class="highlight">
-		<?php echo $output ?>
+		<?php echo $output; ?>
 	</h2>
 	<br />
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">

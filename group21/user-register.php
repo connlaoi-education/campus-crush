@@ -19,7 +19,7 @@
 <?php include 'header.php';
 
 if(isLoggedIn()) { 
-	header("Location:user-dashboard.php");
+	header("Location:dashboard.php");
 	ob_flush();
 }
 	?>
@@ -46,7 +46,7 @@ if(isLoggedIn()) {
 	$results1 = "";
 	$results2 = "";
     $years = array();
-    for ($i=date("Y"); $i >= 1900; $i--) { 
+    for ($i=date("Y"); $i >= 1935; $i--) { 
          array_push($years, $i);
        }
 
@@ -153,6 +153,8 @@ if(isLoggedIn()) {
 			$last_name = "";
 		}
 
+		
+		$birthday = date($year . "-" . $month . "-" . $day);
 		if(!is_numeric($day) || !is_numeric($year))
 		{
 			$error .= "Invalid Birthdate. <br/>";
@@ -164,7 +166,7 @@ if(isLoggedIn()) {
 			$day = "";
 			$year = "";
 			$month = "";
-		} else if(calculate_age($year . "-" . $month . "-" . $day) < 18) {
+		} else if(calculate_Age($birthday) < 18) {
 			$error .= "Must be over 18 to use the site. <br/>";
 			$day = "";
 			$year = "";
@@ -185,7 +187,7 @@ if(isLoggedIn()) {
 		{
 			
 			$connection = db_connect();
-			$results = pg_prepare($connection, "select_id_pass", "SELECT users.id, users.password, users.first_name, users.last_name, users.email_address, users.account_type, users.enroll_date, users.last_access FROM users WHERE id = $1 AND password = $2");
+			$results = pg_prepare($connection, "select_id_pass", "SELECT id, password, first_name, last_name, email_address, account_type, birthday, enroll_date, last_access FROM users WHERE id = $1 AND password = $2");
 			$results = pg_execute($connection, "select_id_pass", array($username, md5($password)));
 			$records = pg_num_rows($results);
 			
@@ -195,12 +197,13 @@ if(isLoggedIn()) {
 			}
 			else
 			{	
-				$today = date("Y-m-d", time());
+				$today = date("Y-m-d");
+				$todayT = date("Y-m-d h:m");
+				
 				$connection = db_connect();
 
-				$results = pg_prepare($connection, "insert_user", 'INSERT INTO users (id, password, first_name, last_name, email_address, account_type, enroll_date, last_access) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)');
-				$results = pg_execute($connection, "insert_user", array($username, md5($password), $first_name,
-				$last_name, $email, $account_type, $today, $today));
+				$results = pg_prepare($connection, "insert_user", 'INSERT INTO users (id, password, first_name, last_name, email_address, account_type, birthday, enroll_date, last_access) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)');
+				$results = pg_execute($connection, "insert_user", array($username, md5($password), $first_name, $last_name, $email, $account_type, $birthday, $today, $todayT));
 	      $_SESSION['register'] = "Registration successful, please try login";
 				header("Location:user-login.php");
 				ob_flush();
@@ -246,22 +249,10 @@ if(isLoggedIn()) {
 		<tr><td><br/></td></tr>
 		<tr>
 			<td>Birthday</td>
-			<td>Day: <input type="text" name="day" value="<?php echo $day ?>" size="5">
+			<td>Day <input type="text" name="day" value="<?php echo $day ?>" size="5">
 			  Month
-				<select name="month">
-					<option value="1">January</option>
-					<option value="2">February</option>
-					<option value="3">March</option>
-					<option value="4">April</option>
-					<option value="5">May</option>
-					<option value="6">June</option>
-					<option value="7">July</option>
-					<option value="8">August</option>
-					<option value="9">September</option>
-					<option value="10">October</option>
-					<option value="11">November</option>
-					<option value="12">December</option>
-				</select>  Year
+			  <?php buildDropDown("month", "months", "month_name"); ?>
+			  Year
 			<select name="year">
 				<?php
 				for ($i=0; $i < count($years); $i++) { 
@@ -278,6 +269,8 @@ if(isLoggedIn()) {
 	</table>
 </form>
 <br />
+
+
 
 <!-- Include Footer PHP -->
  <?php include 'footer.php'; ?>
