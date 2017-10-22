@@ -4,7 +4,8 @@
 		$createddate = "September 19 2017";
 		$updateddate = "xxxx xx 2017";
 		$filename = "profile-search.php";
-		$banner = "Campus Crush - User Search";
+		$banner = "Campus Crush";
+		$page = "Search for Users";
 		$description = "Find your Friends - Or your Crush";
 ?>
 <!--

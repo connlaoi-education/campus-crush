@@ -1,11 +1,12 @@
 <!-- Page Info -->
 <?php
-		$title = "Campus Crush - Login";
-		$createddate = "September 19 2017";
-		$updateddate = "xxxx xx 2017";
-		$filename = "user-login.php";
-		$banner = "Campus Crush - Welcome back!";
-		$description = "There is no easier way to meet new people on campus!";
+	$title = "Campus Crush - Login";
+	$createddate = "September 19 2017";
+	$updateddate = "xxxx xx 2017";
+	$filename = "user-login.php";
+	$banner = "Campus Crush";
+	$page = "Login";
+	$description = "There is No Easier Way to Meet New People on Campus!";
 ?>
 <!--
 	Creator:      Connlaoi Smith
@@ -33,9 +34,15 @@ if(isLoggedIn()) {
 	 unset($_SESSION["register"]);
    }
   ?></p>
+  
 <!-- HTML -->
-<span class="titleh3">No need for nonsense...</span>
-<p class="content"><?php echo $description; ?></p>
+
+<p class="content">No Need for Nonsense...</p>
+
+<h3>
+	<?php echo $description; ?>
+</h3>
+
 <br />
 <hr />
 <br />

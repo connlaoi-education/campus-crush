@@ -4,9 +4,9 @@
     $createddate = "September 19 2017";
     $updateddate = "xxxx xx 2017";
     $filename = "dashboard.php";
-    $banner = "Campus Crush - Dashboard";
+    $banner = "Campus Crush";
+	$page = "Dashboard";
     $description = "Hello, Welcome!";
-	$userFirstName = ""
 ?>
 <!--
   Creator:      Jeremy Power
