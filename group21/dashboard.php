@@ -52,6 +52,7 @@ $content = file_get_contents('http://loripsum.net/api'); // for testing
 if($_SESSION["account_type"] == ADMIN)
 {
 	// LOAD ADMIN TOOLS in tabs(?)
+	echo '<h2>ADMIN DASHBOARD</h2>';
 	
 	// Database Moderation (Delete Account, Send Password Reset Email,etc)
 	// User Summaries (Graphs, Charts, etc)
@@ -62,11 +63,10 @@ if($_SESSION["account_type"] == ADMIN)
 elseif($_SESSION["account_type"] == CLIENT)
 {
 	// LOAD USER DASHBOARD
-	
-
-	echo($content); // for testing
+	echo '<h2>USER DASHBOARD</h2>';
 	
 	// User Profile Picture
+	
 	// Account Summary (User & Profile Information grouped for efficiency)
 	
 }

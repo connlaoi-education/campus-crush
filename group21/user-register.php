@@ -5,7 +5,7 @@
 		$updateddate = "xxxx xx 2017";
 		$filename = "user-register.php";
 		$banner = "Campus Crush - Registration";
-		$description = "Sign up quickly and easily - start meeting new people now!";
+		$description = "Sign up is quick and easy - start meeting new people now!";
 ?>
 <!--
 	Creator:      Jeremy Power, Minh Tri Ly
@@ -33,11 +33,8 @@ if(isLoggedIn()) {
 <p class="content"><?php echo $description; ?></p>
 
 <h3>
-		Please register in our system.
-	</h3>
-	<p>
-		Please enter your personal information:
-	</p>
+		Register below to Start Chatting with your Campus Crush today!
+</h3>
 	
 <?php
 

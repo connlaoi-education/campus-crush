@@ -59,25 +59,27 @@ if(!isLoggedIn()) {
 		$residence_type = "";
 		$campus = "";
 		$account_type = CLIENT;
-        if ($_SESSION["first"] == 1) {
-		$_SESSION['gender'] = "";
-		$_SESSION['gender_sought'] = "";
-		$_SESSION['city'] = "";
-		//$image = trim($_POST["image"]);
-		$_SESSION['headline'] = "";
-		$_SESSION['self_description'] = "";
-		$_SESSION['match_description'] = "";
-		$_SESSION['relationship_sought'] = "";
-		$_SESSION['relationship_status'] = "";
-		$_SESSION['preferred_age_minimum'] = "";
-		$_SESSION['preferred_age_maximum'] = "";
-		$_SESSION['religions'] = "";
-        $_SESSION['races'] = "";
-		$_SESSION['education_experience'] = "";
-		$_SESSION['habit'] = "";
-		$_SESSION['exercise'] = "";
-		$_SESSION['residence_type'] = "";
-		$_SESSION['campus'] = "";
+
+        if ($_SESSION["first"] == 1) 
+		{
+			$_SESSION['gender'] = "";
+			$_SESSION['gender_sought'] = "";
+			$_SESSION['city'] = "";
+			//$image = trim($_POST["image"]);
+			$_SESSION['headline'] = "";
+			$_SESSION['self_description'] = "";
+			$_SESSION['match_description'] = "";
+			$_SESSION['relationship_sought'] = "";
+			$_SESSION['relationship_status'] = "";
+			$_SESSION['preferred_age_minimum'] = "";
+			$_SESSION['preferred_age_maximum'] = "";
+			$_SESSION['religions'] = "";
+			$_SESSION['races'] = "";
+			$_SESSION['education_experience'] = "";
+			$_SESSION['habit'] = "";
+			$_SESSION['exercise'] = "";
+			$_SESSION['residence_type'] = "";
+			$_SESSION['campus'] = "";
 		}
 	}
 	
@@ -95,7 +97,7 @@ if(!isLoggedIn()) {
 		$preferred_age_minimum = trim($_POST["preferred_age_minimum"]);
 		$preferred_age_maximum = trim($_POST["preferred_age_maximum"]);
 		$religion_sought = trim($_POST["religions"]);
-    $race = trim($_POST["races"]);
+		$race = trim($_POST["races"]);
 		$education_experience = trim($_POST["education_experience"]);
 		$habits = trim($_POST["habit"]);
 		$exercise = trim($_POST["exercise"]);
