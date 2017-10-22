@@ -18,6 +18,7 @@ DROP TABLE IF EXISTS exercises;
 DROP TABLE IF EXISTS residences;
 DROP TABLE IF EXISTS campuses;
 DROP TABLE IF EXISTS months;
+DROP TABLE IF EXISTS users;
 
 
 -- CREATE tertiary tables
@@ -189,10 +190,72 @@ INSERT INTO months(month_id, month_name) VALUES('5','June');
 INSERT INTO months(month_id, month_name) VALUES('6','July');
 INSERT INTO months(month_id, month_name) VALUES('7','August');
 INSERT INTO months(month_id, month_name) VALUES('8','September');
-INSERT INTO months(month_id, month_name) VALUES('0','October');
+INSERT INTO months(month_id, month_name) VALUES('9','October');
 INSERT INTO months(month_id, month_name) VALUES('10','November');
 INSERT INTO months(month_id, month_name) VALUES('11','December');
 
+
+-- CREATE primary user table
+CREATE TABLE users(
+	id VARCHAR(20) PRIMARY KEY,
+	password CHAR(32) NOT NULL,
+	first_name CHAR(20) NOT NULL,
+	last_name CHAR(30) NOT NULL,
+	email_address CHAR(255) NOT NULL,
+	account_type CHAR(1) NOT NULL,
+	birthday DATE NOT NULL,
+	enroll_date DATE NOT NULL,
+	last_access DATE NOT NULL
+	);
+	
+-- CREATE initial user data
+INSERT INTO users(id, password, first_name, last_name, email_address, account_type, birthday, enroll_date, last_access) VALUES (
+	'admin',
+	'1492c81e612369f45f5509dfe8270b3c',
+	'Administrator',
+	'Privileges',
+	'group21@durhamcollege.ca',
+	'a',
+	'1980-08-01',
+	'2017-08-01',
+	'2017-08-02 06:00'
+);
+
+INSERT INTO users(id, password, first_name, last_name, email_address, account_type, birthday, enroll_date, last_access) VALUES (
+	'csmith',
+	'1492c81e612369f45f5509dfe8270b3c',
+	'Connlaoi',
+	'Smith',
+	'connlaoi.smith@durhamcollege.ca',
+	'i',
+	'1992-05-04',
+	'2017-09-01',
+	'2017-09-02 07:23'
+);
+
+INSERT INTO users(id, password, first_name, last_name, email_address, account_type, birthday, enroll_date, last_access) VALUES (
+	'jpower',
+	'0bdd6a22ce32c25322f0b86f2a83d2d9',
+	'Jeremy',
+	'Power',
+	'jeremy.power@durhamcollege.ca',
+	'i',
+	'1995-08-01',
+	'2017-09-01',
+	'2017-09-02 09:45'
+);
+
+INSERT INTO users(id, password, first_name, last_name, email_address, account_type, birthday, enroll_date, last_access) VALUES (
+	'lyminh',
+	'a97957182ad58593d01717d158d57893',
+	'Ly',
+	'Tri Minh',
+	'tri.minh.ly@durhamcollege.ca',
+	'i',
+	'1993-08-01',
+	'2017-09-01',
+	'2017-09-02 11:00'
+);
 
 
 -- CREATE secondary table
@@ -222,4 +285,4 @@ CREATE TABLE profiles(
 
 -- ADMIN PROFILE
 INSERT INTO profiles(user_id, gender, gender_sought, city, image, headline, self_description, match_description, relationship_sought, relationship_status, preferred_age_minimum, preferred_age_maximum, religion_sought, education_experience, race, habit, exercise, residence_type, campus) 
-VALUES ('admin','0','0','0','0','Campus Crush Administrator','N/A','N/A','0','0','0','0','0','0','0','0','0','0','0');
+VALUES ('admin','0','0','0','0','Campus Crush Administrator','NA','NA','0','0','0','0','0','0','0','0','0','0','0');

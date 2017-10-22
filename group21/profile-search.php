@@ -30,17 +30,28 @@ if(!isLoggedIn()) {
 
 <br />
 <hr />
-
+	
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
   <table>
     <tr>
-      <td class="tt1">Search:</td>
+      <td class="tt1">Search</td>
       <td><input type="text" name="searchbar" value="" size="20" /></td>
       <td><input type="submit" value="Search" /></td>
     </tr>
   </table>
 </form>
 
+<?php
+
+if($_SERVER["REQUEST_METHOD"] == "GET")
+	{
+		
+	}
+elseif($_SERVER["REQUEST_METHOD"] == "POST")
+	{
+		buildSearchResults($_POST["searchbar"]);
+	}
+	?>
 <br />
 
 

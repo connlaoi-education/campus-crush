@@ -32,5 +32,5 @@
 	// define admin user and password
 	define("DATABASE_USER", 'group21_admin', true);
 	define("DATABASE_PASSWORD", 'password', false);
-	
+
 ?>
