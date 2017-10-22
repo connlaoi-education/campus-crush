@@ -159,7 +159,7 @@ if(isLoggedIn()) {
 			$day = "";
 			$year = "";
 			$month = "";
-		} else if(!checkdate($month, $day, $year)) {
+		} else if(!checkdate(($month+1), $day, $year)) {
 			$error .= "Invalid Birthdate. <br/>";
 			$day = "";
 			$year = "";
@@ -197,10 +197,10 @@ if(isLoggedIn()) {
 			{	
 				$today = date("Y-m-d", time());
 				$connection = db_connect();
-
-				$results = pg_prepare($connection, "insert_user", 'INSERT INTO users (id, password, first_name, last_name, email_address, account_type, enroll_date, last_access) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)');
+				$birthdate = date("Y-m-d", ($year . "-" . $month . "-" . $day));
+				$results = pg_prepare($connection, "insert_user", 'INSERT INTO users (id, password, first_name, last_name, email_address, account_type, birthday, enroll_date, last_access) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)');
 				$results = pg_execute($connection, "insert_user", array($username, md5($password), $first_name,
-				$last_name, $email, $account_type, $today, $today));
+				$last_name, $email, $account_type, $birthdate, $today, $today));
 	      $_SESSION['register'] = "Registration successful, please try login";
 				header("Location:user-login.php");
 				ob_flush();
