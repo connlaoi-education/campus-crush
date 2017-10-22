@@ -122,13 +122,15 @@ if(!isLoggedIn()) {
 			    $results = pg_execute($connection, "insert_profile", array($_SESSION['username'], $gender, $gender_sought, $city, 0, $headline, $self_description, $match_description, $relationship_sought, $relationship_status, $preferred_age_minimum, $preferred_age_maximum, $religion_sought, $education_experience, $race, $habits, $exercise, $residence_type, $campus));
 
         //complete their profile
-				$results = pg_execute($connection, "update_account", array($account_type, $_SESSION['username']));
+				$results = pg_execute($connection, "update_account", array(CLIENT, $_SESSION['username']));
         $_SESSION['account_type'] = CLIENT;
 
         //otherwise, update
         } else {
           $results = pg_execute($connection, "update_profile", array($gender, $gender_sought, $city, 0, $headline, $self_description, $match_description, $relationship_sought, $relationship_status, $preferred_age_minimum, $preferred_age_maximum, $religion_sought, $education_experience, $race, $habits, $exercise, $residence_type, $campus));
         }
+        header("Location: profile-create.php");
+        ob_flush();
 		}
 	}
 ?>
