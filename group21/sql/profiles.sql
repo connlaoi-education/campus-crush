@@ -220,4 +220,4 @@ CREATE TABLE profiles(
 
 -- ADMIN PROFILE
 INSERT INTO profiles(user_id, gender, gender_sought, city, image, headline, self_description, match_description, relationship_sought, relationship_status, preferred_age_minimum, preferred_age_maximum, religion_sought, education_experience, race, habit, exercise, residence_type, campus) 
-VALUES ('admin','0','0','0','0','Campus Crush Administrator','NA','NA','0','0','0','0','0','0','0','0','0','0','0');
+VALUES ('admin','0','0','0','0','Campus Crush Administrator','N/A','N/A','0','0','0','0','0','0','0','0','0','0','0');

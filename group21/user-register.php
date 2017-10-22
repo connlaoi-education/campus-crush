@@ -153,8 +153,6 @@ if(isLoggedIn()) {
 			$last_name = "";
 		}
 
-		
-		$birthday = date($year . "-" . $month . "-" . $day);
 		if(!is_numeric($day) || !is_numeric($year))
 		{
 			$error .= "Invalid Birthdate. <br/>";
@@ -166,7 +164,7 @@ if(isLoggedIn()) {
 			$day = "";
 			$year = "";
 			$month = "";
-		} else if(calculate_Age($birthday) < 18) {
+		} else if(calculate_Age($year . "-" . $month . "-" . $day) < 18) {
 			$error .= "Must be over 18 to use the site. <br/>";
 			$day = "";
 			$year = "";
@@ -187,7 +185,7 @@ if(isLoggedIn()) {
 		{
 			
 			$connection = db_connect();
-			$results = pg_prepare($connection, "select_id_pass", "SELECT id, password, first_name, last_name, email_address, account_type, birthday, enroll_date, last_access FROM users WHERE id = $1 AND password = $2");
+			$results = pg_prepare($connection, "select_id_pass", "SELECT users.id, users.password, users.first_name, users.last_name, users.email_address, users.account_type, users.enroll_date, users.last_access FROM users WHERE id = $1 AND password = $2");
 			$results = pg_execute($connection, "select_id_pass", array($username, md5($password)));
 			$records = pg_num_rows($results);
 			
@@ -197,13 +195,12 @@ if(isLoggedIn()) {
 			}
 			else
 			{	
-				$today = date("Y-m-d");
-				$todayT = date("Y-m-d h:m");
-				
+				$today = date("Y-m-d", time());
 				$connection = db_connect();
 
-				$results = pg_prepare($connection, "insert_user", 'INSERT INTO users (id, password, first_name, last_name, email_address, account_type, birthday, enroll_date, last_access) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)');
-				$results = pg_execute($connection, "insert_user", array($username, md5($password), $first_name, $last_name, $email, $account_type, $birthday, $today, $todayT));
+				$results = pg_prepare($connection, "insert_user", 'INSERT INTO users (id, password, first_name, last_name, email_address, account_type, enroll_date, last_access) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)');
+				$results = pg_execute($connection, "insert_user", array($username, md5($password), $first_name,
+				$last_name, $email, $account_type, $today, $today));
 	      $_SESSION['register'] = "Registration successful, please try login";
 				header("Location:user-login.php");
 				ob_flush();
