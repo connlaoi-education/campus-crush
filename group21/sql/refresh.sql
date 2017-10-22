@@ -125,6 +125,8 @@ INSERT INTO races(race_id, race_name) VALUES('1','Asian');
 INSERT INTO races(race_id, race_name) VALUES('2','Black or African American');
 INSERT INTO races(race_id, race_name) VALUES('3','Caucasian');
 INSERT INTO races(race_id, race_name) VALUES('4','Pacific or Hawaiian Native');
+INSERT INTO races(race_id, race_name) VALUES('5','Middle Eastern');
+INSERT INTO races(race_id, race_name) VALUES('6','Indian');
 
 
 -- HABITS
@@ -179,18 +181,18 @@ CREATE TABLE months(
 	month_id INTEGER NOT NULL PRIMARY KEY,
 	month_name VARCHAR(9) NOT NULL
 ); 
-INSERT INTO months(month_id, month_name) VALUES('1','January');
-INSERT INTO months(month_id, month_name) VALUES('2','February');
-INSERT INTO months(month_id, month_name) VALUES('3','March');
-INSERT INTO months(month_id, month_name) VALUES('4','April');
-INSERT INTO months(month_id, month_name) VALUES('5','May');
-INSERT INTO months(month_id, month_name) VALUES('6','June');
-INSERT INTO months(month_id, month_name) VALUES('7','July');
-INSERT INTO months(month_id, month_name) VALUES('8','August');
-INSERT INTO months(month_id, month_name) VALUES('9','September');
-INSERT INTO months(month_id, month_name) VALUES('10','October');
-INSERT INTO months(month_id, month_name) VALUES('11','November');
-INSERT INTO months(month_id, month_name) VALUES('12','December');
+INSERT INTO months(month_id, month_name) VALUES('0','January');
+INSERT INTO months(month_id, month_name) VALUES('1','February');
+INSERT INTO months(month_id, month_name) VALUES('2','March');
+INSERT INTO months(month_id, month_name) VALUES('3','April');
+INSERT INTO months(month_id, month_name) VALUES('4','May');
+INSERT INTO months(month_id, month_name) VALUES('5','June');
+INSERT INTO months(month_id, month_name) VALUES('6','July');
+INSERT INTO months(month_id, month_name) VALUES('7','August');
+INSERT INTO months(month_id, month_name) VALUES('8','September');
+INSERT INTO months(month_id, month_name) VALUES('9','October');
+INSERT INTO months(month_id, month_name) VALUES('10','November');
+INSERT INTO months(month_id, month_name) VALUES('11','December');
 
 
 -- CREATE primary user table
