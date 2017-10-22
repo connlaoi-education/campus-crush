@@ -5,7 +5,6 @@
 		$updateddate = "xxxx xx 2017";
 		$filename = "profile-display.php";
 		$banner = "Campus Crush";
-		$description = $_SESSION['first_name'];
 ?>
 <!--
 	Creator:      Connlaoi Smith

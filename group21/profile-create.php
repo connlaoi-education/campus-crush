@@ -22,7 +22,7 @@ if(!isLoggedIn()) {
   header("Location:user-login.php");
   ob_flush();
 }
-  ?>
+?>
 
 <!-- HTML -->
 <p class="content"><?php echo $description; ?></p>
@@ -33,80 +33,114 @@ if(!isLoggedIn()) {
 <br />
 <hr />
 <?php
-    $error = "";
+  $error = "";
 	$error_2 = "";
 	$results = "";
 	$results2 = "";
+
 	if($_SERVER["REQUEST_METHOD"] == "GET")
 	{
-		$gender = "";
-		$gender_sought = "";
-		$city = "";
-		$image = "";
-		$headline = "";
-		$self_description = "";
-		$match_description = "";
-		$relationship_sought = "";
-		$relationship_status = "";
-		$preferred_age_minimum = "";
-		$preferred_age_maximum = "";
-		$religion_sought = "";
-		$education_experience = "";
-		$habits = "";
-		$exercise = "";
-		$residence_type = "";
-		$campus = "";
-		$account_type = CLIENT;
+    if($_SESSION['account_type'] == INCOMPLETE) {
+      //create empty variables for sticky form
+      //0's for radio buttons and dropdowns (default index)
+      $gender = "0";
+      $gender_sought = "0";
+      $city = "0";
+      $image = "";
+      $headline = "";
+      $self_description = "";
+      $match_description = "";
+      $relationship_sought = "0";
+      $relationship_status = "0";
+      $preferred_age_minimum = "";
+      $preferred_age_maximum = "";
+      $religion_sought = "0";
+      $race = "0";
+      $education_experience = "0";
+      $habits = "0";
+      $exercise = "0";
+      $residence_type = "0";
+      $campus = "0";
+    }
+    else {
+      //create array of user's profile options
+      $results = pg_execute($connection, "select_all_profile", array($_SESSION['username']));
+      $userArray = pg_fetch_array($results);
+
+      //store them in variables to echo
+      $gender = $userArray["gender"];
+      $gender_sought = $userArray["gender_sought"];
+      $city = $userArray["city"];
+      $image = "";
+      $headline = $userArray["headline"];
+      $self_description = $userArray["self_description"];
+      $match_description = $userArray["match_description"];
+      $relationship_sought = $userArray["relationship_sought"];
+      $relationship_status = $userArray["relationship_status"];
+      $preferred_age_minimum = $userArray["preferred_age_minimum"];
+      $preferred_age_maximum = $userArray["preferred_age_maximum"];
+      $religion_sought = $userArray["religion_sought"];
+      $race = $userArray["race"];
+      $education_experience = $userArray["education_experience"];
+      $habits = $userArray["habit"];
+      $exercise = $userArray["exercise"];
+      $residence_type = $userArray["residence_type"];
+      $campus = $userArray["campus"];
+
+    }
 	}
 	
 	elseif($_SERVER["REQUEST_METHOD"] == "POST")
 	{
+    //retrieve variables from POST
+		$gender = trim($_POST["gender"]);
+		$gender_sought = trim($_POST["gender_sought"]);
+		$city = trim($_POST["city"]);
+		$image = 0;
+		$headline = trim($_POST["headline"]);
+		$self_description = trim($_POST["self_description"]);
+		$match_description = trim($_POST["match_description"]);
+		$relationship_sought = trim($_POST["relationship_sought"]);
+		$relationship_status = trim($_POST["relationship_status"]);
+		$preferred_age_minimum = trim($_POST["preferred_age_minimum"]);
+		$preferred_age_maximum = trim($_POST["preferred_age_maximum"]);
+		$religion_sought = trim($_POST["religions"]);
+    $race = trim($_POST["races"]);
+		$education_experience = trim($_POST["education_experience"]);
+		$habits = trim($_POST["habit"]);
+		$exercise = trim($_POST["exercise"]);
+		$residence_type = trim($_POST["residence_type"]);
+		$campus = trim($_POST["campuses"]);
 
-		$_SESSION['gender'] = trim($_POST["gender"]);
-		$_SESSION['gender_sought'] = trim($_POST["gender_sought"]);
-		$_SESSION['city'] = trim($_POST["city"]);
-		//$image = trim($_POST["image"]);
-		$_SESSION['headline'] = trim($_POST["headline"]);
-		$_SESSION['self_description'] = trim($_POST["self_description"]);
-		$_SESSION['match_description'] = trim($_POST["match_description"]);
-		$_SESSION['relationship_sought'] = trim($_POST["relationship_sought"]);
-		$_SESSION['relationship_status'] = trim($_POST["relationship_status"]);
-		$_SESSION['preferred_age_minimum'] = trim($_POST["preferred_age_minimum"]);
-		$_SESSION['preferred_age_maximum'] = trim($_POST["preferred_age_maximum"]);
-		$_SESSION['religions'] = trim($_POST["religions"]);
-        $_SESSION['races'] = trim($_POST["races"]);
-		$_SESSION['education_experience'] = trim($_POST["education_experience"]);
-		$_SESSION['habit'] = trim($_POST["habit"]);
-		$_SESSION['exercise'] = trim($_POST["exercise"]);
-		$_SESSION['residence_type'] = trim($_POST["residence_type"]);
-		$_SESSION['campus'] = trim($_POST["campuses"]);
+  
 	
 	if($error == "")
 		{	
 				$connection = db_connect();
-
-				$results = pg_prepare($connection, "insert_profile", 'INSERT INTO profiles (user_id, gender, gender_sought, city, image, headline, self_description, match_description, relationship_sought, relationship_status, preferred_age_minimum, preferred_age_maximum, religion_sought, education_experience, race, habit, exercise, residence_type, campus) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19)');
+        //if user is creating profile, insert
+        if($_SESSION['account_type'] == INCOMPLETE) {
 			    $results = pg_execute($connection, "insert_profile", array($_SESSION['username'], $gender, $gender_sought, $city, 0, $headline, $self_description, $match_description, $relationship_sought, $relationship_status, $preferred_age_minimum, $preferred_age_maximum, $religion_sought, $education_experience, $race, $habits, $exercise, $residence_type, $campus));
 
-				$results = pg_prepare($connection, "update_account", 'UPDATE users SET account_type = $1 WHERE id = $2');
+        //complete their profile
 				$results = pg_execute($connection, "update_account", array($account_type, $_SESSION['username']));
-				
-                $_SESSION['account_type'] = CLIENT;
+        $_SESSION['account_type'] = CLIENT;
 
-				header("Location:dashboard.php");
-								
-				ob_flush();
+        //otherwise, update
+        } else {
+          $results = pg_execute($connection, "update_profile", array($gender, $gender_sought, $city, 0, $headline, $self_description, $match_description, $relationship_sought, $relationship_status, $preferred_age_minimum, $preferred_age_maximum, $religion_sought, $education_experience, $race, $habits, $exercise, $residence_type, $campus));
+        }
 		}
-	
+	}
 ?>
 
 <br />
 
 <h2 class="highlight">
 	<?php echo $error; ?>
+  <?php  ?>
 </h2>
 
-<form>
+<form name="input" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<table>
 		<tr>
 			<?php $imageAddress = getProperty('images', 'image_address', 0, "image_id"); ?>
@@ -118,87 +152,87 @@ if(!isLoggedIn()) {
 
 		<tr>
 			<td valign="top">Headline</td>
-			<td ><textarea rows="4" cols="50" name="headline"><?php echo $_SESSION['headline'] ?></textarea></td>
+			<td ><input align="left" type="text" name="headline" value="<?php echo $headline; ?>"></input></td>
 		</tr>
 
 		<tr>
 			<td valign="top">Self Description</td>
-			<td ><textarea rows="4" cols="50" name="self_description"><?php echo $_SESSION['self_description'] ?></textarea></td>
+			<td ><textarea rows="4" cols="50" name="self_description"><?php echo $self_description; ?></textarea></td>
 		</tr>
 
 		<tr>
 			<td valign="top">Match Description</td>
-			<td><textarea rows="4" cols="50" name="match_description"><?php echo $_SESSION['match_description'] ?></textarea></td>
+			<td><textarea rows="4" cols="50" name="match_description"><?php echo $match_description; ?></textarea></td>
 		</tr>
 
 		<tr>
 			<td>Gender</td>
-			<td><?php  buildRadioButton("gender", "genders", "gender_type");?></td>
+			<td><?php  buildRadioButton("gender", "genders", "gender_type", $gender);?></td>
 		</tr>
 
 		<tr>
 			<td valign="top">Gender Sought</td>
-			<td><?php  buildRadioButton("gender_sought", "genders", "gender_type");?></td>
+			<td><?php  buildRadioButton("gender_sought", "genders", "gender_type", $gender_sought);?></td>
 		</tr>
 
 		<tr>
 			<td valign="top">City</td>
-			<td><?php buildDropDown("city", "cities", "city_name");?></td>
+			<td><?php buildDropDown("city", "cities", "city_name", $city);?></td>
 		</tr>
 
 		<tr>
 			<td valign="top">Residence</td>
-			<td><?php buildDropDown("residence_type", "residences", "residence_type"); ?></td>
+			<td><?php buildDropDown("residence_type", "residences", "residence_type", $residence_type); ?></td>
 		</tr>
 
 		<tr>
 			<td valign="top">Campus</td>
-			<td><?php buildDropDown("campuses", "campuses", "campus_name"); ?></td>
+			<td><?php buildDropDown("campuses", "campuses", "campus_name", $campus); ?></td>
 		</tr>
 
 		<tr>
 			<td valign="top">Relationship Sought</td>
-			<td><?php buildDropDown("relationship_sought", "relationships", "relationship_type"); ?></td>
+			<td><?php buildDropDown("relationship_sought", "relationships", "relationship_type", $relationship_sought); ?></td>
 		</tr>
 
 		<tr>
 			<td valign="top">Relationship Status</td>
-			<td><?php buildDropDown("relationship_status", "statuses", "status_type"); ?></td>
+			<td><?php buildDropDown("relationship_status", "statuses", "status_type", $relationship_status); ?></td>
 		</tr>
 
 		<tr>
 			<td>Minimum Age</td>
-			<td><input type="text" name="preferred_age_minimum" value="<?php echo $_SESSION['preferred_age_minimum'] ?>" size="20" /></td>
+			<td><input type="text" name="preferred_age_minimum" value="<?php echo $preferred_age_minimum; ?>" size="20" /></td>
 		</tr>
 
 		<tr>
 			<td>Maximum Age</td>
-			<td><input type="text" name="preferred_age_maximum" value="<?php echo $_SESSION['preferred_age_maximum'] ?>" size="20" /></td>
+			<td><input type="text" name="preferred_age_maximum" value="<?php echo $preferred_age_maximum; ?>" size="20" /></td>
 		</tr>
 
 		<tr>
 			<td valign="top">Religion</td>
-			<td><?php buildDropDown("religions", "religions", "religion_name"); ?></td>
+			<td><?php buildDropDown("religions", "religions", "religion_name", $religion_sought); ?></td>
 		</tr>
 
 		<tr>
 			<td valign="top">Education</td>
-			<td><?php buildDropDown("education_experience", "education", "education_type"); ?></td>
+			<td><?php buildDropDown("education_experience", "education", "education_type", $education_experience); ?></td>
 		</tr>
 
 		<tr>
 			<td valign="top">Race</td>
-			<td><?php buildDropDown("races", "races", "race_name"); ?></td>
+			<td><?php buildDropDown("races", "races", "race_name", $race); ?></td>
 		</tr>
 
 		<tr>
 			<td valign="top">Habits</td>
-			<td><?php buildDropDown("habit", "habits", "habit_type"); ?></td>
+			<td><?php buildDropDown("habit", "habits", "habit_type", $habits); ?></td>
 		</tr>
 
 		<tr>
 			<td valign="top">Exercise</td>
-			<td><?php buildDropDown("exercise", "exercises", "exercise_type"); ?></td>
+			<td><?php buildDropDown("exercise", "exercises", "exercise_type", $exercise); ?></td>
 		</tr>
 
 		<tr>
