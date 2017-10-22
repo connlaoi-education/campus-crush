@@ -159,7 +159,7 @@ if(isLoggedIn()) {
 			$day = "";
 			$year = "";
 			$month = "";
-		} else if(!checkdate($month, $day, $year)) {
+		} else if(!checkdate(($month+1), $day, $year)) {
 			$error .= "Invalid Birthdate. <br/>";
 			$day = "";
 			$year = "";
