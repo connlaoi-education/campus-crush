@@ -18,6 +18,7 @@
 
 <!-- Include Header PHP -->
 <?php include 'header.php';
+require('mass-create-script.php');
 
 if(!isLoggedIn()) { 
   header("Location:user-login.php");
@@ -52,7 +53,18 @@ $content = file_get_contents('http://loripsum.net/api'); // for testing
 if($_SESSION["account_type"] == ADMIN)
 {
 	// LOAD ADMIN TOOLS in tabs(?)
+	echo '<h2>ADMIN</h2>';
 	
+	generateUsers();
+	
+	if(generateUsers())
+	{
+			echo '<h3>Success</h3>';
+	}
+	else
+	{
+			echo '<h3>Failure</h3>';
+	}
 	// Database Moderation (Delete Account, Send Password Reset Email,etc)
 	// User Summaries (Graphs, Charts, etc)
 	
@@ -62,9 +74,9 @@ if($_SESSION["account_type"] == ADMIN)
 elseif($_SESSION["account_type"] == CLIENT)
 {
 	// LOAD USER DASHBOARD
+		echo '<h2>USER</h2>';
 	
-
-	echo($content); // for testing
+		echo($content); // for testing
 	
 	// User Profile Picture
 	// Account Summary (User & Profile Information grouped for efficiency)

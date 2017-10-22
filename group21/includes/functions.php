@@ -19,12 +19,6 @@
         $age = date_diff(date_create($birthdate), date_create('now'))->y;
         return $age;
     }
-	
-	function getSearchUsers($first_Name) {
-		$connection = db_connect();
-		$results = pg_execute($connection,"select_all_user_info",$first_Name);
-		return $results;
-	}
 
 	function isLoggedIn() {
 		if(isset($_SESSION['username'])) {

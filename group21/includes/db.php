@@ -105,19 +105,13 @@
 		}
 	}
 	
+	function buildSearchResults($search)
+	{
+		$array = getProperty('users','id',$search,'first_name');
+		$array2 = getProperty('users','last_name',$search,'first_name');
+
+	echo("<table>\n<tr><td>" . $array . "</td>" . "<td>" . $search . "</td>" . "<td>Last Name" . $array2 . "</td>\n</tr></table>\n\n");
 	
-	function buildSearchResults($first_Name) {
-        
-		$array = getSearchUsers($first_Name);
-
-        for ($i=0; $i < count($array); $i++)
-		{
-		
-                echo("<tr><td>" . $array[$i]["first_name"] . "</td>");
-
-                echo("<td>" . $array[$i]["city"] . "</td></tr>\n");
-
-        }
     }
 	
 ?>
