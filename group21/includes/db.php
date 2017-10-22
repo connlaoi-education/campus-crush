@@ -38,22 +38,28 @@
 	}
 
      function buildDropDown($name, $table, $property) {
+
         $array = getAllProperty($table, $property);
+		
         echo("<select name=\"" . $name . "\">\n");
+		
         for ($i=0; $i < count($array); $i++) { 
-            if ($_SESSION[$name] == $i)
+           
+		   if ($_SESSION[$name] == $i)
             {
                 echo("<option value=\"" . $i . "\" selected>" . $array[$i][$property] . "</option>\n");
             }
+			
             else
             {
                 if ($i == 0)
-                {echo("<option value=\"" . $i . "\"selected>" . $array[$i][$property] . "</option>\n");
+                {
+					echo("<option value=\"" . $i . "\"selected>" . $array[$i][$property] . "</option>\n");
                 }
                 else
-                {echo("<option value=\"" . $i . "\">" . $array[$i][$property] . "</option>\n");
+                {
+					echo("<option value=\"" . $i . "\">" . $array[$i][$property] . "</option>\n");
                 }
-            
             }
         }
         echo("</select>");
