@@ -76635,7 +76635,9 @@ function generateUsers() {
 			
 	// GENERATE PROFILE DETAILS
 			
-		// USER ID (same as above, no need to re-declare)
+		// USER ID (declared above)
+		
+		// GENDER (declared above with name randomization)
 		
 		// GENDER SOUGHT (3 choices - so 0,1,2 )
 			$genderSought = mt_rand(0, 2);
