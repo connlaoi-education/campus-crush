@@ -155,12 +155,12 @@ if(isLoggedIn()) {
 
 		if(!is_numeric($day) || !is_numeric($year))
 		{
-			$error .= "1Invalid Birthdate. <br/>";
+			$error .= "Invalid Birthdate. <br/>";
 			$day = "";
 			$year = "";
 			$month = "";
 		} else if(!checkdate($month, $day, $year)) {
-			$error .= $month . " " . $day . " " . $year . " <br/>";
+			$error .= "Invalid Birthdate. <br/>";
 			$day = "";
 			$year = "";
 			$month = "";
@@ -252,7 +252,7 @@ if(isLoggedIn()) {
 			  Year
 			<select name="year">
 				<?php
-				for ($i=0; $i < count($years); $i++) { 
+				for ($i=0; $i < count($years); $i++) {
 					echo "<option>" . $years[$i] . "</option>";
 				}
 				?>
