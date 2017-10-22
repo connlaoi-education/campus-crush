@@ -35,6 +35,7 @@
 // <editor-fold>
 
 
+//retrieves one piece of data from DB
 	function getProperty($table, $property, $id, $idName) {
 		$connection = db_connect();
 		$results = pg_prepare($connection, "get_property_where", "SELECT " . $property . " FROM " . $table . " WHERE " . $idName . " = $1");
@@ -42,14 +43,19 @@
 		return pg_fetch_result($results, 0, $property);
 	}
 
+//retrieves a column of data as an array given the table and column name
 	function getAllProperty($table, $property) {
 		$connection = db_connect();
 		$sql = "SELECT " . $property . " FROM " . $table;
 		$results = pg_query($connection, $sql);
 		return pg_fetch_all($results);
 	}
-
-     function buildDropDown($name, $table, $property, $selected) {
+		//creates a dropdown box given
+		//$name - the name of the select object
+		//$table - the table to retrieve data objects from
+		//$property - the column to retrieve the values shown
+		//$selected - the default option when created
+    function buildDropDown($name, $table, $property, $selected) {
         $array = getAllProperty($table, $property);
         echo("<select name=\"" . $name . "\">\n");
         for ($i=0; $i < count($array); $i++) { 
@@ -66,6 +72,11 @@
         echo("</select>");
     }
 
+		//creates radio buttons given
+		//$name - the name of the radio buttons object
+		//$table - the table to retrieve data objects from
+		//$property - the column to retrieve the values shown
+		//$selected - the default option when created
 	function buildRadioButton($name, $table, $property, $selected) {
 		$array = getAllProperty($table, $property);
 

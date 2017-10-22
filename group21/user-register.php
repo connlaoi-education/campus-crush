@@ -155,12 +155,12 @@ if(isLoggedIn()) {
 
 		if(!is_numeric($day) || !is_numeric($year))
 		{
-			$error .= "Invalid Birthdate. <br/>";
+			$error .= "1Invalid Birthdate. <br/>";
 			$day = "";
 			$year = "";
 			$month = "";
 		} else if(!checkdate($month, $day, $year)) {
-			$error .= "Invalid Birthdate. <br/>";
+			$error .= $month . " " . $day . " " . $year . " <br/>";
 			$day = "";
 			$year = "";
 			$month = "";
@@ -246,9 +246,9 @@ if(isLoggedIn()) {
 		<tr><td><br/></td></tr>
 		<tr>
 			<td>Birthday</td>
-			<td>Day <input type="text" name="day" value="<?php echo $day ?>" size="5">
+			<td>Day <input type="text" name="day" value="<?php echo $day ?>" size="5"/>
 			  Month
-			  <?php buildDropDown("month", "months", "month_name"); ?>
+			  <?php buildDropDown("month", "months", "month_name", $month); ?>
 			  Year
 			<select name="year">
 				<?php
