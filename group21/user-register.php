@@ -248,7 +248,7 @@ if(isLoggedIn()) {
 			<td>Birthday</td>
 			<td>Day <input type="text" name="day" value="<?php echo $day ?>" size="5">
 			  Month
-			  <?php buildDropDown("month", "months", "month_name"); ?>
+			  <?php buildDropDown("month", "months", "month_name", $month); ?>
 			  Year
 			<select name="year">
 				<?php
