@@ -36,8 +36,6 @@
 
 	pg_prepare($connection, "update_account", 'UPDATE users SET account_type = $1 WHERE id = $2');
 	
-	pg_prepare($connection, "select_all_user_info", "SELECT * FROM users WHERE first_name = $1");
-	
 	
 // <editor-fold>
 
@@ -96,7 +94,7 @@
 		for ($i=0; $i < count($array); $i++) { 
 			if ($selected == $i) 
 			{
-			echo("<input type=\"radio\" name=\"" . $name . "\" value=\"" . $i . "\" checked>" . $array[$i][$property] . "<br/>\n");
+				echo("<input type=\"radio\" name=\"" . $name . "\" value=\"" . $i . "\" checked>" . $array[$i][$property] . "<br/>\n");
 			} 
 			else 
 			{
@@ -105,13 +103,39 @@
 		}
 	}
 	
-	function buildSearchResults($search)
-	{
-		$array = getProperty('users','id',$search,'first_name');
-		$array2 = getProperty('users','last_name',$search,'first_name');
-
-	echo("<table>\n<tr><td>" . $array . "</td>" . "<td>" . $search . "</td>" . "<td>Last Name" . $array2 . "</td>\n</tr></table>\n\n");
-	
+	function buildSearchResults($search) {
+		
+		// do validation on input here eventually
+		$connection = db_connect();
+		$sql = "SELECT * FROM users WHERE first_name = '" . $search . "'";
+		$results = pg_query($connection, $sql);
+		$userIDs = pg_fetch_all($results);
+		
+		echo("
+				<table style='width:100%; height:100%;'>
+				
+					<tr style='width:100%; height:2%;'>
+						<th style='height:100%; width:10%; text-align:left;'><h2></h2></th>
+						<th style='height:100%; width:30%; text-align:left;'><h2>Search Results</h2></th>
+						<th style='height:100%; width:30%; text-align:left;'><h2></h2></th>
+						<th style='height:100%; width:30%; text-align:left;'><h2></h2></th>
+					</tr>
+				");
+					
+		// FOR LOOP STARTS HERE
+		
+		for($i=0; $i < count($userIDs); $i++) {
+			echo("
+					<tr style='width:100%; height:2%;'>\n
+						<td style='height:100%; width:10%;'><img style='height:7%; width:70%; box-shadow: 5px 5px 5px #999;' src='./images/default_user.png'/></td>\n
+						<td style='height:100%; width:20%; text-align:left; padding-left:5px;'><h3>" . $userIDs[$i]['first_name'] . "</h3></td>\n
+						<td style='height:100%; width:20%; text-align:left; padding-left:5px;'><h3>" . $userIDs[$i]['last_name'] . "</h3></td>\n
+						<td style='height:100%; width:50%; text-align:left; padding-left:5px;'><p class='content'>" . $userIDs[$i]['id'] . "</p></td>\n
+					</tr>\n
+					");
+	}
+		// FOR LOOP ENDS HERE
+		echo("</table>\n");
     }
 	
 ?>

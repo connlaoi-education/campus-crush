@@ -18,7 +18,6 @@
 
 <!-- Include Header PHP -->
 <?php include 'header.php';
-require('mass-create-script.php');
 
 if(!isLoggedIn()) { 
   header("Location:user-login.php");
@@ -55,16 +54,7 @@ if($_SESSION["account_type"] == ADMIN)
 	// LOAD ADMIN TOOLS in tabs(?)
 	echo '<h2>ADMIN</h2>';
 	
-	generateUsers();
-	
-	if(generateUsers())
-	{
-			echo '<h3>Success</h3>';
-	}
-	else
-	{
-			echo '<h3>Failure</h3>';
-	}
+
 	// Database Moderation (Delete Account, Send Password Reset Email,etc)
 	// User Summaries (Graphs, Charts, etc)
 	
