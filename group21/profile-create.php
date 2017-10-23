@@ -129,7 +129,7 @@ if(!isLoggedIn()) {
 			}
 			//otherwise, update
 			else {
-				$results = pg_execute($connection, "update_profile", array($gender, $gender_sought, $city, 0, $headline, $self_description, $match_description, $relationship_sought, $relationship_status, $preferred_age_minimum, $preferred_age_maximum, $religion_sought, $education_experience, $race, $habits, $exercise, $residence_type, $campus));
+				$results = pg_execute($connection, "update_profile", array($gender, $gender_sought, $city, 0, $headline, $self_description, $match_description, $relationship_sought, $relationship_status, $preferred_age_minimum, $preferred_age_maximum, $religion_sought, $education_experience, $race, $habits, $exercise, $residence_type, $campus, $_SESSION['username']));
 			}
 		}
 	}
@@ -139,7 +139,6 @@ if(!isLoggedIn()) {
 
 <h2 class="highlight">
 	<?php echo $error; ?>
-  <?php  ?>
 </h2>
 
 <form name="input" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
