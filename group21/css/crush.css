@@ -21,7 +21,7 @@ p {
 }
 
 img {
-	width: 70%;
+	width: 100%;
 }
 
 th {
@@ -83,17 +83,16 @@ em {
 
 #container
 {
-	margin: 0 auto;
-	width: 80%;
-	padding-left: 10%;
-	padding-right:10%;
+	width: 100%;
+	/* padding-left: 10%; */
+	/* padding-right:10%; */
 	background: #f7f7f7;
 }
 
 #header
 {
 	background: #4A7C59;
-	padding: 20px;
+	padding: 2% 10% 2% 10%;
 	height: 10%;
 }
 
@@ -113,9 +112,10 @@ em {
 #sites
 {
 	float: left;
-	width: 80%;
+	width: 100%;
 	padding-left: 10%;
 	padding-right:10%;
+	/* padding: 2% 15% 2% 15%; */
 	background: #73D45F;
 }
 
@@ -164,8 +164,9 @@ em {
 
 #content-container
 {
-	float: left;
-	width: 80%;
+	/* float: left; */
+	/* width: 80%; */
+	height: 100%;
 	background-color: #f7f7f7;
 	display: inline;
 }
@@ -173,12 +174,12 @@ em {
 #content
 {
 	float: left;
-	width: 60%;
+	width: 100%;
 	text-align: center;
-	padding: 20px 0;
-	margin: 2% 2% 5% 2%;
+	/* padding: 2% 2% 2% 2%; */
+	/* margin: 2% 2% 5% 2%; */
 	display: inline;
-	height: 80%;
+	/* height: 80%; */
 }
 
 #content h2 
