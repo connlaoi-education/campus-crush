@@ -144,9 +144,8 @@ if(!isLoggedIn()) {
 <form name="input" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<table>
 		<tr>
-			<?php $imageAddress = getProperty('images', 'image_address', 0, "image_id"); ?>
-			
 			<td>Image</td>
+			<?php $imageAddress = getProperty('images', 'image_address', 0, "image_id"); ?>
 			<td><img style="height: 64px; width: 64px;" src="<?php echo($imageAddress); ?>"/></td>
 			<td><button type="button">Browse</button></td>
 		</tr>
