@@ -113,8 +113,6 @@ em {
 {
 	float: left;
 	width: 100%;
-	padding-left: 10%;
-	padding-right:10%;
 	/* padding: 2% 15% 2% 15%; */
 	background: #73D45F;
 }
@@ -176,10 +174,10 @@ em {
 	float: left;
 	width: 100%;
 	text-align: center;
-	/* padding: 2% 2% 2% 2%; */
-	/* margin: 2% 2% 5% 2%; */
+	padding: 0 10% 0 10%;
+	margin: 2% 2% 5% 2%;
 	display: inline;
-	/* height: 80%; */
+	height: 80%;
 }
 
 #content h2 
