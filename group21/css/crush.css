@@ -15,13 +15,44 @@ body {
 	margin: 0;
 }
 
+.btn {
+  background: #11b859;
+  background-image: -webkit-linear-gradient(top, #11b859, #2b6ab8);
+  background-image: -moz-linear-gradient(top, #11b859, #2b6ab8);
+  background-image: -ms-linear-gradient(top, #11b859, #2b6ab8);
+  background-image: -o-linear-gradient(top, #11b859, #2b6ab8);
+  background-image: linear-gradient(to bottom, #11b859, #2b6ab8);
+  -webkit-border-radius: 14;
+  -moz-border-radius: 14;
+  border-radius: 14px;
+  -webkit-box-shadow: 2px 3px 3px #666666;
+  -moz-box-shadow: 2px 3px 3px #666666;
+  box-shadow: 2px 3px 3px #666666;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  margin-top: 20px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #2b6ab8;
+  background-image: -webkit-linear-gradient(top, #2b6ab8, #0866d1);
+  background-image: -moz-linear-gradient(top, #2b6ab8, #0866d1);
+  background-image: -ms-linear-gradient(top, #2b6ab8, #0866d1);
+  background-image: -o-linear-gradient(top, #2b6ab8, #0866d1);
+  background-image: linear-gradient(to bottom, #2b6ab8, #0866d1);
+  text-decoration: none;
+}
+
 p {
 	font-style: italic;
    font-family: inherit;
 }
 
 img {
-	width: 90%;
+	width: 50%;
 }
 
 th {
@@ -31,6 +62,12 @@ th {
 textarea {
    font-family: inherit;
    font-size: inherit;
+}
+
+form {
+	width:40%;
+	padding-left:30%;
+	padding-right:30%;
 }
 
 caption {
@@ -84,6 +121,7 @@ em {
 #container
 {
 	width: 100%;
+	height:100%;
 	/* padding-left: 10%; */
 	/* padding-right:10%; */
 	background: #f7f7f7;
@@ -112,9 +150,9 @@ em {
 #sites
 {
 	float: left;
-	width: 100%;
-	/* padding: 2% 15% 2% 15%; */
+	width: 80%;
 	background: #73D45F;
+		padding: 0 10% 0 10%;
 }
 
 #sites ul
@@ -163,8 +201,8 @@ em {
 #content-container
 {
 	/* float: left; */
-	width: 80%;
 	height: 100%;
+	width:80%;
 	background-color: #f7f7f7;
 	display: inline;
 }
@@ -174,8 +212,7 @@ em {
 	float: left;
 	width: 100%;
 	text-align: center;
-	padding: 0 10% 0 10%;
-	margin: 2% 2% 5% 2%;
+	margin: 0 0 5% 0;
 	display: inline;
 	height: 80%;
 }

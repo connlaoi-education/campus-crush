@@ -116,21 +116,21 @@ if(!isLoggedIn()) {
 	
 	if($error == "")
 		{	
-			$connection = db_connect();
-			//if user is creating profile, insert
-			if($_SESSION['account_type'] == INCOMPLETE) {
-				$results = pg_execute($connection, "insert_profile", array($_SESSION['username'], $gender, $gender_sought, $city, 0, $headline, $self_description, $match_description, $relationship_sought, $relationship_status, $preferred_age_minimum, $preferred_age_maximum, $religion_sought, $education_experience, $race, $habits, $exercise, $residence_type, $campus));
+				$connection = db_connect();
+        //if user is creating profile, insert
+        if($_SESSION['account_type'] == INCOMPLETE) {
+			    $results = pg_execute($connection, "insert_profile", array($_SESSION['username'], $gender, $gender_sought, $city, 0, $headline, $self_description, $match_description, $relationship_sought, $relationship_status, $preferred_age_minimum, $preferred_age_maximum, $religion_sought, $education_experience, $race, $habits, $exercise, $residence_type, $campus));
 
-				//complete their profile
+        //complete their profile
 				$results = pg_execute($connection, "update_account", array(CLIENT, $_SESSION['username']));
-				$_SESSION['account_type'] = CLIENT;
+        $_SESSION['account_type'] = CLIENT;
 
-
-			}
-			//otherwise, update
-			else {
-				$results = pg_execute($connection, "update_profile", array($gender, $gender_sought, $city, 0, $headline, $self_description, $match_description, $relationship_sought, $relationship_status, $preferred_age_minimum, $preferred_age_maximum, $religion_sought, $education_experience, $race, $habits, $exercise, $residence_type, $campus, $_SESSION['username']));
-			}
+        //otherwise, update
+        } else {
+          $results = pg_execute($connection, "update_profile", array($gender, $gender_sought, $city, 0, $headline, $self_description, $match_description, $relationship_sought, $relationship_status, $preferred_age_minimum, $preferred_age_maximum, $religion_sought, $education_experience, $race, $habits, $exercise, $residence_type, $campus, $_SESSION['username']));
+        }
+        header("Location: profile-create.php");
+        ob_flush();
 		}
 	}
 ?>
@@ -139,15 +139,17 @@ if(!isLoggedIn()) {
 
 <h2 class="highlight">
 	<?php echo $error; ?>
+  <?php  ?>
 </h2>
 
 <form name="input" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<table>
 		<tr>
-			<td>Image</td>
 			<?php $imageAddress = getProperty('images', 'image_address', 0, "image_id"); ?>
+			
+			<td>Image</td>
 			<td><img style="height: 64px; width: 64px;" src="<?php echo($imageAddress); ?>"/></td>
-			<td><button type="button">Browse</button></td>
+			<td><button class="btn" type="button">Browse</button></td>
 		</tr>
 
 		<tr>
@@ -236,7 +238,8 @@ if(!isLoggedIn()) {
 		</tr>
 
 		<tr>
-			<td><input type="submit" value="Save" /></td>
+			<td></td>
+			<td><input class="btn" type="submit" value="Save" /></td>
 		</tr>	
 	</table>
 </form>

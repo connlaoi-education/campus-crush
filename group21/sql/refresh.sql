@@ -224,8 +224,8 @@ INSERT INTO users(id, password, first_name, last_name, email_address, account_ty
 INSERT INTO users(id, password, first_name, last_name, email_address, account_type, birthday, enroll_date, last_access) VALUES (
 	'csmith',
 	'1492c81e612369f45f5509dfe8270b3c',
-	'Connlaoi',
-	'Smith',
+	'connlaoi',
+	'smith',
 	'connlaoi.smith@durhamcollege.ca',
 	'i',
 	'1992-05-04',
@@ -236,8 +236,8 @@ INSERT INTO users(id, password, first_name, last_name, email_address, account_ty
 INSERT INTO users(id, password, first_name, last_name, email_address, account_type, birthday, enroll_date, last_access) VALUES (
 	'jpower',
 	'0bdd6a22ce32c25322f0b86f2a83d2d9',
-	'Jeremy',
-	'Power',
+	'jeremy',
+	'power',
 	'jeremy.power@durhamcollege.ca',
 	'i',
 	'1995-08-01',
@@ -248,7 +248,7 @@ INSERT INTO users(id, password, first_name, last_name, email_address, account_ty
 INSERT INTO users(id, password, first_name, last_name, email_address, account_type, birthday, enroll_date, last_access) VALUES (
 	'lminh',
 	'a97957182ad58593d01717d158d57893',
-	'Ly',
+	'ly',
 	'TriMinh',
 	'tri.minh.ly@durhamcollege.ca',
 	'i',

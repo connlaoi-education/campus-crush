@@ -32,8 +32,8 @@ if(!isLoggedIn()) {
 <form method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
   <table>
     <tr>
-      <td style="padding-left:300px;"><input type="text" name="search" placeholder="Search for Friends, Crushes, etc..." size="60" /></td>
-      <td style="padding-left:10px;"><input type="submit" value="Search" /></td>
+      <td><input type="text" name="search" placeholder="Search for Friends, Crushes, etc..." size="60" /></td>
+      <td><input class="btn" type="submit" value="Search" /></td>
     </tr>
   </table>
 

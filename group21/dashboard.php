@@ -53,7 +53,6 @@ if($_SESSION["account_type"] == ADMIN)
 {
 	// LOAD ADMIN TOOLS in tabs(?)
 	echo '<h2>ADMIN</h2>';
-	
 
 	// Database Moderation (Delete Account, Send Password Reset Email,etc)
 	// User Summaries (Graphs, Charts, etc)

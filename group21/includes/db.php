@@ -24,7 +24,7 @@
 
 	pg_prepare($connection, "select_id_pass", 'SELECT id, password, first_name, last_name, email_address, enroll_date, last_access FROM users WHERE id = $1 AND password = $2');
 
-	pg_prepare($connection, "select_all_profile", "SELECT * FROM profiles WHERE user_id = $1");
+	pg_prepare($connection, "select_all_profile", "SELECT user_id, gender, gender_sought, city, image, headline, self_description, match_description, relationship_sought, relationship_status, preferred_age_minimum, preferred_age_maximum, religion_sought, education_experience, race, habit, exercise, residence_type, campus FROM profiles WHERE user_id = $1");
 
 	pg_prepare($connection, "insert_profile", 'INSERT INTO profiles (user_id, gender, gender_sought, city, image, headline, self_description, match_description, relationship_sought, relationship_status, preferred_age_minimum, preferred_age_maximum, religion_sought, education_experience, race, habit, exercise, residence_type, campus) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19)');
 
@@ -110,9 +110,9 @@
 		echo("
 				<table style='width:100%; height:100%;'>
 				
-					<tr style='width:100%; height:2%;'>
+					<tr style='width:100%; height:0;'>
 						<th style='height:100%; width:10%; text-align:left;'><h2></h2></th>
-						<th style='height:100%; width:30%; text-align:left;'><h2>Search Results</h2></th>
+						<th style='height:100%; width:30%; text-align:left;'><h2></h2></th>
 						<th style='height:100%; width:30%; text-align:left;'><h2></h2></th>
 						<th style='height:100%; width:30%; text-align:left;'><h2></h2></th>
 					</tr>
@@ -121,12 +121,23 @@
 		// FOR LOOP STARTS HERE
 		
 		for($i=0; $i < count($userIDs); $i++) {
+			
+			// $length = count($userIDs[$I]['first_name']);
+			
+			$firstNameLetter = strtoupper(substr($userIDs[$i]['first_name'],0,1));
+			$firstNameRest = strtolower(substr($userIDs[$i]['first_name'],1,19));
+			
+			$lastNameLetter = strtoupper(substr($userIDs[$i]['last_name'],0,1));
+			$lastNameRest = strtolower(substr($userIDs[$i]['last_name'],1,29));
+				
+			$userName = strtoupper($userIDs[$i]['id']);
+			
 			echo("
 					<tr style='width:100%; height:2%;'>\n
-						<td style='height:100%; width:10%;'><img style='height:7%; width:70%; box-shadow: 5px 5px 5px #999;' src='./images/default_user.png'/></td>\n
-						<td style='height:100%; width:20%; text-align:left; padding-left:5px;'><h3>" . $userIDs[$i]['first_name'] . "</h3></td>\n
-						<td style='height:100%; width:20%; text-align:left; padding-left:5px;'><h3>" . $userIDs[$i]['last_name'] . "</h3></td>\n
-						<td style='height:100%; width:50%; text-align:left; padding-left:5px;'><p class='content'>" . $userIDs[$i]['id'] . "</p></td>\n
+						<td style='height:100%; width:10%;'><img style='height:70px; width:70px; box-shadow: 5px 5px 5px #999;' src='./images/default_user.png'/></td>\n
+						<td style='height:100%; width:20%; text-align:right; padding-left:5px;'><h3>" . $firstNameLetter . $firstNameRest . "</h3></td>\n
+						<td style='height:100%; width:20%; text-align:left; padding-left:5px;'><h3>" . $lastNameLetter . $lastNameRest . "</h3></td>\n
+						<td style='height:100%; width:50%; text-align:left; padding-left:5px;'><p class='content'>" . $userName . "</p></td>\n
 					</tr>\n
 					");
 	}

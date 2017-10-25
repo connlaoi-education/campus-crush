@@ -260,8 +260,8 @@ if(isLoggedIn()) {
 		</tr>
 		<tr><td><br/></td></tr>
 		<tr>
-			<td><input type="submit" value="Register" /></td>
-			<td><input type="reset" value="Reset" /></td>
+			<td><input class="btn" type="submit" value="Register" /></td>
+			<td><input class="btn" type="reset" value="Reset" /></td>
 		</tr>
 	</table>
 </form>

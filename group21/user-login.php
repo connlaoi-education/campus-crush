@@ -89,8 +89,8 @@ if(isLoggedIn()) {
 
 				$results = pg_execute($connection, "date_update", array($username));
 
-    		$results = pg_execute($connection, "find_user", array($username));
-    		$dataArray = pg_fetch_assoc($results);
+				$results = pg_execute($connection, "find_user", array($username));
+				$dataArray = pg_fetch_assoc($results);
 
 				$_SESSION['username'] = $dataArray['id'];
 				$_SESSION['account_type'] = $dataArray['account_type'];
@@ -146,8 +146,8 @@ if(isLoggedIn()) {
 			<td><input type="password" name="pass" value="<?php echo $password; ?>" size="20" /></td>
 		</tr>
 		<tr>
-			<td><br /><input type="submit" value="Log In" /></td>
-			<td><br /><input type="reset" value="Reset" /></td>
+			<td><br /><input class="btn" type="submit" value="Log In" /></td>
+			<td><br /><input class="btn" type="reset" value="Reset" /></td>
 		</tr>
 	</table>
 </form>

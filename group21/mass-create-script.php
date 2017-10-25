@@ -76662,7 +76662,7 @@ function generateUsers() {
 		// EDUCATION EXPERIENCE
 			$educationExperience = mt_rand(0,6);
 		// RACE
-			$race = mt_rand(0,5);
+			$race = mt_rand(0,6);
 		// HABIT
 			$habit = mt_rand(0,3);
 		// EXERCISE
