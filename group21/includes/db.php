@@ -21,6 +21,8 @@
 	pg_prepare($connection, "date_update", 'UPDATE users SET last_access = current_date WHERE id = $1');
 
 	pg_prepare($connection, "find_user", 'SELECT id, password, first_name, last_name, email_address, account_type, enroll_date, last_access FROM users WHERE id = $1');
+	
+	pg_prepare($connection, "display_user", 'SELECT id, first_name, last_name, email_address, birthday FROM users WHERE id = $1');
 
 	pg_prepare($connection, "select_id_pass", 'SELECT id, password, first_name, last_name, email_address, enroll_date, last_access FROM users WHERE id = $1 AND password = $2');
 
@@ -39,8 +41,8 @@
 //retrieves one piece of data from DB
 	function getProperty($table, $property, $id, $idName) {
 		$connection = db_connect();
-		$results = pg_prepare($connection, "get_property_where", "SELECT " . $property . " FROM " . $table . " WHERE " . $idName . " = $1");
-		$results = pg_execute($connection, "get_property_where", array($id));
+		$sql = "SELECT " . $property . " FROM " . $table . " WHERE " . $idName . " = '" . $id . "'";
+		$results = pg_query($connection, $sql);
 		return pg_fetch_result($results, 0, $property);
 	}
 
@@ -122,25 +124,27 @@
 		
 		for($i=0; $i < count($userIDs); $i++) {
 			
-			// $length = count($userIDs[$I]['first_name']);
+			$firstName = ucwords($userIDs[$i]['first_name']);
 			
-			$firstNameLetter = strtoupper(substr($userIDs[$i]['first_name'],0,1));
-			$firstNameRest = strtolower(substr($userIDs[$i]['first_name'],1,19));
-			
-			$lastNameLetter = strtoupper(substr($userIDs[$i]['last_name'],0,1));
-			$lastNameRest = strtolower(substr($userIDs[$i]['last_name'],1,29));
+			$lastName = ucwords($userIDs[$i]['last_name']);
 				
 			$userName = strtoupper($userIDs[$i]['id']);
 			
+			$sql = "SELECT image FROM profiles WHERE user_id = '" . $userIDs[$i]['id'] . "'";
+			$results1 = pg_query($connection, $sql);
+			$userProfiles = pg_fetch_all($results1);
+
+			$image = getProperty('images', 'image_address', $userProfiles[0]['image'], 'image_id');
+			
 			echo("
 					<tr style='width:100%; height:2%;'>\n
-						<td style='height:100%; width:10%;'><img style='height:70px; width:70px; box-shadow: 5px 5px 5px #999;' src='./images/default_user.png'/></td>\n
-						<td style='height:100%; width:20%; text-align:right; padding-left:5px;'><h3>" . $firstNameLetter . $firstNameRest . "</h3></td>\n
-						<td style='height:100%; width:20%; text-align:left; padding-left:5px;'><h3>" . $lastNameLetter . $lastNameRest . "</h3></td>\n
-						<td style='height:100%; width:50%; text-align:left; padding-left:5px;'><p class='content'>" . $userName . "</p></td>\n
+						<td style='height:100%; width:10%;'><img class='w3-animate-zoom' style='height:70px; width:70px; box-shadow: 5px 5px 5px #999;' src='" . $image . "'/></td>\n
+						<td style='height:100%; width:30%; text-align:right; padding-left:5px;'><h3>" . $firstName . "</h3></td>\n
+						<td style='height:100%; width:30%; text-align:left; padding-left:5px;'><h3>" . $lastName . "</h3></td>\n
+						<td style='height:100%; width:30%; text-align:left; padding-left:5px;'><p class='content'>" . $userName . "</p></td>\n
 					</tr>\n
 					");
-	}
+		}
 		// FOR LOOP ENDS HERE
 		echo("</table>\n");
     }

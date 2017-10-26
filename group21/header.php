@@ -16,8 +16,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' />
+
     <link rel="stylesheet" href="./css/crush.css" type="text/css" />
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title><?php echo "$title";?></title>
     <link rel="shortcut icon" type="image/x-icon" href="./images/cc_logo.png" />
@@ -29,38 +31,55 @@
             <a href="./index.php"><img src="./images/cc_logo.png" alt="Campus Crush" /></a>
             <?php echo "<h1>$banner</h1>";?>
         </div>
-        <div id="sites">
-                <ul>
-                    <?php
-                    //if not logged in, show login and register
-                    if(!isset($_SESSION['username'])) {
-                    echo('<li><a href="./user-login.php">Login</a></li>
-                    <li><a href="./user-register.php">Register</a></li>');
-                } else {
-                    //show to incomplete users
-                    if($_SESSION['account_type'] == INCOMPLETE) {
-                    echo('
-                    <li><a href="./profile-create.php">Profile Create</a></li>');
-                    } else {
-                    echo(
-                        //show to admin
-                    '<li><a href="./dashboard.php">Dashboard</a></li>');
-                    //show to complete users
-                    if($_SESSION['account_type'] == CLIENT) {
-                     echo('<li><a href="./profile-display.php">Profile</a></li>
-                     <li><a href="./profile-create.php">Update Profile</a></li>');
-                 }
-                }
-
-                    //show to all users
-                    echo('
-                    <li><a href="./profile-search.php">Search</a></li>
-                    <li><a href="./user-update.php">Update User Info</a></li>
-                    <li><a href="./user-password-request.php">Change Password</a></li>
-                    <li style="float: right;"><a href="./user-logout.php">Logout</a></li> ');
-                }
-                    ?>
-                </ul>
-        </div>
-        <div id="content-container">
-            <div id="content">
+		
+		<?php
+		echo('<div id="sites" class="w3-bar">');
+		
+			if(!isset($_SESSION['username']))
+			{
+				echo('<a href="./user-login.php" class="w3-bar-item w3-button">Login</a>');
+				echo('<a href="./user-register.php" class="w3-bar-item w3-button">Register</a>');
+			}
+			else
+			{
+				echo('<a href="./dashboard.php" class="w3-bar-item w3-button">Dashboard</a>
+						<a href="./profile-search.php" class="w3-bar-item w3-button">Search</a>');
+						
+			
+				echo('
+				<div class="w3-dropdown-hover">
+				<a class="w3-bar-item w3-button">Profile</a>
+				<div class="w3-dropdown-content w3-bar-block w3-card-4">');
+				
+					if($_SESSION['account_type'] == INCOMPLETE)
+					{
+						echo('
+						<a href="./profile-create.php" class="w3-bar-item w3-button">Complete Profile</a>
+						<a href="./user-update.php" class="w3-bar-item w3-button">Update Account</a>
+						<a href="./user-password-request.php" class="w3-bar-item w3-button">Reset Password</a>');
+					}
+					elseif($_SESSION['account_type'] == ADMIN)
+					{
+						echo('
+						<a href="./user-update.php" class="w3-bar-item w3-button">Update Account</a>
+						<a href="./user-password-request.php" class="w3-bar-item w3-button">Reset Password</a>');
+					}
+					elseif($_SESSION['account_type'] == CLIENT)
+					{
+						echo('
+						<a href="./profile-display.php" class="w3-bar-item w3-button">View Profile</a>
+						<a href="./profile-create.php" class="w3-bar-item w3-button">Update Profile</a>
+						<a href="./user-update.php" class="w3-bar-item w3-button">Update Account</a>
+						<a href="./user-password-request.php" class="w3-bar-item w3-button">Reset Password</a>
+						');
+					}
+					
+					echo('<a href="./user-logout.php" class="w3-bar-item w3-button w3-right">Logout</a>');
+			}
+			echo('</div>
+			  </div>
+		</div>');
+		?>
+	</div>
+	<div id="content-container">
+		<div id="content">

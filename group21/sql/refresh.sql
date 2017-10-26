@@ -246,10 +246,10 @@ INSERT INTO users(id, password, first_name, last_name, email_address, account_ty
 );
 
 INSERT INTO users(id, password, first_name, last_name, email_address, account_type, birthday, enroll_date, last_access) VALUES (
-	'lminh',
+	'tminhly',
 	'a97957182ad58593d01717d158d57893',
-	'ly',
-	'TriMinh',
+	'tri',
+	'minh ly',
 	'tri.minh.ly@durhamcollege.ca',
 	'i',
 	'1993-08-01',

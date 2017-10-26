@@ -32,7 +32,7 @@ body {
   color: #ffffff;
   font-size: 20px;
   padding: 10px 20px 10px 20px;
-  margin-top: 20px;
+  margin-top: 5px;
   text-decoration: none;
 }
 
@@ -65,9 +65,9 @@ textarea {
 }
 
 form {
-	width:40%;
-	padding-left:30%;
-	padding-right:30%;
+	width:60%;
+	padding-left:20%;
+	padding-right:20%;
 }
 
 caption {
@@ -93,18 +93,18 @@ a:visited {
 }
 a:hover {
 	color: #285C9B;
-	text-decoration: underline;
+	text-decoration: none;
 }
 a:active {
 	color: #73ba44;
-	text-decoration: underline;
+	text-decoration: none;
 }
 
 em {
 	font-size: 40pt;
 	font-style: normal;
 	font-family: 'Roboto Slab', serif;
-	text-decoration: underline;
+	text-decoration: none;
 }
 
 .tt1 {
@@ -150,38 +150,17 @@ em {
 #sites
 {
 	float: left;
-	width: 80%;
 	background: #73D45F;
-		padding: 0 10% 0 10%;
-}
-
-#sites ul
-{
-	margin: 0;
-	padding: 0;
-}
-
-#sites ul li
-{
-	list-style-type: none;
-	display: inline;
-}
-
-#sites li a
-{
-	display: block;
-	float: left;
-	padding: 5px 10px;
+	padding: 0 10% 0 10%;
+	font-size:20px;
 	color: #285C9B;
-	text-decoration: none;
-	border-right: 1px solid #fff;
 }
 
-#sites li a:hover 
-{ 
-	background-color: #ccc; 
-	color: #000;
+#sites a
+{
+	background: #73D45F;
 }
+
 
 #navigation
 {
@@ -233,6 +212,7 @@ em {
     bottom: 0;
     left: 0;
     position: fixed;
+	box-sizing:initial;
 }
 
 #footer img

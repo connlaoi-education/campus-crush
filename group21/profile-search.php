@@ -32,7 +32,7 @@ if(!isLoggedIn()) {
 <form method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
   <table>
     <tr>
-      <td><input type="text" name="search" placeholder="Search for Friends, Crushes, etc..." size="60" /></td>
+      <td><input type="text" name="search" placeholder="Search for Friends, Crushes, etc..." size="45%" /></td>
       <td><input class="btn" type="submit" value="Search" /></td>
     </tr>
   </table>
@@ -53,11 +53,19 @@ if(!isLoggedIn()) {
 	{
 		$input = $_GET["search"];
 		
-		buildSearchResults($input);
+		if($input != "")
+		{
+			buildSearchResults($input);
+			echo('</form>');
+		}
+		else
+		{
+			echo('</form>');
+			echo('<h3>Enter your friend or crushes <b>First Name</b> above to look them up!</h3>');
+		}
 	}
-?>
-</form>
 
+?>
 
 <!-- Include Footer PHP -->
  <?php include 'footer.php'; ?>
