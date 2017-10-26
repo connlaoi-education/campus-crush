@@ -65,9 +65,18 @@ textarea {
 }
 
 form {
-	width:60%;
-	padding-left:20%;
-	padding-right:20%;
+	padding-left:10%;
+	padding-right:10%;
+	text-align: left;
+}
+
+table{
+	display: table;
+    border-collapse: separate;
+    border-spacing: 2px;
+    border-color: none;
+	text-align: left;
+	width: 100%;
 }
 
 caption {
@@ -113,7 +122,6 @@ em {
 	font-family: 'Roboto Slab', serif;
 }
 
-
 .inside-tables tr{
 	background-color: #73ba44;
 }
@@ -130,15 +138,23 @@ em {
 #header
 {
 	background: #4A7C59;
-	padding: 2% 10% 2% 10%;
+	padding: 2% 8% 2% 8%;
 	height: 10%;
 }
 
 #header h1
 { 
-	margin: 0 auto;
+	margin: 0 2% 0 2%;
 	display: inline;
 	color: #285C9B;
+}
+
+#header .ccmain
+{
+	font-size: 34pt;
+	font-style: bold;
+	font-family: 'Roboto Slab', serif;
+	text-decoration: none;
 }
 
 #header img

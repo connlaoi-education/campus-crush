@@ -1,11 +1,11 @@
 <!-- Page Info -->
 <?php
-		$title = "Campus Crush - Search";
-		$createddate = "September 19 2017";
-		$updateddate = "xxxx xx 2017";
-		$filename = "profile-search.php";
-		$banner = "Campus Crush - User Search";
-		$description = "Find your Friends - Or your Crush";
+	$title = "Campus Crush - Search";
+	$createddate = "September 19 2017";
+	$updateddate = "October 20 2017";
+	$filename = "profile-search.php";
+	$banner = "Campus Crush";
+	$description = "Find your Friends - Or your Crush";
 ?>
 <!--
 	Creator:      Connlaoi Smith
@@ -25,10 +25,11 @@ if(!isLoggedIn()) {
   ?>
 
 <!-- HTML -->
+<h3>Search for People - New Friends, and Old</h3>
 <p class="content"><?php echo $description; ?></p>
 
-<br />
 <hr />
+
 <form method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
   <table>
     <tr>
@@ -55,13 +56,14 @@ if(!isLoggedIn()) {
 		
 		if($input != "")
 		{
-			buildSearchResults($input);
+			// add logic for user exists (count results array, == 0, display No Results prompt)
+			buildSearchResults(strtolower($input));
 			echo('</form>');
 		}
 		else
 		{
 			echo('</form>');
-			echo('<h3>Enter your friend or crushes <b>First Name</b> above to look them up!</h3>');
+			echo('<h3>Enter their <b>First Name</b> above to look them up!</h3>');
 		}
 	}
 

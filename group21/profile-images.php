@@ -4,7 +4,7 @@
     $createddate = "September 19 2017";
     $updateddate = "xxxx xx 2017";
     $filename = "user-register.php";
-    $banner = "Campus Crush - Registration";
+    $banner = "Campus Crush";
     $description = "Sign up quickly and easily - start meeting new people now!";
 ?>
 <!--

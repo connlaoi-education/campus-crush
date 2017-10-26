@@ -4,8 +4,8 @@
 		$createddate = "September 19 2017";
 		$updateddate = "xxxx xx 2017";
 		$filename = "user-login.php";
-		$banner = "Campus Crush - Welcome back!";
-		$description = "There is no easier way to meet new people on campus!";
+		$banner = "Campus Crush";
+		$description = "There is No Easier Way to Meet New People on Campus!";
 ?>
 <!--
 	Creator:      Connlaoi Smith
@@ -23,22 +23,23 @@ if(isLoggedIn()) {
 	ob_flush();
 }
 	?>
-<p class="content"><?php 
-  if(isset($_SESSION["message"])) {
-    echo("<p style=\"color: red\">" . $_SESSION["message"] . "</p>");
-    unset($_SESSION["message"]);
-  }
-   if(isset($_SESSION["register"])) {
-     echo("<p style=\"color: red\">" . $_SESSION['register'] . "</p>");
-	 unset($_SESSION["register"]);
-   }
-  ?></p>
 <!-- HTML -->
-<span class="titleh3">No need for nonsense...</span>
+
+<h3>No Need for Nonsense...</h3>
 <p class="content"><?php echo $description; ?></p>
-<br />
-<hr />
-<br />
+
+<p class="content">
+	<?php 
+		  if(isset($_SESSION["message"])) {
+			echo("<p style=\"color: red\">" . $_SESSION["message"] . "</p>");
+			unset($_SESSION["message"]);
+		  }
+		   if(isset($_SESSION["register"])) {
+			 echo("<p style=\"color: red\">" . $_SESSION['register'] . "</p>");
+			 unset($_SESSION["register"]);
+		   }
+	  ?>
+  </p>
 
 <?php
 
@@ -127,14 +128,18 @@ if(isLoggedIn()) {
 	}
 
 ?>
-	<br />
+
+<hr />
+
 	<h2 class="highlight">
 		<?php echo $error; ?>
 	</h2>
 	<h2 class="highlight">
 		<?php echo $output; ?>
 	</h2>
-	<br />
+
+<br />
+	
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<table>
 		<tr>
@@ -146,8 +151,8 @@ if(isLoggedIn()) {
 			<td><input type="password" name="pass" value="<?php echo $password; ?>" size="20" /></td>
 		</tr>
 		<tr>
-			<td><br /><input class="btn" type="submit" value="Log In" /></td>
-			<td><br /><input class="btn" type="reset" value="Reset" /></td>
+			<td></td>
+			<td><br /><input class="btn" type="submit" value="Log In" /><input class="btn" type="reset" value="Reset" /></td>
 		</tr>
 	</table>
 </form>

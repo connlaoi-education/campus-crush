@@ -4,8 +4,8 @@
 		$createddate = "September 19 2017";
 		$updateddate = "xxxx xx 2017";
 		$filename = "user-register.php";
-		$banner = "Campus Crush - Registration";
-		$description = "Sign up quickly and easily - start meeting new people now!";
+		$banner = "Campus Crush";
+		$description = "Sign up is Quick, Easy, and Secure - Your Crush is Waiting!";
 ?>
 <!--
 	Creator:      Jeremy Power, Minh Tri Ly
@@ -23,21 +23,18 @@ if(isLoggedIn()) {
 	ob_flush();
 }
 	?>
-<?php 
-  if(isset($_SESSION["message"])) {
-    echo("<p style=\"color: red\">" . $_SESSION["message"] . "</p>");
-    unset($_SESSION["message"]);
-  }
-  ?>
+
 <!-- HTML -->
+
+<h3>Register Now to Start Chatting!</h3>
 <p class="content"><?php echo $description; ?></p>
 
-<h3>
-		Please register in our system.
-	</h3>
-	<p>
-		Please enter your personal information:
-	</p>
+<?php 
+	if(isset($_SESSION["message"])) {
+		echo("<p style=\"color: red\">" . $_SESSION["message"] . "</p>");
+		unset($_SESSION["message"]);
+	}
+?>
 	
 <?php
 
@@ -209,14 +206,18 @@ if(isLoggedIn()) {
 	}
 
 ?>
-	
-	<p>
-		<?php echo $error ?>
-	    <?php echo $error_2 ?>
-	</p>
-	
-<br />
+
 <hr />
+
+	<h2 class="highlight">
+		<?php echo $error; ?>
+	</h2>
+	<h2 class="highlight">
+		<?php echo $error_2; ?>
+	</h2>
+
+<br />
+
 <form name="input" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<table class="size1">
 		<tr>
@@ -246,22 +247,30 @@ if(isLoggedIn()) {
 		<tr><td><br/></td></tr>
 		<tr>
 			<td>Birthday</td>
-			<td>Day <input type="text" name="day" value="<?php echo $day ?>" size="5"/>
-			  Month
-			  <?php buildDropDown("month", "months", "month_name", $month); ?>
-			  Year
-			<select name="year">
-				<?php
-				for ($i=0; $i < count($years); $i++) {
-					echo "<option>" . $years[$i] . "</option>";
-				}
-				?>
-			</select>
+			<td style="text-align:left;">
+				Day<br /> 
+				<input type="text" name="day" value="<?php echo $day ?>" size="5"/>
+				<br />
+				Month<br />
+				  <?php buildDropDown("month", "months", "month_name", $month); ?>
+				<br />
+				Year<br />
+				<select name="year">
+					<?php
+					for ($i=0; $i < count($years); $i++) {
+						echo "<option>" . $years[$i] . "</option>";
+					}
+					?>
+				</select>
+			</td>
 		</tr>
 		<tr><td><br/></td></tr>
 		<tr>
-			<td><input class="btn" type="submit" value="Register" /></td>
-			<td><input class="btn" type="reset" value="Reset" /></td>
+		<td></td>
+			<td>
+				<input class="btn" type="submit" value="Register" />
+				<input class="btn" type="reset" value="Reset" />
+			</td>
 		</tr>
 	</table>
 </form>

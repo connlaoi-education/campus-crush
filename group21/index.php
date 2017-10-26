@@ -6,7 +6,7 @@
 	$updateddate = "Sep 24 2017";
 	$filename = "index.php";
 	$banner = "Campus Crush";
-	$description = "FIND COMFORT DURING YOUR COLLEGE EXPERIENCE";
+	$description = "Find Comfort<br />During your College Experience";
 ?>
 <!--
 	Creator:      Minh Tri, Ly - Group 21
@@ -20,7 +20,7 @@
 <?php include 'header.php'; ?>
 
 	<h1><?php echo $description; ?></h1>
-	<p>Don't let your dreams be dreams... Reach out to your College Crush now!</p>
+	<p>Don't let your dreams be dreams... Reach out to your Campus Crush now!</p>
 	<img class="w3-animate-zoom" src="./images/index_north_oshawa.png" alt="North Oshawa Campus"/>
 	
 <?php include 'footer.php'; ?>

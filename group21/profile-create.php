@@ -4,8 +4,8 @@
 		$createddate = "September 19 2017";
 		$updateddate = "xxxx xx 2017";
 		$filename = "profile-create.php";
-		$banner = "Campus Crush - Profile Creation";
-		$description = "Define who you are - What makes you, you?";
+		$banner = "Campus Crush";
+		$description = "What makes you stand out? What are you looking for?";
 ?>
 <!--
 	Creator:      Connlaoi Smith
@@ -25,13 +25,10 @@ if(!isLoggedIn()) {
 ?>
 
 <!-- HTML -->
-<p class="content"><?php echo $description; ?></p>
-<h3>
-		Please Fill Out Your Details - Or We Cant Match You!
-</h3>
 
-<br />
-<hr />
+<h3>Define your Campus Presence</h3>
+<p class="content"><?php echo $description; ?></p>
+
 <?php
   $error = "";
 	$error_2 = "";
@@ -96,7 +93,6 @@ if(!isLoggedIn()) {
 		$gender = trim($_POST["gender"]);
 		$gender_sought = trim($_POST["gender_sought"]);
 		$city = trim($_POST["city"]);
-		$image = 0;
 		$headline = trim($_POST["headline"]);
 		$self_description = trim($_POST["self_description"]);
 		$match_description = trim($_POST["match_description"]);
@@ -135,12 +131,14 @@ if(!isLoggedIn()) {
 	}
 ?>
 
-<br />
+<hr />
 
 <h2 class="highlight">
 	<?php echo $error; ?>
   <?php  ?>
 </h2>
+
+<br />
 
 <form name="input" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<table>
@@ -148,8 +146,11 @@ if(!isLoggedIn()) {
 			<?php $imageAddress = getProperty('images', 'image_address', 0, "image_id"); ?>
 			
 			<td>Image</td>
-			<td><img style="height: 64px; width: 64px;" src="<?php echo($imageAddress); ?>"/></td>
-			<td><button class="btn" type="button">Browse</button></td>
+			<td>
+				<img style="height: 128px; width: 128px;" src="<?php echo($imageAddress); ?>"/>
+				<br />
+				<button class="btn" type="button">Browse</button>
+			</td>
 		</tr>
 
 		<tr>
