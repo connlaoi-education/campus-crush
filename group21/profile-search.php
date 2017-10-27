@@ -33,8 +33,8 @@ if(!isLoggedIn()) {
 <form style="width:100%;" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
   <table>
     <tr>
-      <td style="padding-left:20%; margin-right:20px;"><input type="text" name="search" placeholder="Search for Friends, Crushes, etc..." size="50%" /></td>
-      <td style="padding-right:20%;"><input class="btn" type="submit" value="Search" /></td>
+      <td style="padding-left:30%; padding-right:5%; width:20%;"><input type="text" name="search" placeholder="Search for Friends, Crushes, etc..." size="30%" /></td>
+      <td style="padding-left:5%; padding-right:30%; width:20%; "><input class="btn" type="submit" value="Search" /></td>
     </tr>
   </table>
 

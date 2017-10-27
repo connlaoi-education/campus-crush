@@ -224,6 +224,7 @@ em {
 	font-style: bold;
 	font-family: 'Roboto Slab', serif;
 	text-decoration: none;
+	display:inline-block;
 }
 
 #header img
@@ -239,6 +240,7 @@ em {
 	padding: 0 10% 0 10%;
 	font-size:20px;
 	color: #285C9B;
+
 }
 
 #sites a
@@ -276,7 +278,7 @@ em {
 	float: left;
 	width: 100%;
 	text-align: center;
-	margin: 0 0 5% 0;
+	margin: 0 0 7% 0;
 	display: inline;
 	height: 80%;
 }
@@ -284,6 +286,13 @@ em {
 #content h2 
 { 
 	margin: 0; 
+}
+
+#content img .index
+{
+	min-height:400px;
+	min-width: 800px;
+	overflow:hidden;
 }
 
 #footer

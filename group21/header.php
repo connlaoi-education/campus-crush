@@ -16,20 +16,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
-
     <link rel="stylesheet" href="./css/crush.css" type="text/css" />
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
 	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="theme-color" content="#4A7C59" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8;" />
+	<meta name="viewport" content="width=device-width, initial-scale=1;" />
     <title><?php echo "$title";?></title>
     <link rel="shortcut icon" type="image/x-icon" href="./images/cc_logo.png" />
 </head>
 
 <body>
     <div id="container">
-        <div id="header">
-            <a href="./index.php"><img src="./images/cc_logo.png" alt="Campus Crush" /></a>
-            <h1 class="ccmain"><?php echo $banner; ?></h1>
+        <div id="header" class="w3-mobile">
+			<a href="./index.php"><img src="./images/cc_logo.png" alt="Campus Crush" /></a>
+			<h1 class="ccmain"><?php echo $banner; ?></h1>
         </div>
 		
 		<?php
@@ -48,9 +49,9 @@
 			
 				echo('
 				<div class="w3-dropdown-hover">
-				<a class="w3-bar-item w3-button">Profile</a>
-				<div class="w3-dropdown-content w3-bar-block w3-card-4">');
-				
+					<a class="w3-bar-item w3-button">Profile</a>
+					<div class="w3-dropdown-content w3-bar-block w3-card-4">');
+					
 					if($_SESSION['account_type'] == INCOMPLETE)
 					{
 						echo('
@@ -74,7 +75,7 @@
 						');
 					}
 					
-					echo('<a href="./user-logout.php" class="w3-bar-item w3-button w3-right">Logout</a>');
+					echo('<a href="./user-logout.php" class="w3-bar-item w3-button">Logout</a>');
 			}
 			echo('</div>
 			  </div>
@@ -82,4 +83,4 @@
 		?>
 	</div>
 	<div id="content-container">
-		<div id="content">
+		<div id="content" class="back">

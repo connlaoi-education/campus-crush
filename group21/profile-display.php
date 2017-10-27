@@ -30,8 +30,8 @@ $results1 = pg_execute($connection, "select_all_profile", array($_SESSION['usern
 $userProfileArray = pg_fetch_array($results1);
 
 // profile data
-$gender = $userProfileArray["gender"];
-$gender_sought = $userProfileArray["gender_sought"];
+$gender = getProperty('genders', 'gender_type', $userProfileArray["gender"], 'gender_id');
+$gender_sought = getProperty('genders', 'gender_type', $userProfileArray["gender_sought"], 'gender_id');
 $city = $userArray["city"];
 $headline = $userProfileArray["headline"];
 $self_description = $userProfileArray["self_description"];
@@ -42,7 +42,7 @@ $preferred_age_minimum = $userProfileArray["preferred_age_minimum"];
 $preferred_age_maximum = $userProfileArray["preferred_age_maximum"];
 $religion_sought = $userProfileArray["religion_sought"];
 $race = $userProfileArray["race"];
-$education_experience = $userProfileArray["education_experience"];
+$education_experience = getProperty('education', 'education_type', $userProfileArray["education_experience"], 'education_id');
 $habits = $userProfileArray["habit"];
 $exercise = $userProfileArray["exercise"];
 $residence_type = $userProfileArray["residence_type"];
@@ -58,6 +58,7 @@ $userInfoArray = pg_fetch_array($results);
 // user data
 $username = $userInfoArray["id"];
 $birthday = $userInfoArray["birthday"];
+$strBday = date_create($birthday,"Month-Day-Y");
 
 $firstName = ucwords($userInfoArray['first_name']);
 
@@ -65,28 +66,35 @@ $lastName = ucwords($userInfoArray['last_name']);
 	
 $userName = strtoupper($userInfoArray['id']);
 
+$age = calculate_Age($userInfoArray["birthday"]);
+
 ?>
 
 <!-- HTML -->
 
 <div class="w3-row">
   <div class="w3-third w3-container">
-    <h2>Overview</h2> 
 	<div class="w3-card-4">
-		<img class="w3-image" style="width:100%; max-height:450px;" src="<?php echo($image) ?>" alt="" />
-		<div class="w3-container">
-			<h4><b><?php echo($firstName . " " . $lastName);?></b></h4>
+		<header class="w3-container" style="background-color: #4A7C59;">
+			<h3><?php echo($firstName . " " . $lastName);?></h3>
+		</header>
+		<img class="w3-image index" style="width:100%;" src="<?php echo($image) ?>" alt="" />
+		<div class="w3-container w3-light-grey">
+			<h4><b><?php echo($age . " Years Old");?></b></h4>
+			<h4><b><?php echo($education_experience . " Educated");?></b></h4>
 			<p><?php echo($headline);?></p>
 			<p><?php echo($self_description);?></p>
 		</div>
 	</div>
   </div>
-  <div class="w3-twothird w3-container">
-    <h2>Status</h2> 
+  <div class="w3-twothird w3-container"> 
 	<div class="w3-card-4">
-		<div class="w3-container">
+		<header class="w3-container"  style="background-color: #4A7C59;">
+		<h3>Overview</h3>
+		</header>
+		<div class="w3-container w3-light-grey">
 			<h4><b><?php echo($match_description);?></b></h4>
-			<p>Looking For <?php echo($relationship_sought);?></p>
+			<p>Looking For <?php echo($gender_sought . "s for " . $relationship_sought);?></p>
 			<p>Currently <?php echo($relationship_status);?></p>
 		</div>
 	</div>

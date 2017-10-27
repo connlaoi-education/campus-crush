@@ -162,7 +162,7 @@
 				
 				echo("
 						<tr style='width:100%; height:2%;'>\n
-							<td style='height:100%; width:10%;'><img class='w3-animate-zoom' style='height:80px; width:100px; box-shadow: 5px 5px 5px #999;' src='" . $image . "'/></td>\n
+							<td style='height:100%; width:10%;'><img class='w3-animate-zoom hero-image' style='height:100px; width:100px; box-shadow: 5px 5px 5px #999;background-size: cover; position: relative;' src='" . $image . "'/></td>\n
 							<td style='height:100%; width:20%; text-align:right; padding-left:5px;'><h3>" . $firstName . "</h3></td>\n
 							<td style='height:100%; width:20%; text-align:left; padding-left:5px;'><h3>" . $lastName . "</h3></td>\n
 							<td style='height:100%; width:15%; text-align:left; padding-left:5px;'><p class='content'>" . $userName . "</p></td>\n
