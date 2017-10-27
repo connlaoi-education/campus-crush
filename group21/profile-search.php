@@ -25,7 +25,7 @@ if(!isLoggedIn()) {
   ?>
 
 <!-- HTML -->
-<h3>Search for People - New Friends, and Old</h3>
+<h3>Search for People - Old Friends, and New!</h3>
 <p class="content"><?php echo $description; ?></p>
 
 <hr />
@@ -33,8 +33,8 @@ if(!isLoggedIn()) {
 <form method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
   <table>
     <tr>
-      <td><input type="text" name="search" placeholder="Search for Friends, Crushes, etc..." size="45%" /></td>
-      <td><input class="btn" type="submit" value="Search" /></td>
+      <td style="padding-left:15%;"><input type="text" name="search" placeholder="Search for Friends, Crushes, etc..." size="45%" /></td>
+      <td style="padding-right:15%;"><input class="btn" type="submit" value="Search" /></td>
     </tr>
   </table>
 

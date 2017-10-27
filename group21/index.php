@@ -6,7 +6,7 @@
 	$updateddate = "Sep 24 2017";
 	$filename = "index.php";
 	$banner = "Campus Crush";
-	$description = "Find Comfort<br />During your College Experience";
+	$description = "FIND COMFORT<br />During your College Experience";
 ?>
 <!--
 	Creator:      Minh Tri, Ly - Group 21

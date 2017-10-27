@@ -73,7 +73,7 @@ $userName = strtoupper($userInfoArray['id']);
   <div class="w3-third w3-container">
     <h2>Overview</h2> 
 	<div class="w3-card-4">
-		<img  style="width:100%;" src="<?php echo($image) ?>" alt="" />
+		<img class="w3-image" style="width:100%; max-height:450px;" src="<?php echo($image) ?>" alt="" />
 		<div class="w3-container">
 			<h4><b><?php echo($firstName . " " . $lastName);?></b></h4>
 			<p><?php echo($headline);?></p>

@@ -16,6 +16,74 @@ body {
 }
 
 .btn {
+  position: relative;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  display: block;
+  width:80px;
+  height:35px;
+
+  overflow: hidden;
+
+  border-width: 0;
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+  
+  background-color: #2ecc71;
+  color: #ecf0f1;
+  
+  transition: background-color .3s;
+}
+
+.btn:hover, .btn:focus {
+  background-color: #27ae60;
+}
+
+.btn > * {
+  position: relative;
+}
+
+.btn span {
+  display: block;
+  padding: 12px 24px;
+}
+
+.btn:before {
+  content: "";
+  
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  
+  display: block;
+  width: 0;
+  padding-top: 0;
+    
+  border-radius: 100%;
+  
+  background-color: rgba(236, 240, 241, .3);
+  
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.btn:active:before {
+  width: 120%;
+  padding-top: 120%;
+  
+  transition: width .2s ease-out, padding-top .2s ease-out;
+}
+
+/* Styles, not important */
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+/* .btn {
   background: #11b859;
   background-image: -webkit-linear-gradient(top, #11b859, #2b6ab8);
   background-image: -moz-linear-gradient(top, #11b859, #2b6ab8);
@@ -44,7 +112,7 @@ body {
   background-image: -o-linear-gradient(top, #2b6ab8, #0866d1);
   background-image: linear-gradient(to bottom, #2b6ab8, #0866d1);
   text-decoration: none;
-}
+} */
 
 p {
 	font-style: italic;
