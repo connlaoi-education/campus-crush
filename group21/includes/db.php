@@ -81,7 +81,6 @@
             else
             {
                 echo("<option value=\"" . $i . "\">" . $array[$i][$property] . "</option>\n");
-            
             }
         }
         echo("</select>");

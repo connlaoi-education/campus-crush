@@ -34,7 +34,6 @@ if(!isLoggedIn()) {
 	$error_2 = "";
 	$results = "";
 	$results2 = "";
-	$connection = db_connect();
 	
 	if($_SERVER["REQUEST_METHOD"] == "GET")
 	{
@@ -64,6 +63,7 @@ if(!isLoggedIn()) {
 		else 
 		{
 			//create array of user's profile options
+			$connection = db_connect();
 			$results = pg_execute($connection, "select_all_profile", array($_SESSION['username']));
 			$userArray = pg_fetch_array($results);
 
@@ -91,11 +91,16 @@ if(!isLoggedIn()) {
 	}
 	elseif($_SERVER["REQUEST_METHOD"] == "POST")
 	{
+		//create array of user's profile options
+		$connection = db_connect();
+		$results = pg_execute($connection, "select_all_profile", array($_SESSION['username']));
+		$userArray = pg_fetch_array($results);
+		
 		//retrieve variables from POST
 		$gender = trim($_POST["gender"]);
 		$gender_sought = trim($_POST["gender_sought"]);
 		$city = trim($_POST["city"]);
-		$imageID = trim($_POST["image"]);
+		$imageID = trim($userArray["image"]);
 		$headline = trim($_POST["headline"]);
 		$self_description = trim($_POST["self_description"]);
 		$match_description = trim($_POST["match_description"]);
