@@ -152,7 +152,10 @@ if(isLoggedIn()) {
 		</tr>
 		<tr>
 			<td></td>
-			<td><br /><input class="btn" type="submit" value="Log In" /><input class="btn" type="reset" value="Reset" /></td>
+			<td>
+				<input  style="display:inline;" class="btn" type="submit" value="Log In" />
+				<input style="display:inline;" class="btn" type="reset" value="Reset" />
+			</td>
 		</tr>
 	</table>
 </form>

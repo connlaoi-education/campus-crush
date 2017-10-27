@@ -86,8 +86,8 @@ $userName = strtoupper($userInfoArray['id']);
 	<div class="w3-card-4">
 		<div class="w3-container">
 			<h4><b><?php echo($match_description);?></b></h4>
-			<p><?php echo($relationship_sought);?></p>
-			<p><?php echo($relationship_status);?></p>
+			<p>Looking For <?php echo($relationship_sought);?></p>
+			<p>Currently <?php echo($relationship_status);?></p>
 		</div>
 	</div>
   </div>

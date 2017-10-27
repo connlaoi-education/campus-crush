@@ -30,11 +30,11 @@ if(!isLoggedIn()) {
 
 <hr />
 
-<form method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form style="width:100%;" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
   <table>
     <tr>
-      <td style="padding-left:15%;"><input type="text" name="search" placeholder="Search for Friends, Crushes, etc..." size="45%" /></td>
-      <td style="padding-right:15%;"><input class="btn" type="submit" value="Search" /></td>
+      <td style="padding-left:20%; margin-right:20px;"><input type="text" name="search" placeholder="Search for Friends, Crushes, etc..." size="50%" /></td>
+      <td style="padding-right:20%;"><input class="btn" type="submit" value="Search" /></td>
     </tr>
   </table>
 
@@ -58,13 +58,12 @@ if(!isLoggedIn()) {
 		{
 			// add logic for user exists (count results array, == 0, display No Results prompt)
 			buildSearchResults(strtolower($input));
-			echo('</form>');
 		}
 		else
 		{
-			echo('</form>');
-			echo('<h3>Enter their <b>First Name</b> above to look them up!</h3>');
+			echo('<h3 style="text-align:center;">Enter a <b>First Name</b> above to look someone up!</h3>');
 		}
+		echo('</form>');
 	}
 
 ?>

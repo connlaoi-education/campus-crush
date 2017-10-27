@@ -30,69 +30,72 @@ if(!isLoggedIn()) {
 <p class="content"><?php echo $description; ?></p>
 
 <?php
-  $error = "";
+    $error = "";
 	$error_2 = "";
 	$results = "";
 	$results2 = "";
-
+	$connection = db_connect();
+	
 	if($_SERVER["REQUEST_METHOD"] == "GET")
 	{
-    if($_SESSION['account_type'] == INCOMPLETE) {
-      //create empty variables for sticky form
-      //0's for radio buttons and dropdowns (default index)
-      $gender = "0";
-      $gender_sought = "0";
-      $city = "0";
-      $image = "";
-      $headline = "";
-      $self_description = "";
-      $match_description = "";
-      $relationship_sought = "0";
-      $relationship_status = "0";
-      $preferred_age_minimum = "";
-      $preferred_age_maximum = "";
-      $religion_sought = "0";
-      $race = "0";
-      $education_experience = "0";
-      $habits = "0";
-      $exercise = "0";
-      $residence_type = "0";
-      $campus = "0";
-    }
-    else {
-      //create array of user's profile options
-      $results = pg_execute($connection, "select_all_profile", array($_SESSION['username']));
-      $userArray = pg_fetch_array($results);
+		if($_SESSION['account_type'] == INCOMPLETE)
+		{
+			//create empty variables for sticky form
+			//0's for radio buttons and dropdowns (default index)
+			$gender = "0";
+			$gender_sought = "0";
+			$city = "0";
+			$imageID = "0";
+			$headline = "";
+			$self_description = "";
+			$match_description = "";
+			$relationship_sought = "0";
+			$relationship_status = "0";
+			$preferred_age_minimum = "";
+			$preferred_age_maximum = "";
+			$religion_sought = "0";
+			$race = "0";
+			$education_experience = "0";
+			$habits = "0";
+			$exercise = "0";
+			$residence_type = "0";
+			$campus = "0";
+		}
+		else 
+		{
+			//create array of user's profile options
+			$results = pg_execute($connection, "select_all_profile", array($_SESSION['username']));
+			$userArray = pg_fetch_array($results);
 
-      //store them in variables to echo
-      $gender = $userArray["gender"];
-      $gender_sought = $userArray["gender_sought"];
-      $city = $userArray["city"];
-      $image = "";
-      $headline = $userArray["headline"];
-      $self_description = $userArray["self_description"];
-      $match_description = $userArray["match_description"];
-      $relationship_sought = $userArray["relationship_sought"];
-      $relationship_status = $userArray["relationship_status"];
-      $preferred_age_minimum = $userArray["preferred_age_minimum"];
-      $preferred_age_maximum = $userArray["preferred_age_maximum"];
-      $religion_sought = $userArray["religion_sought"];
-      $race = $userArray["race"];
-      $education_experience = $userArray["education_experience"];
-      $habits = $userArray["habit"];
-      $exercise = $userArray["exercise"];
-      $residence_type = $userArray["residence_type"];
-      $campus = $userArray["campus"];
-
-    }
+			//store them in variables to echo
+			$gender = $userArray["gender"];
+			$gender_sought = $userArray["gender_sought"];
+			$city = $userArray["city"];
+			$imageID = $userArray["image"];
+			$imageAddress = getProperty('images', 'image_address', $userArray["image"], 'image_id');
+			$headline = $userArray["headline"];
+			$self_description = $userArray["self_description"];
+			$match_description = $userArray["match_description"];
+			$relationship_sought = $userArray["relationship_sought"];
+			$relationship_status = $userArray["relationship_status"];
+			$preferred_age_minimum = $userArray["preferred_age_minimum"];
+			$preferred_age_maximum = $userArray["preferred_age_maximum"];
+			$religion_sought = $userArray["religion_sought"];
+			$race = $userArray["race"];
+			$education_experience = $userArray["education_experience"];
+			$habits = $userArray["habit"];
+			$exercise = $userArray["exercise"];
+			$residence_type = $userArray["residence_type"];
+			$campus = $userArray["campus"];
+		}
 	}
-	
 	elseif($_SERVER["REQUEST_METHOD"] == "POST")
 	{
-    //retrieve variables from POST
+		//retrieve variables from POST
 		$gender = trim($_POST["gender"]);
 		$gender_sought = trim($_POST["gender_sought"]);
 		$city = trim($_POST["city"]);
+		$imageID = trim($_POST["image"]);
 		$headline = trim($_POST["headline"]);
 		$self_description = trim($_POST["self_description"]);
 		$match_description = trim($_POST["match_description"]);
@@ -101,32 +104,32 @@ if(!isLoggedIn()) {
 		$preferred_age_minimum = trim($_POST["preferred_age_minimum"]);
 		$preferred_age_maximum = trim($_POST["preferred_age_maximum"]);
 		$religion_sought = trim($_POST["religions"]);
-    $race = trim($_POST["races"]);
+		$race = trim($_POST["races"]);
 		$education_experience = trim($_POST["education_experience"]);
 		$habits = trim($_POST["habit"]);
 		$exercise = trim($_POST["exercise"]);
 		$residence_type = trim($_POST["residence_type"]);
 		$campus = trim($_POST["campuses"]);
-
-  
-	
-	if($error == "")
+		
+		if($error == "")
 		{	
-				$connection = db_connect();
-        //if user is creating profile, insert
-        if($_SESSION['account_type'] == INCOMPLETE) {
-			    $results = pg_execute($connection, "insert_profile", array($_SESSION['username'], $gender, $gender_sought, $city, 0, $headline, $self_description, $match_description, $relationship_sought, $relationship_status, $preferred_age_minimum, $preferred_age_maximum, $religion_sought, $education_experience, $race, $habits, $exercise, $residence_type, $campus));
+			//if user is creating profile, insert
+			if($_SESSION['account_type'] == INCOMPLETE)
+			{
+				$results1 = pg_execute($connection, "insert_profile", array($_SESSION['username'], $gender, $gender_sought, $city, 0, $headline, $self_description, $match_description, $relationship_sought, $relationship_status, $preferred_age_minimum, $preferred_age_maximum, $religion_sought, $education_experience, $race, $habits, $exercise, $residence_type, $campus));
 
-        //complete their profile
-				$results = pg_execute($connection, "update_account", array(CLIENT, $_SESSION['username']));
-        $_SESSION['account_type'] = CLIENT;
+				//complete their profile
+				$results2 = pg_execute($connection, "update_account", array(CLIENT, $_SESSION['username']));
+				$_SESSION['account_type'] = CLIENT;
+			}
+			//otherwise, update
+			else
+			{
+				$results3 = pg_execute($connection, "update_profile", array($gender, $gender_sought, $city, $imageID, $headline, $self_description, $match_description, $relationship_sought, $relationship_status, $preferred_age_minimum, $preferred_age_maximum, $religion_sought, $education_experience, $race, $habits, $exercise, $residence_type, $campus, $_SESSION['username']));
+			}
 
-        //otherwise, update
-        } else {
-          $results = pg_execute($connection, "update_profile", array($gender, $gender_sought, $city, 0, $headline, $self_description, $match_description, $relationship_sought, $relationship_status, $preferred_age_minimum, $preferred_age_maximum, $religion_sought, $education_experience, $race, $habits, $exercise, $residence_type, $campus, $_SESSION['username']));
-        }
-        header("Location: profile-create.php");
-        ob_flush();
+		header("Location: profile-create.php");
+		ob_flush();
 		}
 	}
 ?>
@@ -134,8 +137,7 @@ if(!isLoggedIn()) {
 <hr />
 
 <h2 class="highlight">
-	<?php echo $error; ?>
-  <?php  ?>
+	<?php echo($error); ?>
 </h2>
 
 <br />
@@ -143,11 +145,9 @@ if(!isLoggedIn()) {
 <form name="input" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<table>
 		<tr>
-			<?php $imageAddress = getProperty('images', 'image_address', 0, "image_id"); ?>
-			
 			<td>Image</td>
 			<td>
-				<img style="height: 128px; width: 128px;" src="<?php echo($imageAddress); ?>"/>
+				<img style="width:auto; max-height:200px; box-shadow:5px 5px 5px #999;" src="<?php echo $imageAddress; ?>"/>
 				<br />
 				<button class="btn" type="button">Browse</button>
 			</td>
