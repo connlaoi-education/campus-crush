@@ -45,7 +45,7 @@
 	function getProperty($table, $property, $id, $idName)
 	{
 		$connection = db_connect();
-		$sql = "SELECT " . $property . " FROM " . $table . " WHERE '" . $idName . "' = '" . $id . "'";
+		$sql = "SELECT " . $property . " FROM " . $table . " WHERE " . $idName . " = '" . $id . "'";
 		$results = pg_query($connection, $sql);
 		return pg_fetch_result($results, 0, $property);
 	}
@@ -144,6 +144,7 @@
 				$lastName = ucwords($userIDs[$i]['last_name']);
 					
 				$userName = strtoupper($userIDs[$i]['id']);
+				$user = strtolower($userIDs[$i]['id']);
 				
 				$age = calculate_Age($userIDs[$i]['birthday']);
 				
@@ -162,7 +163,7 @@
 				
 				echo("
 						<tr style='width:100%; height:2%;'>\n
-							<td style='height:100%; width:10%;'><img class='w3-animate-zoom hero-image' style='height:100px; width:100px; box-shadow: 5px 5px 5px #999;background-size: cover; position: relative;' src='" . $image . "'/></td>\n
+							<td style='height:100%; width:10%;'><a href='profile-display.php?user=" . $user . "'><img class='w3-animate-zoom hero-image' style='height:100px; width:100px; box-shadow: 5px 5px 5px #999;background-size: cover; position: relative;' src='" . $image . "'/></a></td>\n
 							<td style='height:100%; width:20%; text-align:right; padding-left:5px;'><h3>" . $firstName . "</h3></td>\n
 							<td style='height:100%; width:20%; text-align:left; padding-left:5px;'><h3>" . $lastName . "</h3></td>\n
 							<td style='height:100%; width:15%; text-align:left; padding-left:5px;'><p class='content'>" . $userName . "</p></td>\n
@@ -180,5 +181,12 @@
 			echo('<h3 style="text-align:center;">No users named <b>' . $search . '</b> exist on our site, Please try again!</h3>');
 		}
     }
+	
+	function buildUserProfile($user)
+	{
+		// do validation on input here eventually
+		$output = "header('Location:profile-display.php?user=$user');";
+		return $output;
+	}
 	
 ?>

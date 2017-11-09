@@ -84,7 +84,7 @@ if(isLoggedIn()) {
 			
 			if($records >= 1)
 			{
-				$output = "Welcome, " . pg_fetch_result($results, 0, "first_name") . " " . pg_fetch_result($results, 0, "last_name") . "<br/>Your current email address is " . pg_fetch_result($results, 0, "email_address") . "<br/> Last Login: " . pg_fetch_result($results, 0, "last_access");
+				$output = "Last Login: " . pg_fetch_result($results, 0, "last_access");
 				$_SESSION['output'] = $output;
 				$connection = db_connect();
 

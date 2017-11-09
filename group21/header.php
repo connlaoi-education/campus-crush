@@ -67,7 +67,7 @@
 					elseif($_SESSION['account_type'] == CLIENT)
 					{
 						echo('
-						<a href="./profile-display.php" class="w3-bar-item w3-button">Public Profile</a>
+						<a href="./profile-display.php?user=' . $_SESSION['username'] . '" class="w3-bar-item w3-button">Public Profile</a>
 						<a href="./profile-create.php" class="w3-bar-item w3-button">Manage Profile</a>
 						<a href="./user-update.php" class="w3-bar-item w3-button">Update Account</a>');
 					}
