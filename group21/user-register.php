@@ -214,8 +214,6 @@ if(isLoggedIn()) {
 		<?php echo $error_2; ?>
 	</h2>
 
-<br />
-
 <form name="input" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<table class="size1">
 		<tr>

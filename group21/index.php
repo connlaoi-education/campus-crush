@@ -1,6 +1,6 @@
 <!-- Page Info -->
 <?php
-	$title = "Campus Crush - Home";
+	$title = "Campus Crush";
 	
 	$createddate = "May 9 2017";
 	$updateddate = "Sep 24 2017";

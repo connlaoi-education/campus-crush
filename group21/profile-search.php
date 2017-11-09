@@ -1,6 +1,6 @@
 <!-- Page Info -->
 <?php
-	$title = "Campus Crush - Search";
+	$title = "CC - Search";
 	$createddate = "September 19 2017";
 	$updateddate = "October 20 2017";
 	$filename = "profile-search.php";
@@ -30,7 +30,7 @@ if(!isLoggedIn()) {
 
 <hr />
 
-<form style="width:100%;" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form style="	margin-bottom: 5%;" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
   <table>
     <tr>
       <td style="padding-left:30%; padding-right:5%; width:20%;"><input type="text" name="search" placeholder="Search for Friends, Crushes, etc..." size="30%" /></td>

@@ -137,21 +137,20 @@ if(isLoggedIn()) {
 	<h2 class="highlight">
 		<?php echo $output; ?>
 	</h2>
-
-<br />
 	
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<table>
 		<tr>
-			<td class="tt1">Login ID</td>
+			<td>Username</td>
 			<td><input type="text" name="login" value="<?php echo $username; ?>" size="20" /></td>
 		</tr>
 		<tr>
-			<td class="tt1">Password</td>
+			<td>Password</td>
 			<td><input type="password" name="pass" value="<?php echo $password; ?>" size="20" /></td>
 		</tr>
 		<tr>
-			<td></td>
+			<td>
+					<a href="./user-password-request.php" style="font-style:italic; font-size:10pt;" class="w3-bar-item ">Forgot your password?</a></td>
 			<td>
 				<input  style="display:inline;" class="btn" type="submit" value="Log In" />
 				<input style="display:inline;" class="btn" type="reset" value="Reset" />

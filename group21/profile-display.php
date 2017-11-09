@@ -40,11 +40,11 @@ $relationship_sought = getProperty('relationships', 'relationship_type', $userPr
 $relationship_status = getProperty('statuses', 'status_type', $userProfileArray["relationship_status"], 'status_id');
 $preferred_age_minimum = $userProfileArray["preferred_age_minimum"];
 $preferred_age_maximum = $userProfileArray["preferred_age_maximum"];
-$religion_sought = $userProfileArray["religion_sought"];
-$race = $userProfileArray["race"];
+$religion_sought = getProperty('religions', 'religion_name', $userProfileArray["religion_sought"], 'religion_id');
+$race = getProperty('races', 'race_name', $userProfileArray["race"], 'race_id');
 $education_experience = getProperty('education', 'education_type', $userProfileArray["education_experience"], 'education_id');
-$habits = $userProfileArray["habit"];
-$exercise = $userProfileArray["exercise"];
+$habits = getProperty('habits', 'habit_type', $userProfileArray["habit"], 'habit_id');
+$exercise = getProperty('exercises', 'exercise_type', $userProfileArray["exercise"], 'exercise_id');
 $residence_type = $userProfileArray["residence_type"];
 $campus = $userProfileArray["campus"];
 $image = getProperty('images', 'image_address', $userProfileArray["image"], 'image_id');
@@ -98,6 +98,17 @@ $age = calculate_Age($userInfoArray["birthday"]);
 			<p>Currently <?php echo($relationship_status);?></p>
 		</div>
 	</div>
+	<div class="w3-card-4">
+	<header class="w3-container"  style="background-color: #4A7C59;">
+	<h3>Lifestyle</h3>
+	</header>
+	<div class="w3-container w3-light-grey" style="margin-bottom:15%;" >
+		<h5><b>Race: <?php echo($race);?></b></h5>
+		<h5><b>Religion: <?php echo($religion_sought);?></b></h5>
+		<h5><b>Exercise: <?php echo($exercise);?></b></h5>
+		<h5><b>Habit: <?php echo($habits);?></b></h5>
+	</div>
+</div>
   </div>
 </div>
 

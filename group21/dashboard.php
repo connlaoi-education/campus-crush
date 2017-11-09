@@ -1,6 +1,6 @@
 <!-- Page Info -->
 <?php
-    $title = "Campus Crush - Dash";
+    $title = "CC - Home";
     $createddate = "September 19 2017";
     $updateddate = "xxxx xx 2017";
     $filename = "dashboard.php";

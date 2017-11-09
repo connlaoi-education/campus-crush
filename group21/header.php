@@ -4,7 +4,6 @@
 	Name: Jeremy Power
     File: <?php echo "$fileName \n"; ?>
     Date: <?php echo "$date \n"; ?>
-    <?php echo "$description \n"; ?>
 -->
     <?php 
 	require('includes/constants.php');
@@ -18,12 +17,14 @@
 <head>
     <link rel="stylesheet" href="./css/crush.css" type="text/css" />
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' />
 	<meta name="theme-color" content="#4A7C59" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8;" />
-	<meta name="viewport" content="width=device-width, initial-scale=1;" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
     <title><?php echo "$title";?></title>
     <link rel="shortcut icon" type="image/x-icon" href="./images/cc_logo.png" />
+
 </head>
 
 <body>
@@ -56,23 +57,19 @@
 					{
 						echo('
 						<a href="./profile-create.php" class="w3-bar-item w3-button">Complete Profile</a>
-						<a href="./user-update.php" class="w3-bar-item w3-button">Update Account</a>
-						<a href="./user-password-request.php" class="w3-bar-item w3-button">Reset Password</a>');
+						<a href="./user-update.php" class="w3-bar-item w3-button">Update Account</a>');
 					}
 					elseif($_SESSION['account_type'] == ADMIN)
 					{
 						echo('
-						<a href="./user-update.php" class="w3-bar-item w3-button">Update Account</a>
-						<a href="./user-password-request.php" class="w3-bar-item w3-button">Reset Password</a>');
+						<a href="./user-update.php" class="w3-bar-item w3-button">Update Account</a>');
 					}
 					elseif($_SESSION['account_type'] == CLIENT)
 					{
 						echo('
-						<a href="./profile-display.php" class="w3-bar-item w3-button">View Profile</a>
-						<a href="./profile-create.php" class="w3-bar-item w3-button">Update Profile</a>
-						<a href="./user-update.php" class="w3-bar-item w3-button">Update Account</a>
-						<a href="./user-password-request.php" class="w3-bar-item w3-button">Reset Password</a>
-						');
+						<a href="./profile-display.php" class="w3-bar-item w3-button">Public Profile</a>
+						<a href="./profile-create.php" class="w3-bar-item w3-button">Manage Profile</a>
+						<a href="./user-update.php" class="w3-bar-item w3-button">Update Account</a>');
 					}
 					
 					echo('<a href="./user-logout.php" class="w3-bar-item w3-button">Logout</a>');

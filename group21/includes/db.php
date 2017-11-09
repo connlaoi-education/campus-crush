@@ -45,7 +45,7 @@
 	function getProperty($table, $property, $id, $idName)
 	{
 		$connection = db_connect();
-		$sql = "SELECT " . $property . " FROM " . $table . " WHERE " . $idName . " = '" . $id . "'";
+		$sql = "SELECT " . $property . " FROM " . $table . " WHERE '" . $idName . "' = '" . $id . "'";
 		$results = pg_query($connection, $sql);
 		return pg_fetch_result($results, 0, $property);
 	}

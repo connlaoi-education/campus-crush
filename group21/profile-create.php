@@ -1,6 +1,6 @@
 <!-- Page Info -->
 <?php
-		$title = "Campus Crush - Create";
+		$title = "CC - Profile";
 		$createddate = "September 19 2017";
 		$updateddate = "xxxx xx 2017";
 		$filename = "profile-create.php";
@@ -96,11 +96,63 @@ if(!isLoggedIn()) {
 		$results = pg_execute($connection, "select_all_profile", array($_SESSION['username']));
 		$userArray = pg_fetch_array($results);
 		
+		// IMAGE VALIDATION AND UPLOADING
+		$target_dir = "./images/";
+		$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+		$uploadOk = 1;
+		$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+		// Check if image file is a actual image or fake image
+		if(isset($_POST["update"])) {
+			$check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+			
+			if($check !== false) {
+				$completed =  "File is an image - " . $check["mime"] . ".";
+				$uploadOk = 1;
+			} else {
+				$error =  "File is not an image.";
+				$uploadOk = 0;
+			}
+		}
+		// Check if file already exists
+		if (file_exists($target_file)) {
+			$error = "Sorry, file already exists.";
+			$uploadOk = 0;
+		}
+		// Check file size
+		if ($_FILES["fileToUpload"]["size"] > 500000) {
+			$error =  "Sorry, your file is too large.";
+			$uploadOk = 0;
+		}
+		// Allow certain file formats
+		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+		&& $imageFileType != "gif" ) {
+			$error =  "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+			$uploadOk = 0;
+		}
+		// Check if $uploadOk is set to 0 by an error
+		if ($uploadOk == 0) {
+			$error = "Sorry, your file was not uploaded.";
+		// if everything is ok, try to upload file
+		} else {
+			if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+				
+				$completed = "The Image ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+				
+				$sql2 = "INSERT INTO images (image_address = " . $_FILES["fileToUpload"]["tmp_name"] . ")";
+				$results4 = pg_query($connection, $sql2);
+				 
+			} else {
+				$error = "Sorry, there was an error uploading your file.";
+			}
+		}
+		
 		//retrieve variables from POST
 		$gender = trim($_POST["gender"]);
 		$gender_sought = trim($_POST["gender_sought"]);
 		$city = trim($_POST["city"]);
 		$imageID = trim($userArray["image"]);
+		$imageUpdate = getProperty('images', 'image_id', $_FILES["fileToUpload"]["tmp_name"], 'image_address');
+		$imageAddress = getProperty('images', 'image_address', $userArray["image"], 'image_id');
 		$headline = trim($_POST["headline"]);
 		$self_description = trim($_POST["self_description"]);
 		$match_description = trim($_POST["match_description"]);
@@ -121,7 +173,7 @@ if(!isLoggedIn()) {
 			//if user is creating profile, insert
 			if($_SESSION['account_type'] == INCOMPLETE)
 			{
-				$results1 = pg_execute($connection, "insert_profile", array($_SESSION['username'], $gender, $gender_sought, $city, 0, $headline, $self_description, $match_description, $relationship_sought, $relationship_status, $preferred_age_minimum, $preferred_age_maximum, $religion_sought, $education_experience, $race, $habits, $exercise, $residence_type, $campus));
+				$results1 = pg_execute($connection, "insert_profile", array($_SESSION['username'], $gender, $gender_sought, $city, $imageUpdate, $headline, $self_description, $match_description, $relationship_sought, $relationship_status, $preferred_age_minimum, $preferred_age_maximum, $religion_sought, $education_experience, $race, $habits, $exercise, $residence_type, $campus));
 
 				//complete their profile
 				$results2 = pg_execute($connection, "update_account", array(CLIENT, $_SESSION['username']));
@@ -130,7 +182,7 @@ if(!isLoggedIn()) {
 			//otherwise, update
 			else
 			{
-				$results3 = pg_execute($connection, "update_profile", array($gender, $gender_sought, $city, $imageID, $headline, $self_description, $match_description, $relationship_sought, $relationship_status, $preferred_age_minimum, $preferred_age_maximum, $religion_sought, $education_experience, $race, $habits, $exercise, $residence_type, $campus, $_SESSION['username']));
+				$results3 = pg_execute($connection, "update_profile", array($gender, $gender_sought, $city, $imageUpdate, $headline, $self_description, $match_description, $relationship_sought, $relationship_status, $preferred_age_minimum, $preferred_age_maximum, $religion_sought, $education_experience, $race, $habits, $exercise, $residence_type, $campus, $_SESSION['username']));
 			}
 
 		header("Location: profile-create.php");
@@ -143,18 +195,20 @@ if(!isLoggedIn()) {
 
 <h2 class="highlight">
 	<?php echo($error); ?>
+	<?php echo($completed); ?>
 </h2>
 
 <br />
 
-<form name="input" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form enctype="multipart/form-data" name="input" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<table>
 		<tr>
 			<td>Image</td>
 			<td>
 				<img style="width:auto; max-height:200px; box-shadow:5px 5px 5px #999;" src="<?php echo $imageAddress; ?>"/>
 				<br />
-				<button class="btn" type="button">Browse</button>
+				<input class="btn" style="width: 355.555px;" type="file" name="fileToUpload" id="fileToUpload" />
+				<input class="btn" style="width: 180px;" type="submit" name="update" value="Upload Image" />
 			</td>
 		</tr>
 
