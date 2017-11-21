@@ -153,9 +153,9 @@
 				
 				echo("<tr class='w3-card w3-round' style='width:100%;>
 								<td style='width:100%; height:2%;'>\n
+									<td style='height:100%; width:auto;'><a href='profile-display.php?user=" . $user . "'><img class='w3-animate-zoom hero-image w3-round' style='height:100px; width:100px; box-shadow: 3px 3px 3px #999;background-size: cover; position: relative;' src='" . $image . "'/></a></td>\n
 									<td style='height:100%; width:auto; text-align:right; padding-left:5px;'><h3>" . $firstName . "</h3></td>\n
 									<td style='height:100%; width:auto; text-align:left; padding-left:5px;'><h3>" . $lastName . "</h3></td>\n
-									<td style='height:100%; width:auto;'><a href='profile-display.php?user=" . $user . "'><img class='w3-animate-zoom hero-image w3-circle' style='height:100px; width:100px; box-shadow: 3px 3px 3px #999;background-size: cover; position: relative;' src='" . $image . "'/></a></td>\n
 									<td style='height:100%; width:auto; text-align:left; padding-left:5px;'><p>" . $gender . "</p></td>\n
 									<td style='height:100%; width:auto; text-align:left; padding-left:5px;'><p>" . $age . "</p></td>\n
 								</td>\n
