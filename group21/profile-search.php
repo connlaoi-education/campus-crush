@@ -30,16 +30,15 @@ if(!isLoggedIn()) {
 
 <hr />
 
-<form style="	margin-bottom: 5%;" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form  class="w3-card w3-mobile" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
   <table>
-    <tr>
+
       <td><input type="text" name="search" placeholder="Search for Friends, Crushes, etc..." size="25%" /></td>
       <td><input class="btn" type="submit" value="Search" /></td>
-    </tr>
+
   </table>
 
 <hr />
-<br />
 
 <?php
 	

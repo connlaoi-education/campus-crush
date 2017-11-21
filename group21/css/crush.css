@@ -88,10 +88,6 @@ p {
    font-family: inherit;
 }
 
-img {
-	width: 50%;
-}
-
 th {
 	padding: 10px;
 }
@@ -102,9 +98,10 @@ textarea {
 }
 
 form {
-	width: 80%;
+	width: 100%;
 	padding-left:10%;
 	padding-right:10%;
+	padding-bottom:8%;
 	text-align: left;
 }
 
@@ -115,6 +112,7 @@ table{
     border-color: none;
 	text-align: left;
 	width: 100%;
+	padding-bottom:4%;
 }
 
 caption {
@@ -168,6 +166,23 @@ table{
 	background-color: #73ba44;
 }
 
+.grow
+{
+	min-height:74.5px;
+	max-height:150px;
+	min-width:74.5px;
+	max-width:150px;
+}
+
+.grow:hover
+{
+	-webkit-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+	transform: scale(1.1);
+	-webkit-filter: contrast(155%); /* Safari 6.0 - 9.0 */
+    filter: contrast(155%);
+}
+
 #container
 {
 	width: 100%;
@@ -184,31 +199,30 @@ table{
 
 #header h1
 { 
-	margin: 0 2% 0 2%;
+	margin: 0% 2% 0 2%;
 	display: inline;
 	color: #285C9B;
 }
 
 #header .ccmain
 {
-	font-size: 34pt;
-	font-style: bold;
-	font-family: 'Roboto Slab', serif;
+	font-size: 4em;
+	font-family: 'Lobster', serif;
 	text-decoration: none;
 	display:inline-block;
+	vertical-align:middle;
 }
 
 #header img
 { 
 	vertical-align: middle;
-	width: 150px;
 }
 
 #sites
 {
-	float: left;
+	/*float: left;*/
 	background: #73D45F;
-	padding: 0 10% 0 10%;
+	padding: 0 6% 0 6%;
 	font-size:20px;
 	color: #285C9B;
 
@@ -247,6 +261,7 @@ table{
 {
 	float: left;
 	width: 100%;
+	height:96%;
 	text-align: center;
 	display: inline;
 }
@@ -256,21 +271,22 @@ table{
 	margin: 0; 
 }
 
-#content img .index
+#content .index
 {
-	min-height:400px;
-	min-width: 800px;
-	overflow:hidden;
+	max-height:400px;
+	min-width:400px;
+	max-width:100%;
 }
 
 #footer
 {
 	clear: both;
+	font-size:0.75em;
     background: #4A7C59;
-    text-align: center;
-    padding: 20px 20px 20px 20px;
-    height: 2%;
+    text-align: left;
+    padding: 5px 15px 5px 15px;
     width: 100%;
+	height:4%;
     bottom: 0;
     left: 0;
     position: fixed;

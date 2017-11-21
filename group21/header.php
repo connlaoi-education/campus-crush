@@ -1,7 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
-    Group 21
-	Name: Jeremy Power
+    Created by Group 21
     File: <?php echo "$fileName \n"; ?>
     Date: <?php echo "$date \n"; ?>
 -->
@@ -18,7 +17,8 @@
     <link rel="stylesheet" href="./css/crush.css" type="text/css" />
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab" />
 	<meta name="theme-color" content="#4A7C59" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8;" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -29,8 +29,8 @@
 
 <body>
     <div id="container">
-        <div id="header" class="w3-mobile">
-			<a href="./index.php"><img src="./images/cc_logo.png" alt="Campus Crush" /></a>
+        <div id="header" >
+			<a href="./index.php" ><img class="grow" src="./images/cc_logo.png" alt="Campus Crush" /></a>
 			<h1 class="ccmain"><?php echo $banner; ?></h1>
         </div>
 		
@@ -80,4 +80,4 @@
 		?>
 	</div>
 	<div id="content-container">
-		<div id="content" class="back">
+		<div id="content">

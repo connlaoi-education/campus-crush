@@ -123,16 +123,6 @@
 		{
 			echo("
 					<table style='width:100%; height:100%;'>
-					
-						<tr style='width:100%; height:0;'>
-							<th style='height:100%; width:10%; text-align:left;'><h2></h2></th>
-							<th style='height:100%; width:20%; text-align:left;'><h2></h2></th>
-							<th style='height:100%; width:20%; text-align:left;'><h2></h2></th>
-							<th style='height:100%; width:15%; text-align:left;'><h2></h2></th>
-							<th style='height:100%; width:15%; text-align:left;'><h2></h2></th>
-							<th style='height:100%; width:10%; text-align:left;'><h2></h2></th>
-							<th style='height:100%; width:10%; text-align:left;'><h2></h2></th>
-						</tr>
 					");
 						
 			// FOR LOOP STARTS HERE
@@ -161,16 +151,15 @@
 				$gender = ucwords(getProperty('genders', 'gender_type', $userProfiles[0]['gender'], 'gender_id'));
 				$campus = ucwords(getProperty('campuses', 'campus_name', $userProfiles[0]['campus'], 'campus_id'));
 				
-				echo("
-						<tr style='width:100%; height:2%;'>\n
-							<td style='height:100%; width:10%;'><a href='profile-display.php?user=" . $user . "'><img class='w3-animate-zoom hero-image' style='height:100px; width:100px; box-shadow: 5px 5px 5px #999;background-size: cover; position: relative;' src='" . $image . "'/></a></td>\n
-							<td style='height:100%; width:20%; text-align:right; padding-left:5px;'><h3>" . $firstName . "</h3></td>\n
-							<td style='height:100%; width:20%; text-align:left; padding-left:5px;'><h3>" . $lastName . "</h3></td>\n
-							<td style='height:100%; width:15%; text-align:left; padding-left:5px;'><p class='content'>" . $userName . "</p></td>\n
-							<td style='height:100%; width:15%; text-align:left; padding-left:5px;'><p>" . $campus . "</p></td>\n
-							<td style='height:100%; width:10%; text-align:left; padding-left:5px;'><p>" . $gender . "</p></td>\n
-							<td style='height:100%; width:10%; text-align:left; padding-left:5px;'><p>" . $age . "</p></td>\n
-						</tr>\n
+				echo("<tr class='w3-card w3-round' style='width:100%;>
+								<td style='width:100%; height:2%;'>\n
+									<td style='height:100%; width:auto; text-align:right; padding-left:5px;'><h3>" . $firstName . "</h3></td>\n
+									<td style='height:100%; width:auto; text-align:left; padding-left:5px;'><h3>" . $lastName . "</h3></td>\n
+									<td style='height:100%; width:auto;'><a href='profile-display.php?user=" . $user . "'><img class='w3-animate-zoom hero-image w3-circle' style='height:100px; width:100px; box-shadow: 3px 3px 3px #999;background-size: cover; position: relative;' src='" . $image . "'/></a></td>\n
+									<td style='height:100%; width:auto; text-align:left; padding-left:5px;'><p>" . $gender . "</p></td>\n
+									<td style='height:100%; width:auto; text-align:left; padding-left:5px;'><p>" . $age . "</p></td>\n
+								</td>\n
+							</tr>
 						");
 			}
 			// FOR LOOP ENDS HERE

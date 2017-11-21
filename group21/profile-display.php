@@ -133,7 +133,7 @@ else
 		<header class="w3-container" style="background-color: #4A7C59;">
 			<h3><?php echo($firstName . " " . $lastName);?></h3>
 		</header>
-		<img class="w3-image w3-animate-zoom hero-image" style="width:auto; min-height:325px; max-height:400px;" src="<?php echo($image) ?>" alt="" />
+		<img class="w3-image w3-animate-zoom hero-image" style="width:auto; max-height:400px;" src="<?php echo($image) ?>" alt="" />
 		<div class="w3-container w3-light-grey">
 			<h4><b><?php echo($age . " Year Old " . $race);?></b></h4>
 			<h4><b><?php echo($education_experience . " Educated");?></b></h4>
