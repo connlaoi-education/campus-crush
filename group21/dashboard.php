@@ -1,6 +1,6 @@
 <!-- Page Info -->
 <?php
-    $title = "Campus Crush - Dash";
+    $title = "CC - Home";
     $createddate = "September 19 2017";
     $updateddate = "xxxx xx 2017";
     $filename = "dashboard.php";
@@ -52,7 +52,10 @@ $content = file_get_contents('http://loripsum.net/api'); // for testing
 if($_SESSION["account_type"] == ADMIN)
 {
 	// LOAD ADMIN TOOLS in tabs(?)
-	echo '<h2>ADMIN DASHBOARD</h2>';
+	echo '<h2>ADMIN</h2>';
+	
+	// Redirect  incomplete profiles to profile creation DELIVERABLE 3
+	// header("Location:admin.php");
 	
 	// Database Moderation (Delete Account, Send Password Reset Email,etc)
 	// User Summaries (Graphs, Charts, etc)
@@ -63,7 +66,8 @@ if($_SESSION["account_type"] == ADMIN)
 elseif($_SESSION["account_type"] == CLIENT)
 {
 	// LOAD USER DASHBOARD
-	echo '<h2>USER DASHBOARD</h2>';
+	$firstName = trim(ucwords($_SESSION['first_name']));
+	echo '<h2>Welcome back, ' . $firstName . '!</h2>';
 	
 	// User Profile Picture
 	

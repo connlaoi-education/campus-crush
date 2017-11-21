@@ -9,7 +9,7 @@
 	// display the footer copyright information
 	function display_copyright() {
 		// save copyright year and group name to string for output
-		$footer_info = "&copy; " . date("Y") . " Connlaoi Smith, Jeremy Power, Minh Tri Ly"; 
+		$footer_info = "&copy; " . date("Y") . " Connlaoi Smith, Jeremy Power, Tri Minh Ly"; 
 		return $footer_info;
 	}
 
@@ -19,12 +19,6 @@
         $age = date_diff(date_create($birthdate), date_create('now'))->y;
         return $age;
     }
-	
-	function getSearchUsers($first_Name) {
-		$connection = db_connect();
-		$results = pg_execute($connection,"select_all_user_info",$first_Name);
-		return $results;
-	}
 
 	function isLoggedIn() {
 		if(isset($_SESSION['username'])) {

@@ -1,12 +1,11 @@
 <!-- Page Info -->
 <?php
-	$title = "Campus Crush - Login";
-	$createddate = "September 19 2017";
-	$updateddate = "xxxx xx 2017";
-	$filename = "user-login.php";
-	$banner = "Campus Crush";
-	$page = "Login";
-	$description = "There is No Easier Way to Meet New People on Campus!";
+		$title = "Campus Crush - Login";
+		$createddate = "September 19 2017";
+		$updateddate = "xxxx xx 2017";
+		$filename = "user-login.php";
+		$banner = "Campus Crush";
+		$description = "There is No Easier Way to Meet New People on Campus!";
 ?>
 <!--
 	Creator:      Connlaoi Smith
@@ -24,28 +23,25 @@ if(isLoggedIn()) {
 	ob_flush();
 }
 	?>
-<p class="content"><?php 
-  if(isset($_SESSION["message"])) {
-    echo("<p style=\"color: red\">" . $_SESSION["message"] . "</p>");
-    unset($_SESSION["message"]);
-  }
-   if(isset($_SESSION["register"])) {
-     echo("<p style=\"color: red\">" . $_SESSION['register'] . "</p>");
-	 unset($_SESSION["register"]);
-   }
-  ?></p>
-  
+
 <!-- HTML -->
 
-<p class="content">No Need for Nonsense...</p>
+<h3>No Need for Nonsense...</h3>
+<p class="content"><?php echo $description; ?></p>
 
-<h3>
-	<?php echo $description; ?>
-</h3>
+<p class="content">
+	<?php 
+		  if(isset($_SESSION["message"])) {
+			echo("<p style=\"color: red\">" . $_SESSION["message"] . "</p>");
+			unset($_SESSION["message"]);
+		  }
+		   if(isset($_SESSION["register"])) {
+			 echo("<p style=\"color: red\">" . $_SESSION['register'] . "</p>");
+			 unset($_SESSION["register"]);
+		   }
+	  ?>
+  </p>
 
-<br />
-<hr />
-<br />
 
 <?php
 
@@ -90,14 +86,14 @@ if(isLoggedIn()) {
 			
 			if($records >= 1)
 			{
-				$output = "Welcome, " . pg_fetch_result($results, 0, "first_name") . " " . pg_fetch_result($results, 0, "last_name") . "<br/>Your current email address is " . pg_fetch_result($results, 0, "email_address") . "<br/> Last Login: " . pg_fetch_result($results, 0, "last_access");
+				$output = "Last Login: " . pg_fetch_result($results, 0, "last_access");
 				$_SESSION['output'] = $output;
 				$connection = db_connect();
 
 				$results = pg_execute($connection, "date_update", array($username));
 
-    		$results = pg_execute($connection, "find_user", array($username));
-    		$dataArray = pg_fetch_assoc($results);
+				$results = pg_execute($connection, "find_user", array($username));
+				$dataArray = pg_fetch_assoc($results);
 
 				$_SESSION['username'] = $dataArray['id'];
 				$_SESSION['account_type'] = $dataArray['account_type'];
@@ -134,27 +130,33 @@ if(isLoggedIn()) {
 	}
 
 ?>
-	<br />
+
+<hr />
+
 	<h2 class="highlight">
 		<?php echo $error; ?>
 	</h2>
 	<h2 class="highlight">
 		<?php echo $output; ?>
 	</h2>
-	<br />
+	
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<table>
 		<tr>
-			<td class="tt1">Login ID</td>
+			<td>Username</td>
 			<td><input type="text" name="login" value="<?php echo $username; ?>" size="20" /></td>
 		</tr>
 		<tr>
-			<td class="tt1">Password</td>
+			<td>Password</td>
 			<td><input type="password" name="pass" value="<?php echo $password; ?>" size="20" /></td>
 		</tr>
 		<tr>
-			<td><br /><input type="submit" value="Log In" /></td>
-			<td><br /><input type="reset" value="Reset" /></td>
+			<td>
+					<a href="./user-password-request.php" style="font-style:italic; font-size:10pt;" class="w3-bar-item ">Forgot your password?</a></td>
+			<td>
+				<input  style="display:inline;" class="btn" type="submit" value="Log In" />
+				<input style="display:inline;" class="btn" type="reset" value="Reset" />
+			</td>
 		</tr>
 	</table>
 </form>

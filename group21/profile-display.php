@@ -5,7 +5,7 @@
 		$updateddate = "xxxx xx 2017";
 		$filename = "profile-display.php";
 		$banner = "Campus Crush";
-		$description = "Profile Update Page";
+		$description = "Displays a user's profile page.";
 ?>
 <!--
 	Creator:      Connlaoi Smith
@@ -18,24 +18,154 @@
 <!-- Include Header PHP -->
 <?php include 'header.php';
 
-if(!isLoggedIn()) { 
+if(!isLoggedIn())
+{ 
 	header("Location:user-login.php");
 	ob_flush();
 }
-	?>
 
-<!-- HTML -->
-<p class="content"><?php echo $description; ?></p>
+elseif($_SERVER["REQUEST_METHOD"] == "GET")
+{
+	$input = $_GET["user"];
+	
+	if($input != "")
+	{
+		// add logic for user exists (count results array, == 0, display No Results prompt)
+		
+		//create array of user's profile options and user info
+		$connection = db_connect();
+		$results = pg_execute($connection, "select_all_profile", array($_GET['user']));
+		$userProfileArray = pg_fetch_array($results);
 
-<br />
-<hr />
+		// profile data
+		$gender = getProperty('genders', 'gender_type', $userProfileArray["gender"], 'gender_id');
+		$gender_sought = getProperty('genders', 'gender_type', $userProfileArray["gender_sought"], 'gender_id');
+		$city = getProperty('cities', 'city_name', $userProfileArray["city"], 'city_id');
+		$headline = $userProfileArray["headline"];
+		$self_description = $userProfileArray["self_description"];
+		$match_description = $userProfileArray["match_description"];
+		$relationship_sought = getProperty('relationships', 'relationship_type', $userProfileArray["relationship_sought"], 'relationship_id');
+		$relationship_status = getProperty('statuses', 'status_type', $userProfileArray["relationship_status"], 'status_id');
+		$preferred_age_minimum = $userProfileArray["preferred_age_minimum"];
+		$preferred_age_maximum = $userProfileArray["preferred_age_maximum"];
+		$religion_sought = getProperty('religions', 'religion_name', $userProfileArray["religion_sought"], 'religion_id');
+		$race = getProperty('races', 'race_name', $userProfileArray["race"], 'race_id');
+		$education_experience = getProperty('education', 'education_type', $userProfileArray["education_experience"], 'education_id');
+		$habits = getProperty('habits', 'habit_type', $userProfileArray["habit"], 'habit_id');
+		$exercise = getProperty('exercises', 'exercise_type', $userProfileArray["exercise"], 'exercise_id');
+		$residence_type = getProperty('residences', 'residence_type', $userProfileArray["residence_type"], 'residence_id');
+		$campus = $userProfileArray["campus"];
+		$image = getProperty('images', 'image_address', $userProfileArray["image"], 'image_id');
 
-<?php
-$content = file_get_contents('http://loripsum.net/api');
-echo($content);
+		// do validation on input here eventually
+		$sql = "SELECT * FROM users WHERE id = '" . strtolower($_GET['user']) . "'";
+		$results = pg_query($connection, $sql);
+		$userInfoArray = pg_fetch_array($results);
+
+		// user data
+		$username = $userInfoArray["id"];
+		$birthday = $userInfoArray["birthday"];
+		$strBday = date_create($birthday,"Month-Day-Y");
+		$firstName = ucwords($userInfoArray['first_name']);
+		$lastName = ucwords($userInfoArray['last_name']);
+		$userName = strtoupper($userInfoArray['id']);
+		$age = calculate_Age($userInfoArray["birthday"]);
+	}
+	else
+	{
+		echo('<h3 style="text-align:center;">Looking for someone?<b>Try again...</b></h3>');
+	}
+}
+else
+{
+	//create array of user's profile options and user info
+	$connection = db_connect();
+	$results = pg_execute($connection, "select_all_profile", array($_SESSION['username']));
+	$userProfileArray = pg_fetch_array($results);
+
+	// profile data
+	$gender = getProperty('genders', 'gender_type', $userProfileArray["gender"], 'gender_id');
+	$gender_sought = getProperty('genders', 'gender_type', $userProfileArray["gender_sought"], 'gender_id');
+	$city = $userProfileArray["city"];
+	$headline = $userProfileArray["headline"];
+	$self_description = $userProfileArray["self_description"];
+	$match_description = $userProfileArray["match_description"];
+	$relationship_sought = getProperty('relationships', 'relationship_type', $userProfileArray["relationship_sought"], 'relationship_id');
+	$relationship_status = getProperty('statuses', 'status_type', $userProfileArray["relationship_status"], 'status_id');
+	$preferred_age_minimum = $userProfileArray["preferred_age_minimum"];
+	$preferred_age_maximum = $userProfileArray["preferred_age_maximum"];
+	$religion_sought = getProperty('religions', 'religion_name', $userProfileArray["religion_sought"], 'religion_id');
+	$race = getProperty('races', 'race_name', $userProfileArray["race"], 'race_id');
+	$education_experience = getProperty('education', 'education_type', $userProfileArray["education_experience"], 'education_id');
+	$habits = getProperty('habits', 'habit_type', $userProfileArray["habit"], 'habit_id');
+	$exercise = getProperty('exercises', 'exercise_type', $userProfileArray["exercise"], 'exercise_id');
+	$residence_type = getProperty('residences', 'residence_type', $userProfileArray["residence_type"], 'residence_id');
+	$campus = $userProfileArray["campus"];
+	$image = getProperty('images', 'image_address', $userProfileArray["image"], 'image_id');
+
+
+	// do validation on input here eventually
+	$sql = "SELECT id, first_name, last_name, birthday FROM users WHERE id = '" . $_SESSION['username'] . "'";
+	$results = pg_query($connection, $sql);
+	$userInfoArray = pg_fetch_array($results);
+
+	// user data
+	$username = $userInfoArray["id"];
+	$birthday = $userInfoArray["birthday"];
+	$strBday = date_create($birthday,"Month-Day-Y");
+
+	$firstName = ucwords($userInfoArray['first_name']);
+
+	$lastName = ucwords($userInfoArray['last_name']);
+		
+	$userName = strtoupper($userInfoArray['id']);
+
+	$age = calculate_Age($userInfoArray["birthday"]);
+}
+
 ?>
 
+<!-- HTML -->
 
+<div class="w3-row">
+  <div class="w3-third w3-container">
+	<div class="w3-card-4">
+		<header class="w3-container" style="background-color: #4A7C59;">
+			<h3><?php echo($firstName . " " . $lastName);?></h3>
+		</header>
+		<img class="w3-image w3-animate-zoom hero-image" style="width:auto; max-height:400px;" src="<?php echo($image) ?>" alt="" />
+		<div class="w3-container w3-light-grey">
+			<h4><b><?php echo($age . " Year Old " . $race);?></b></h4>
+			<h4><b><?php echo($education_experience . " Educated");?></b></h4>
+			<p><?php echo($headline);?></p>
+			<p><?php echo($self_description);?></p>
+		</div>
+	</div>
+  </div>
+  <div class="w3-twothird w3-container"> 
+	<div class="w3-card-4">
+		<header class="w3-container"  style="background-color: #4A7C59;">
+		<h3>Overview</h3>
+		</header>
+		<div class="w3-container w3-light-grey">
+			<h4><b><?php echo($match_description);?></b></h4>
+			<p>Looking For <?php echo($gender_sought . "s between " . $preferred_age_minimum . " and " . $preferred_age_maximum . " for " . $relationship_sought);?></p>
+			<p>Currently <?php echo($relationship_status);?></p>
+		</div>
+	</div>
+	<div class="w3-card-4">
+	<header class="w3-container"  style="background-color: #4A7C59;">
+	<h3>Lifestyle</h3>
+	</header>
+	<div class="w3-container w3-light-grey" style="margin-bottom:15%;" >
+		<h5><b><?php echo("Living at " . $residence_type . " in " . $city); ?></b></h5>
+		<h5><b>Religion:</b> <?php echo($religion_sought);?></h5>
+		<h5><b>Exercise:</b> <?php echo($exercise);?></h5>
+		<h5><b>Habit:</b> <?php echo($habits);?></h5>
+	</div>
+</div>
+  </div>
+</div>
 
 <!-- Include Footer PHP -->
  <?php include 'footer.php'; ?>

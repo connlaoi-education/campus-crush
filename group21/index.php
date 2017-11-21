@@ -1,13 +1,12 @@
 <!-- Page Info -->
 <?php
-	$title = "Campus Crush - Home";
+	$title = "Campus Crush";
 	
 	$createddate = "May 9 2017";
 	$updateddate = "Sep 24 2017";
 	$filename = "index.php";
 	$banner = "Campus Crush";
-	$page = "";
-	$description = "Find Comfort during your College Experience";
+	$description = "Find Comfort<br /><i>During your College Experience</i>";
 ?>
 <!--
 	Creator:      Minh Tri, Ly - Group 21
@@ -20,12 +19,8 @@
 <!-- Include Header PHP -->
 <?php include 'header.php'; ?>
 
-	<p class="content"><?php echo $description; ?></p>
-	
-	<h3>
-		Don't let your Dreams be Dreams... Reach out to your College Crush now!
-	</h3>
-	
-	<img src="./images/index_north_oshawa.png" alt="North Oshawa Campus">
+	<h1><b><?php echo $description; ?></b></h1>
+	<p>Don't let your dreams be dreams... Reach out to your Campus Crush now!</p>
+	<img class="w3-animate-zoom index" src="./images/index_north_oshawa.png" alt="North Oshawa Campus"/>
 	
 <?php include 'footer.php'; ?>

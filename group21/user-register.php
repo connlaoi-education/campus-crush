@@ -5,8 +5,7 @@
 		$updateddate = "xxxx xx 2017";
 		$filename = "user-register.php";
 		$banner = "Campus Crush";
-		$page = "Registration";
-		$description = "Sign up is Quick and Easy - Start Meeting New People!";
+		$description = "Sign up is Quick, Easy, and Secure - Your Crush is Waiting!";
 ?>
 <!--
 	Creator:      Jeremy Power, Minh Tri Ly
@@ -24,18 +23,19 @@ if(isLoggedIn()) {
 	ob_flush();
 }
 	?>
-<?php 
-  if(isset($_SESSION["message"])) {
-    echo("<p style=\"color: red\">" . $_SESSION["message"] . "</p>");
-    unset($_SESSION["message"]);
-  }
-  ?>
+
 <!-- HTML -->
+
+<h3>Register Now to Start Chatting!</h3>
 <p class="content"><?php echo $description; ?></p>
 
-<h3>
-		Register now to Start Chatting with your Campus Crush today!
-</h3>
+<?php 
+	if(isset($_SESSION["message"])) {
+		echo("<p style=\"color: red\">" . $_SESSION["message"] . "</p>");
+		unset($_SESSION["message"]);
+	}
+?>
+
 	
 <?php
 
@@ -183,7 +183,6 @@ if(isLoggedIn()) {
 		{
 			
 			$connection = db_connect();
-			$results = pg_prepare($connection, "select_id_pass", "SELECT users.id, users.password, users.first_name, users.last_name, users.email_address, users.account_type, users.enroll_date, users.last_access FROM users WHERE id = $1 AND password = $2");
 			$results = pg_execute($connection, "select_id_pass", array($username, md5($password)));
 			$records = pg_num_rows($results);
 			
@@ -196,10 +195,9 @@ if(isLoggedIn()) {
 				$today = date("Y-m-d", time());
 				$connection = db_connect();
 				$birthdate = date("Y-m-d", ($year . "-" . $month . "-" . $day));
-				$results = pg_prepare($connection, "insert_user", 'INSERT INTO users (id, password, first_name, last_name, email_address, account_type, birthday, enroll_date, last_access) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)');
-				$results = pg_execute($connection, "insert_user", array($username, md5($password), $first_name,
-				$last_name, $email, $account_type, $birthdate, $today, $today));
-	      $_SESSION['register'] = "Registration successful, please try login";
+				$results = pg_execute($connection, "insert_user", array($username, md5($password), $first_name,$last_name, $email, $account_type, $birthdate, $today, $today));
+				
+				$_SESSION['register'] = "Registration successful, please try login";
 				header("Location:user-login.php");
 				ob_flush();
 			}
@@ -207,14 +205,16 @@ if(isLoggedIn()) {
 	}
 
 ?>
-	
-	<p>
-		<?php echo $error ?>
-	    <?php echo $error_2 ?>
-	</p>
-	
-<br />
+
 <hr />
+
+	<h2 class="highlight">
+		<?php echo $error; ?>
+	</h2>
+	<h2 class="highlight">
+		<?php echo $error_2; ?>
+	</h2>
+
 <form name="input" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<table class="size1">
 		<tr>
@@ -244,22 +244,30 @@ if(isLoggedIn()) {
 		<tr><td><br/></td></tr>
 		<tr>
 			<td>Birthday</td>
-			<td>Day <input type="text" name="day" value="<?php echo $day ?>" size="5"/>
-			  Month
-			  <?php buildDropDown("month", "months", "month_name", $month); ?>
-			  Year
-			<select name="year">
-				<?php
-				for ($i=0; $i < count($years); $i++) {
-					echo "<option>" . $years[$i] . "</option>";
-				}
-				?>
-			</select>
+			<td style="text-align:left;">
+				Day<br /> 
+				<input type="text" name="day" value="<?php echo $day ?>" size="5"/>
+				<br />
+				Month<br />
+				  <?php buildDropDown("month", "months", "month_name", $month); ?>
+				<br />
+				Year<br />
+				<select name="year">
+					<?php
+					for ($i=0; $i < count($years); $i++) {
+						echo "<option>" . $years[$i] . "</option>";
+					}
+					?>
+				</select>
+			</td>
 		</tr>
 		<tr><td><br/></td></tr>
 		<tr>
-			<td><input type="submit" value="Register" /></td>
-			<td><input type="reset" value="Reset" /></td>
+		<td></td>
+			<td>
+				<input style="display:inline;" class="btn" type="submit" value="Register" />
+				<input style="display:inline;" class="btn" type="reset" value="Reset" />
+			</td>
 		</tr>
 	</table>
 </form>

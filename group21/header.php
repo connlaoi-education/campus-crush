@@ -1,10 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
-    Group 21
-	Name: Jeremy Power
+    Created by Group 21
     File: <?php echo "$fileName \n"; ?>
     Date: <?php echo "$date \n"; ?>
-    <?php echo "$description \n"; ?>
 -->
     <?php 
 	require('includes/constants.php');
@@ -16,56 +14,70 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' />
     <link rel="stylesheet" href="./css/crush.css" type="text/css" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab" />
+	<meta name="theme-color" content="#4A7C59" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8;" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
     <title><?php echo "$title";?></title>
     <link rel="shortcut icon" type="image/x-icon" href="./images/cc_logo.png" />
+
 </head>
 
 <body>
     <div id="container">
-        <div id="header">
-		<table>
-		<tr>
-            <a href="./index.php"><img src="./images/cc_logo.png" alt="Campus Crush" /></a>
-            <h1><?php echo $banner;?></h1>
-			<h2><?php echo $page;?></h2>
-			</tr>
-			</table>
+        <div id="header" >
+			<a href="./index.php" ><img class="grow" src="./images/cc_logo.png" alt="Campus Crush" /></a>
+			<h1 class="ccmain"><?php echo $banner; ?></h1>
         </div>
-        <div id="sites">
-                <ul>
-                    <?php
-                    //if not logged in, show login and register
-                    if(!isset($_SESSION['username'])) {
-                    echo('<li><a href="./user-login.php">Login</a></li>
-                    <li><a href="./user-register.php">Register</a></li>');
-                } else {
-                    //show to incomplete users
-                    if($_SESSION['account_type'] == INCOMPLETE) {
-                    echo('
-                    <li><a href="./profile-create.php">Profile Create</a></li>');
-                    } else {
-                    echo(
-                        //show to admin
-                    '<li><a href="./dashboard.php">Dashboard</a></li>');
-                    //show to complete users
-                    if($_SESSION['account_type'] == CLIENT) {
-                     echo('<li><a href="./profile-display.php">Profile</a></li>
-                     <li><a href="./profile-create.php">Update Profile</a></li>');
-                 }
-                }
-
-                    //show to all users
-                    echo('
-                    <li><a href="./profile-search.php">Search</a></li>
-                    <li><a href="./user-update.php">Update User Info</a></li>
-                    <li><a href="./user-password-request.php">Change Password</a></li>
-                    <li style="float: right;"><a href="./user-logout.php">Logout</a></li> ');
-                }
-                    ?>
-                </ul>
-        </div>
-        <div id="content-container">
-            <div id="content">
+		
+		<?php
+		echo('<div id="sites" class="w3-bar">');
+		
+			if(!isset($_SESSION['username']))
+			{
+				echo('<a href="./user-login.php" class="w3-bar-item w3-button">Login</a>');
+				echo('<a href="./user-register.php" class="w3-bar-item w3-button">Register</a>');
+			}
+			else
+			{
+				echo('<a href="./dashboard.php" class="w3-bar-item w3-button">Dashboard</a>
+						<a href="./profile-search.php" class="w3-bar-item w3-button">Search</a>');
+						
+			
+				echo('
+				<div class="w3-dropdown-hover">
+					<a class="w3-bar-item w3-button">Profile</a>
+					<div class="w3-dropdown-content w3-bar-block w3-card-4">');
+					
+					if($_SESSION['account_type'] == INCOMPLETE)
+					{
+						echo('
+						<a href="./profile-create.php" class="w3-bar-item w3-button">Complete Profile</a>
+						<a href="./user-update.php" class="w3-bar-item w3-button">Update Account</a>');
+					}
+					elseif($_SESSION['account_type'] == ADMIN)
+					{
+						echo('
+						<a href="./user-update.php" class="w3-bar-item w3-button">Update Account</a>');
+					}
+					elseif($_SESSION['account_type'] == CLIENT)
+					{
+						echo('
+						<a href="./profile-display.php?user=' . $_SESSION['username'] . '" class="w3-bar-item w3-button">Public Profile</a>
+						<a href="./profile-create.php" class="w3-bar-item w3-button">Manage Profile</a>
+						<a href="./user-update.php" class="w3-bar-item w3-button">Update Account</a>');
+					}
+					
+					echo('<a href="./user-logout.php" class="w3-bar-item w3-button">Logout</a>');
+			}
+			echo('</div>
+			  </div>
+		</div>');
+		?>
+	</div>
+	<div id="content-container">
+		<div id="content">
