@@ -66,13 +66,13 @@ if(isLoggedIn()) {
 	
 	elseif($_SERVER["REQUEST_METHOD"] == "POST")
 	{
-		$username = trim($_POST["login"]);
-		$password = trim($_POST["pass"]);
-		$password2 = trim($_POST["pass2"]);
-		$first_name = trim($_POST["first"]);
-		$last_name = trim($_POST["last"]);
-		$email = trim($_POST["email"]);
-		$day = trim($_POST["day"]);
+		$username = trim(htmlspecialchars($_POST["login"]);
+		$password = trim(htmlspecialchars($_POST["pass"]);
+		$password2 = trim(htmlspecialchars($_POST["pass2"]);
+		$first_name = trim(htmlspecialchars($_POST["first"]);
+		$last_name = trim(htmlspecialchars($_POST["last"]);
+		$email = trim(htmlspecialchars($_POST["email"]);
+		$day = trim(htmlspecialchars($_POST["day"]);
 		$month = trim($_POST["month"]);
 		$year = trim($_POST["year"]);
 		$account_type = INCOMPLETE;
@@ -113,14 +113,14 @@ if(isLoggedIn()) {
 		}
 		else if (strcmp($password, $password2) !== 0) 
 		{
-			$error .= "Your confirm passwords do not match <br/>";
+			$error .= "Your confirm passwords do not match. <br/>";
 			$password = "";
 			$password2 = "";
 		}
 		
 		if (!isset($first_name) || $first_name == "")
 		{
-			$error .= "You did not enter your first name <br/>";
+			$error .= "You did not enter your first name. <br/>";
 			$first_name = "";
 		}
 		else if (is_numeric($first_name))
@@ -136,7 +136,7 @@ if(isLoggedIn()) {
 		
 		if (!isset($last_name) || $last_name == "")
 		{
-			$error .= "You did not enter your last name <br/>";
+			$error .= "You did not enter your last name. <br/>";
 			$last_name = "";
 		}
 		else if (is_numeric($last_name))
@@ -194,7 +194,7 @@ if(isLoggedIn()) {
 				$today = date("Y-m-d", time());
 				$connection = db_connect();
 				$birthdate = date("Y-m-d", ($year . "-" . $month . "-" . $day));
-				$results = pg_execute($connection, "insert_user", array($username, md5($password), $first_name,$last_name, $email, $account_type, $birthdate, $today, $today));
+				$results = pg_execute($connection, "insert_user", array($username, md5($password), $first_name, $last_name, $email, $account_type, $birthdate, $today, $today));
 				
 				$_SESSION['register'] = "Registration successful, please try login";
 				header("Location:user-login.php");
@@ -207,38 +207,38 @@ if(isLoggedIn()) {
 
 <hr />
 
-	<h2 class="highlight">
+	<p style="color:red;">
 		<?php echo $error; ?>
-	</h2>
-	<h2 class="highlight">
+	</p>
+	<p style="color:yellow;">
 		<?php echo $error_2; ?>
-	</h2>
+	</p>
 
-<form name="input" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-	<table class="size1">
+<form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+	<table>
 		<tr>
 			<td>Login ID</td>
-			<td><input type="text" name="login" value="<?php echo $username; ?>" size="20" /></td>
+			<td><input type="text" name="login" maxlength="20" value="<?php echo htmlspecialchars($username); ?>" size="20" /></td>
 		</tr>
 		<tr>
 			<td>Password</td>
-			<td><input type="password" name="pass" value="<?php echo $password; ?>" size="20" /></td>
+			<td><input type="password" name="pass" maxlength="32" value="<?php echo htmlspecialchars($password); ?>" size="20" /></td>
 		</tr>
 		<tr>
 			<td>Confirm Password  </td>
-			<td><input type="password" name="pass2" value="<?php echo $password2; ?>" size="20" /></td>
+			<td><input type="password" name="pass2" maxlength="32" value="<?php echo htmlspecialchars($password2); ?>" size="20" /></td>
 		</tr>
 		<tr>
 			<td>First Name</td>
-			<td><input type="text" name="first" value="<?php echo $first_name; ?>" size="20" /></td>
+			<td><input type="text" name="first" maxlength="20" value="<?php echo htmlspecialchars($first_name); ?>" size="20" /></td>
 		</tr>
 		<tr>
 			<td>Last Name</td>
-			<td><input type="text" name="last" value="<?php echo $last_name; ?>" size="20" /></td>
+			<td><input type="text" name="last" maxlength="30" value="<?php echo htmlspecialchars($last_name); ?>" size="20" /></td>
 		</tr>
 		<tr>
 			<td>Email Address</td>
-			<td><input type="text" name="email" value="<?php echo $email; ?>" size="20" /></td>
+			<td><input type="text" name="email" maxlength="255" value="<?php echo htmlspecialchars($email); ?>" size="20" /></td>
 		</tr>
 		<tr><td><br/></td></tr>
 		<tr>

@@ -35,7 +35,7 @@
 	<table>
 		<tr>
 			<td class="tt1">Confirm Email</td>
-			<td><input type="text" name="login" value="<?php echo $email; ?>" placeholder="Enter your Email..." size="50" /></td>
+			<td><input type="text" name="cemail" size="50" /></td>
 		</tr>
 		<tr>
 			<td></td>

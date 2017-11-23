@@ -112,7 +112,6 @@ table{
     border-color: none;
 	text-align: left;
 	width: 100%;
-	padding-bottom:4%;
 }
 
 caption {
@@ -150,10 +149,6 @@ em {
 	font-style: normal;
 	font-family: 'Roboto Slab', serif;
 	text-decoration: none;
-}
-
-table{
-	width:100%;
 }
 
 .tt1 {
@@ -269,6 +264,11 @@ table{
 #content h2 
 { 
 	margin: 0; 
+}
+
+#error
+{
+	color: #ff0000 !important;
 }
 
 #content .index

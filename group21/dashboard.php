@@ -66,7 +66,8 @@ elseif($_SESSION["account_type"] == CLIENT)
 {
 	// LOAD USER DASHBOARD
 	$firstName = trim(ucwords($_SESSION['first_name']));
-	echo '<h2>Welcome back, ' . $firstName . '!</h2>';
+	$lastName = trim(ucwords($_SESSION['last_name']));
+	echo '<h2>Welcome back, ' . $firstName . ' ' . $lastName . '!</h2>';
 	
 	// User Profile Picture
 	// Account Summary (User & Profile Information grouped for efficiency)

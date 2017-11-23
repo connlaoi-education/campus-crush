@@ -68,28 +68,28 @@ $email = $userInfoArray['email_address'];
 <form name="input" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<table class="size1">
 		<tr>
-			<td>Username / Login ID</td>
-			<td><input type="text" name="newUsername" placeholder="<?php echo $userName;  ?>" size="20" /></td>
+			<td>Username</td>
+			<td><input type="text" name="newUsername" maxlength="20" placeholder="<?php echo $userName;  ?>" size="20" /></td>
 		</tr>
 		<tr>
 			<td>Password</td>
-			<td><input type="password" name="pass" placeholder="Enter new password..." size="20" /></td>
+			<td><input type="password" name="pass" maxlength="32" placeholder="Enter new password..." size="20" /></td>
 		</tr>
 		<tr>
 			<td>Confirm Password  </td>
-			<td><input type="password" name="pass2" placeholder="Confirm new password..." size="20" /></td>
+			<td><input type="password" name="pass2" maxlength="32" placeholder="Confirm new password..." size="20" /></td>
 		</tr>
 		<tr>
 			<td>First Name</td>
-			<td><input type="text" name="newFirst" placeholder="<?php echo $firstName;  ?>" size="20" /></td>
+			<td><input type="text" name="newFirst" maxlength="20" placeholder="<?php echo htmlspecialchars($firstName);  ?>" size="20" /></td>
 		</tr>
 		<tr>
 			<td>Last Name</td>
-			<td><input type="text" name="newLast" placeholder="<?php echo $lastName;  ?>" size="20" /></td>
+			<td><input type="text" name="newLast" maxlength="30" placeholder="<?php echo htmlspecialchars($lastName);  ?>" size="20" /></td>
 		</tr>
 		<tr>
 			<td>Email Address</td>
-			<td><input type="text" name="newEmail" placeholder="<?php echo $email;  ?>" size="20" /></td>
+			<td><input type="text" name="newEmail" maxlength="255" placeholder="<?php echo htmlspecialchars($email);  ?>" size="20" /></td>
 		</tr>
 		<tr>
 			<td></td>
