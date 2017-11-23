@@ -61,7 +61,7 @@ if(isLoggedIn()) {
 	
 	elseif($_SERVER["REQUEST_METHOD"] == "POST")
 	{
-		$username = trim(htmlspecialchars($_POST["login"]));
+		$username = trim(htmlspecialchars(strtolower($_POST["login"])));
 		$password = trim(htmlspecialchars($_POST["pass"]));
 		
 		if(!isset($username) || $username == "")
