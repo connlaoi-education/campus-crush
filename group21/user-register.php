@@ -195,7 +195,7 @@ if(isLoggedIn()) {
 				$today = date("Y-m-d", time());
 				$connection = db_connect();
 				$birthdate = date("Y-m-d", ($year . "-" . $month . "-" . $day));
-				$results = pg_execute($connection, "insert_user", array(strtolower($username), md5($password), $first_name, $last_name, $email, $account_type, $birthdate, $today, $today));
+				$results = pg_execute($connection, "insert_user", array(strtolower($username), md5($password), strtolower($first_name), strtolower($last_name), $email, $account_type, $birthdate, $today, $today));
 				
 				$_SESSION['register'] = "Registration successful, please try login";
 				header("Location:user-login.php");
