@@ -34,6 +34,7 @@ if(!isLoggedIn()) {
 	$error_2 = "";
 	$results = "";
 	$results2 = "";
+	$completed = "";
 	
 	if($_SERVER["REQUEST_METHOD"] == "GET")
 	{
@@ -110,29 +111,29 @@ if(!isLoggedIn()) {
 				$completed =  "File is an image - " . $check["mime"] . ".";
 				$uploadOk = 1;
 			} else {
-				$error2 =  "File is not an image.";
+				$error_2 =  "File is not an image.";
 				$uploadOk = 0;
 			}
 		}
 		// Check if file already exists
 		if (file_exists($target_file)) {
-			$error2 = "Sorry, file already exists.";
+			$error_2 = "Sorry, file already exists.";
 			$uploadOk = 0;
 		}
 		// Check file size
 		if ($_FILES["fileToUpload"]["size"] > 500000) {
-			$error2=  "Sorry, your file is too large.";
+			$error_2=  "Sorry, your file is too large.";
 			$uploadOk = 0;
 		}
 		// Allow certain file formats
 		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
 		&& $imageFileType != "gif" ) {
-			$error2 =  "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+			$error_2 =  "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
 			$uploadOk = 0;
 		}
 		// Check if $uploadOk is set to 0 by an error
 		if ($uploadOk == 0) {
-			$error2 = "Sorry, your file was not uploaded.";
+			$error_2 = "Sorry, your file was not uploaded.";
 		// if everything is ok, try to upload file
 		} else {
 			if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
@@ -143,7 +144,7 @@ if(!isLoggedIn()) {
 				$results4 = pg_query($connection, $sql2);
 				 
 			} else {
-				$error2 = "Sorry, there was an error uploading your file.";
+				$error_2 = "Sorry, there was an error uploading your file.";
 			}
 		}
 		
@@ -194,7 +195,7 @@ if(!isLoggedIn()) {
 
 <p class="highlight" style="color:red;">
 	<?php echo($error); ?>
-	<?php echo($error2); ?>
+	<?php echo($error_2); ?>
 	<?php echo($completed); ?>
 </p>
 
