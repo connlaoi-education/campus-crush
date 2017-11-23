@@ -47,11 +47,12 @@ if(!isLoggedIn()) {
 			// create a new table row
 				// create a new table div for each property value in the row
 				// make the userid clickable -> redirect to profile-display using GET (?user=csmith) for sharing purposes
-
+    $input = "";
 	if($_SERVER["REQUEST_METHOD"] == "GET")
-	{
-		$input = $_GET["search"];
-		
+	{   if(isset($_GET["search"]))
+		{
+			$input = $_GET["search"];
+        }
 		if($input != "")
 		{
 			// add logic for user exists (count results array, == 0, display No Results prompt)
@@ -63,6 +64,12 @@ if(!isLoggedIn()) {
 		}
 		echo('</form>');
 	}
+	else
+    {
+        echo('<h3 style="text-align:center;">Enter a <b>First Name</b> above to look someone up!</h3>');
+        echo('</form>');
+    }
+
 
 ?>
 
