@@ -208,12 +208,12 @@ if(isLoggedIn()) {
 
 <hr />
 
-	<h2 class="highlight">
+	<p style="color:red;">
 		<?php echo $error; ?>
-	</h2>
-	<h2 class="highlight">
+	</p>
+	<p style="color:red;">
 		<?php echo $error_2; ?>
-	</h2>
+	</p>
 
 <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 	<table class="size1">
