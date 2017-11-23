@@ -3,7 +3,7 @@
 // Created By: Connlaoi Smith
 // Created On: Oct. 17, 2017
 
-$last = array(
+define("LAST", array(
 "AABERG",
 "AADLAND",
 "AAGAARD",
@@ -65540,7 +65540,7 @@ $last = array(
 "ZYSKOWSKI",
 "ZYWIEC"));
 
-$male = array(
+define("MALE", array(
 "AARON",
 "ABDUL",
 "ABE",
@@ -66761,7 +66761,7 @@ $male = array(
 "ZACKARY",
 "ZANE"));
 
-$female = array(
+define("FEMALE", array(
 "AARON",
 "ABBEY",
 "ABBIE",
@@ -76584,7 +76584,7 @@ function generateUsers() {
 			}
 			
 			// get a random line from the array of last names
-			$secondLine = $last[array_rand($last)];
+			$secondLine = LAST[array_rand(LAST)];
 			// store the randomly selected name
 			$lastRanName = strtolower($secondLine);
 		

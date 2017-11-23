@@ -23,7 +23,6 @@ if(isLoggedIn()) {
 	ob_flush();
 }
 	?>
-
 <!-- HTML -->
 
 <h3>No Need for Nonsense...</h3>
@@ -42,7 +41,6 @@ if(isLoggedIn()) {
 	  ?>
   </p>
 
-
 <?php
 
 	$error = "";
@@ -53,7 +51,7 @@ if(isLoggedIn()) {
 	if($_SERVER["REQUEST_METHOD"] == "GET")
 	{
 		if(isset($_COOKIE["UserCookie"])) {
-			$username = trim($_COOKIE["UserCookie"]);
+			$username = trim(htmlspecialchars($_COOKIE["UserCookie"]));
 		}
 		else {
 			$username = "";
@@ -63,8 +61,8 @@ if(isLoggedIn()) {
 	
 	elseif($_SERVER["REQUEST_METHOD"] == "POST")
 	{
-		$username = trim($_POST["login"]);
-		$password = trim($_POST["pass"]);
+		$username = trim(htmlspecialchars($_POST["login"]));
+		$password = trim(htmlspecialchars($_POST["pass"]));
 		
 		if(!isset($username) || $username == "")
 		{
@@ -98,6 +96,7 @@ if(isLoggedIn()) {
 				$_SESSION['username'] = $dataArray['id'];
 				$_SESSION['account_type'] = $dataArray['account_type'];
 				$_SESSION['first_name'] = $dataArray['first_name'];
+				$_SESSION['last_name'] = $dataArray['last_name'];
 
     		setcookie("UserCookie", $_SESSION['username'], time() + COOKIE_DURATION);
 
@@ -117,13 +116,13 @@ if(isLoggedIn()) {
 				if($records >=1)
 				{
 					$password = "";
-					$output = "The password you entered does not match your account name, please try again!";
+					$output = "Invalid Password - Please try again!";
 				}
 				elseif($records < 1)
 				{
 					$username = "";
 					$password = "";
-					$output = "Login/Password Not Found - Please try again!";
+					$output = "Username Not Found - Please try again!";
 				}
 			}
 		}
@@ -133,12 +132,12 @@ if(isLoggedIn()) {
 
 <hr />
 
-	<h2 class="highlight">
+	<p style="color:red;">
 		<?php echo $error; ?>
-	</h2>
-	<h2 class="highlight">
+	</p>
+	<p style="color:red;">
 		<?php echo $output; ?>
-	</h2>
+	</p>
 	
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<table>

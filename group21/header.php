@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
-    Created by Group 21
+    Group 21
+	Name: Jeremy Power
     File: <?php echo "$fileName \n"; ?>
     Date: <?php echo "$date \n"; ?>
 -->
@@ -73,10 +74,11 @@
 					}
 					
 					echo('<a href="./user-logout.php" class="w3-bar-item w3-button">Logout</a>');
+		    echo('</div>
+			    </div>
+	        	</div>');
 			}
-			echo('</div>
-			  </div>
-		</div>');
+
 		?>
 	</div>
 	<div id="content-container">

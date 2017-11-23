@@ -153,11 +153,12 @@ if(!isLoggedIn()) {
 		$gender_sought = trim($_POST["gender_sought"]);
 		$city = trim($_POST["city"]);
 		$imageID = trim($userArray["image"]);
+		$defaultImage = DEFAULT_IMAGEID;
 		$imageUpdate = getProperty('images', 'image_id', $_FILES["fileToUpload"]["tmp_name"], 'image_address');
 		$imageAddress = getProperty('images', 'image_address', $userArray["image"], 'image_id');
-		$headline = trim($_POST["headline"]);
-		$self_description = trim($_POST["self_description"]);
-		$match_description = trim($_POST["match_description"]);
+		$headline = trim(htmlspecialchars($_POST["headline"]));
+		$self_description = trim(htmlspecialchars($_POST["self_description"]));
+		$match_description = trim(htmlspecialchars($_POST["match_description"]));
 		$relationship_sought = trim($_POST["relationship_sought"]);
 		$relationship_status = trim($_POST["relationship_status"]);
 		$preferred_age_minimum = trim($_POST["preferred_age_minimum"]);
@@ -172,21 +173,26 @@ if(!isLoggedIn()) {
 		
 		if($error == "")
 		{	
-				$connection = db_connect();
-        //if user is creating profile, insert
-        if($_SESSION['account_type'] == INCOMPLETE) {
-			    $results = pg_execute($connection, "insert_profile", array($_SESSION['username'], $gender, $gender_sought, $city, 0, $headline, $self_description, $match_description, $relationship_sought, $relationship_status, $preferred_age_minimum, $preferred_age_maximum, $religion_sought, $education_experience, $race, $habits, $exercise, $residence_type, $campus));
+			$connection = db_connect();
 
-        //complete their profile
-				$results = pg_execute($connection, "update_account", array(CLIENT, $_SESSION['username']));
-        $_SESSION['account_type'] = CLIENT;
+			//if user is creating profile, insert
+			if($_SESSION['account_type'] == INCOMPLETE)
+			{
+				$results1 = pg_execute($connection, "insert_profile", array($_SESSION['username'], $gender, $gender_sought, $city, $defaultImage, $headline, $self_description, $match_description, $relationship_sought, $relationship_status, $preferred_age_minimum, $preferred_age_maximum, $religion_sought, $education_experience, $race, $habits, $exercise, $residence_type, $campus));
 
-        //otherwise, update
-        } else {
-          $results = pg_execute($connection, "update_profile", array($gender, $gender_sought, $city, 0, $headline, $self_description, $match_description, $relationship_sought, $relationship_status, $preferred_age_minimum, $preferred_age_maximum, $religion_sought, $education_experience, $race, $habits, $exercise, $residence_type, $campus, $_SESSION['username']));
-        }
-        header("Location: profile-create.php");
-        ob_flush();
+				//complete their profile
+				$results2 = pg_execute($connection, "update_account", array(CLIENT, $_SESSION['username']));
+				//update their session/cookie
+				$_SESSION['account_type'] = CLIENT;
+			}
+			//otherwise, update their profile
+			else
+			{
+				$results3 = pg_execute($connection, "update_profile", array($gender, $gender_sought, $city, $imageID, $headline, $self_description, $match_description, $relationship_sought, $relationship_status, $preferred_age_minimum, $preferred_age_maximum, $religion_sought, $education_experience, $race, $habits, $exercise, $residence_type, $campus, $_SESSION['username']));
+			}
+
+		header("Location: profile-create.php");
+		ob_flush();
 		}
 	}
 ?>
@@ -201,31 +207,31 @@ if(!isLoggedIn()) {
 
 <br />
 
-<form enctype="multipart/form-data" name="input" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form enctype="multipart/form-data" name="input" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 	<table>
 		<tr>
 			<td>Image</td>
 			<td>
-				<img style="width:auto; min-height:100px; max-height:200px; box-shadow:5px 5px 5px #999;" src="<?php echo $imageAddress; ?>"/>
+				<img style="max-width:260px; min-height:100px; max-height:150px; box-shadow:5px 5px 5px #999;" src="<?php echo $imageAddress; ?>"/>
 				<br />
-				<input class="btn" style="height:25px; width:355.555px; background-color:#b6b6b6;" type="file" name="fileToUpload" id="fileToUpload" />
-				<input class="btn" style="width: 180px;" type="submit" name="submit" value="Upload Image" />
+				<input class="btn" style="height:25px; width:260px; background-color:#b6b6b6;" type="file" name="fileToUpload" id="fileToUpload" />
+				<input class="btn" style="width: 150px;" type="submit" name="submit" value="Upload Image" />
 			</td>
 		</tr>
 
 		<tr>
 			<td valign="top">Headline</td>
-			<td ><input align="left" type="text" name="headline" value="<?php echo $headline; ?>"></input></td>
+			<td ><input align="left" type="text" name="headline" maxlength="100" value="<?php echo htmlspecialchars($headline); ?>"></input></td>
 		</tr>
 
 		<tr>
 			<td valign="top">Self Description</td>
-			<td ><textarea rows="4" cols="50" name="self_description"><?php echo $self_description; ?></textarea></td>
+			<td ><textarea rows="4" cols="25" name="self_description" maxlength="1000" ><?php echo htmlspecialchars($self_description); ?></textarea></td>
 		</tr>
 
 		<tr>
 			<td valign="top">Match Description</td>
-			<td><textarea rows="4" cols="50" name="match_description"><?php echo $match_description; ?></textarea></td>
+			<td><textarea rows="4" cols="25" name="match_description" maxlength="1000" ><?php echo htmlspecialchars($match_description); ?></textarea></td>
 		</tr>
 
 		<tr>

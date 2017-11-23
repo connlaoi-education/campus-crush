@@ -5,7 +5,7 @@
 		$updateddate = "xxxx xx 2017";
 		$filename = "profile-display.php";
 		$banner = "Campus Crush";
-		$description = "Displays a user's profile page.";
+		$description = "Displays a Users Profile Summary";
 ?>
 <!--
 	Creator:      Connlaoi Smith

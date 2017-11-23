@@ -30,13 +30,12 @@ if(!isLoggedIn()) {
 
 <hr />
 
-<form  class="w3-card w3-mobile" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-  <table>
+<form class="w3-card w3-mobile" method="get" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 
-      <td><input type="text" name="search" placeholder="Search for Friends, Crushes, etc..." size="25%" /></td>
-      <td><input class="btn" type="submit" value="Search" /></td>
-
-  </table>
+      <div class="w3-row">
+		  <input class="w3-center" style="margin-top:10px; margin-left:25%; margin-right:25%; width:50%;" type="text" name="search" placeholder="Enter a first name..." />
+		  <input style="margin-left:45%; margin-right:45%;" type="submit" value="Search" class="btn" />
+	  </div>
 
 <hr />
 
@@ -56,7 +55,7 @@ if(!isLoggedIn()) {
 		if($input != "")
 		{
 			// add logic for user exists (count results array, == 0, display No Results prompt)
-			buildSearchResults(strtolower($input));
+			buildSearchResults(strtolower(htmlspecialchars($input)));
 		}
 		else
 		{

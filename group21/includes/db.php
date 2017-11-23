@@ -28,7 +28,7 @@
 	pg_prepare($connection, "select_id_pass", 'SELECT id, password, first_name, last_name, email_address, enroll_date, last_access FROM users WHERE id = $1 AND password = $2');
 	
 	// which one is the required one
-	pg_prepare($connection, "select_all_profile", "SELECT * FROM profiles WHERE user_id = $1");
+	pg_prepare($connection, "select_all_profile", 'SELECT * FROM profiles WHERE user_id = $1');
 
 	pg_prepare($connection, "insert_profile", 'INSERT INTO profiles (user_id, gender, gender_sought, city, image, headline, self_description, match_description, relationship_sought, relationship_status, preferred_age_minimum, preferred_age_maximum, religion_sought, education_experience, race, habit, exercise, residence_type, campus) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19)');
 
@@ -75,7 +75,7 @@
 		
             if ($selected == $i)
             {
-                echo("<option value=\"" . $i . "\" selected>" . $array[$i][$property] . "</option>\n");
+                echo("<option value=\"" . $i . "\" selected='selected'>" . $array[$i][$property] . "</option>\n");
             }
 			
             else
@@ -122,7 +122,7 @@
 		if($count > 0)
 		{
 			echo("
-					<table style='width:100%; height:100%;'>
+					<table>
 					");
 						
 			// FOR LOOP STARTS HERE
@@ -152,10 +152,10 @@
 				$campus = ucwords(getProperty('campuses', 'campus_name', $userProfiles[0]['campus'], 'campus_id'));
 				
 				echo("<tr class='w3-card w3-round' style='width:100%;>
-								<td style='width:100%; height:2%;'>\n
+								<td style='min-width:60%; max-width:80%; height:2%; padding-left:10%; padding-right:10%;'>\n
+									<td style='height:100%; width:auto;'><a href='profile-display.php?user=" . $user . "'><img class='w3-animate-zoom hero-image w3-round' style='height:100px; width:100px; box-shadow: 3px 3px 3px #999;background-size: cover; position: relative;' src='" . $image . "'/></a></td>\n
 									<td style='height:100%; width:auto; text-align:right; padding-left:5px;'><h3>" . $firstName . "</h3></td>\n
 									<td style='height:100%; width:auto; text-align:left; padding-left:5px;'><h3>" . $lastName . "</h3></td>\n
-									<td style='height:100%; width:auto;'><a href='profile-display.php?user=" . $user . "'><img class='w3-animate-zoom hero-image w3-circle' style='height:100px; width:100px; box-shadow: 3px 3px 3px #999;background-size: cover; position: relative;' src='" . $image . "'/></a></td>\n
 									<td style='height:100%; width:auto; text-align:left; padding-left:5px;'><p>" . $gender . "</p></td>\n
 									<td style='height:100%; width:auto; text-align:left; padding-left:5px;'><p>" . $age . "</p></td>\n
 								</td>\n

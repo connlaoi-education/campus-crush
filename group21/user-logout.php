@@ -23,13 +23,13 @@ if ($_SESSION) {
   session_destroy();
 
   session_start();
-  $message = "Logout Successful, Have a Great Day!";
+  $message = "Logout Successful - Have a Great Day!";
 
   $_SESSION['message'] = $message;
   header("Location:user-login.php");
   ob_flush();
 } else {
-  $message = "Logout Unsuccessful, Please Try Again";
+  $message = "Logout Unsuccessful - Please Try Again!";
 
   $_SESSION['message'] = $message;
   header("Location:user-dashboard.php");
