@@ -102,6 +102,8 @@ if(isLoggedIn()) {
 
 				if($_SESSION['account_type'] == INCOMPLETE) {
 					header("Location:profile-create.php");
+				} elseif($_SESSION['account_type'] == ADMIN){
+					header("Location:admin.php");
 				} else {
 					header("Location:dashboard.php");
 				}
