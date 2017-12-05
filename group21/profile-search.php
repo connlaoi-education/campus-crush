@@ -63,6 +63,11 @@ if(!isLoggedIn()) {
 		}
 		echo('</form>');
 	}
+	else
+	{
+		echo('<h3 style="text-align:center;">Enter a <b>First Name</b> above to look someone up!</h3>');
+		echo('</form>');
+	}
 
 ?>
 
