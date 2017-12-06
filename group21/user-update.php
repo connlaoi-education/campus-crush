@@ -5,7 +5,7 @@
 	$updateddate = "xxxx xx 2017";
 	$filename = "user-update.php";
 	$banner = "Campus Crush";
-	$description = "Change your Username, Password, First or Last Name, and Email";
+	$description = "Change your Password, First or Last Name, and Email";
 ?>
 <!--
 	Creator:      Connlaoi Smith
