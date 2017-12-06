@@ -33,7 +33,7 @@ if(!isLoggedIn()) {
 <form class="w3-card w3-mobile" method="get" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 
       <div class="w3-row">
-        <?php buildCheckBox("gender", "genders", "gender_type", 6); ?>
+        <?php buildCheckBox("gender", "genders", "gender_type", 10); ?>
 		  <input class="w3-center" style="margin-top:10px; margin-left:25%; margin-right:25%; width:50%;" type="text" name="search" placeholder="Enter a first name..." />
 		  <input style="margin-left:45%; margin-right:45%;" type="submit" value="Search" class="btn" />
 	  </div>

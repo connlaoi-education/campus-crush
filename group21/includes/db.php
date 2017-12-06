@@ -38,6 +38,8 @@
 	
 	pg_prepare($connection, "update_account", 'UPDATE users SET account_type = $1 WHERE id = $2');
 	
+	pg_prepare($connection, "update_password", 'UPDATE users SET password = $1, first_name = $2, last_name = $3, email_address = $4 WHERE id = $5');
+	
 	pg_prepare($connection, "select_all_user_info", "SELECT * FROM users WHERE first_name = $1");
 
 
