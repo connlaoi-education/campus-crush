@@ -40,6 +40,9 @@ if(!isLoggedIn()) {
     echo("<p style=\"color: red\">"  . $_SESSION["profile_insert"] . "</p>");
     $_SESSION["first"] = 0;
   }
+  if(isset($_SESSION["password_change"])) {
+    echo("<p style=\"color: red\">"  . $_SESSION["password_change"] . "</p>");
+  }
   ?></p>
 
 <br />
