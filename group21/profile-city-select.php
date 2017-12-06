@@ -22,39 +22,26 @@ if(!isLoggedIn()) {
   header("Location:user-login.php");
   ob_flush();
 }
-	
-	// SELECT * FROM users WHERE first_name = 'carol';
-		// create array from select statement
-		// for each row in the array
-			// create a new table row
-				// create a new table div for each property value in the row
-				// make the userid clickable -> redirect to profile-display using GET (?user=csmith) for sharing purposes
-	
-	$prompt = "<h3 style='text-align:center;'>Narrow your results to look someone up!</h3>";
-	
-	if($_SERVER["REQUEST_METHOD"] == "POST")
-	{ 
-		if(isset($_COOKIE["Search"]["City"]))
-		{
-			header("Location: profile-search.php");
-        }
-		else
-		{
-			buildCheckBox("city", "cities", "city_name", $_COOKIE["Search"]["Cities"]);
-		}
-	}
-	else if($_SERVER["REQUEST_METHOD"] == "GET")
-	{
-		//buildImageMap(0);
-	}
-	else
-	{
-		echo($prompt);
-	}
-	
-	echo('</form>'); // close the form
-
 ?>
+
+
+<script type="text/javascript">
+      function initMap() {
+        var durhamCollege = {lat: 43.942724, lng: -78.896196};
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: myLatLng
+        });
+
+        var marker = new google.maps.Marker({
+          position: durhamCollege,
+          map: map,
+          title: 'Durham Region'
+        });
+      }
+</script>
+
 
 <!-- HTML -->
 <h3>Search for People - Old Friends, and New!</h3>
@@ -65,10 +52,43 @@ if(!isLoggedIn()) {
 <form class="w3-card w3-mobile" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 
       <div class="w3-row">
-        <?php buildCheckBox("city", "cities", "city_name", 0); ?>
-		  <input class="w3-center" style="margin-top:10px; margin-left:25%; margin-right:25%; width:50%;" type="text" name="search" placeholder="Enter a first name..." />
-		  <input style="margin-left:45%; margin-right:45%;" type="submit" value="Search" class="btn" />
+		  <div id="map"><script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0DklPzVEeSj0XTUgmA19Dh6rtdJq2b_s&callback=initMap">
+</script></div>
+		  <input style="margin-left:45%; margin-right:45%;" type="submit" value="Refine Search" class="btn" />
 	  </div>
+      
+</form>
+<?php
+	// SELECT * FROM users WHERE first_name = 'carol';
+		// create array from select statement
+		// for each row in the array
+			// create a new table row
+				// create a new table div for each property value in the row
+				// make the userid clickable -> redirect to profile-display using GET (?user=csmith) for sharing purposes
+	
+	$prompt = "<h3 style='text-align:center;'>Select the cities of interest to you!</h3>";
+	
+	if($_SERVER["REQUEST_METHOD"] == "POST")
+	{ 
+		if(isset($_COOKIE["Search"]["City"]))
+		{
+			header("Location: profile-search.php");
+        }
+		else
+		{
+			buildCheckBox("city", "cities", "city_name", $_COOKIE["Search"]["Cities"], "Cities");
+		}
+	}
+	else if($_SERVER["REQUEST_METHOD"] == "GET")
+	{
+		//buildImageMap(0);
+	}
+	else
+	{
+		echo($prompt);
+	}
+?>
 
 <hr />
 

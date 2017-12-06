@@ -9,9 +9,13 @@
 	require('includes/constants.php');
 	require('includes/db.php');
 	require('includes/functions.php');
+
+	ob_start();
+	if (!isset($_SESSION)) 
+	{
+		session_start();    
+	}
 	?>
-    <?php ob_start();
-    session_start(); ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
