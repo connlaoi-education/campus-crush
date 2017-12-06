@@ -1,158 +1,71 @@
 {
 	"type": "FeatureCollection",
 	"features": [{
+	
 		"type": "Feature",
 		"geometry": {
 			"type": "Point",
-			"coordinates": [-122.166149, 42.865508]
+			"coordinates": [-78.8657912, 43.8970929]
 		},
 		"properties": {
-			"flush": true,
-			"shower": true,
-			"vault": false,
-			"description": "Flush toilet, Shower",
-			"title": "Mazama",
-			"marker-size": "small"
+			"Oshawa": true,
+			"marker-size": "medium"
 		}
+		
 	}, {
 		"type": "Feature",
 		"geometry": {
 			"type": "Point",
-			"coordinates": [-122.342876, 43.063217]
+			"coordinates": [-78.9429329, 43.8975446]
 		},
 		"properties": {
-			"flush": false,
-			"shower": false,
-			"vault": true,
-			"description": "Vault toilet",
-			"title": "Claude Lewis Sno-Park-USFS",
-			"marker-size": "small"
+			"Whitby": true,
+			"marker-size": "medium"
 		}
+		
 	}, {
 		"type": "Feature",
 		"geometry": {
 			"type": "Point",
-			"coordinates": [-122.037881, 42.879145]
+			"coordinates": [-78.7884468, 43.9109352]
 		},
 		"properties": {
-			"flush": true,
-			"shower": false,
-			"vault": false,
-			"description": "Flush toilet",
-			"title": "Lost Creek",
-			"marker-size": "small"
+			"Ajax": true,
+			"marker-size": "medium"
 		}
+		
 	}, {
 		"type": "Feature",
 		"geometry": {
 			"type": "Point",
-			"coordinates": [-122.330322, 43.056641]
+			"coordinates": [-78.7884468, 43.9109352]
 		},
 		"properties": {
-			"flush": false,
-			"shower": false,
-			"vault": true,
-			"description": "Vault toilet",
-			"title": "Hamaker",
-			"marker-size": "small"
+			"Courtice": true,
+			"marker-size": "medium"
 		}
+		
 	}, {
 		"type": "Feature",
 		"geometry": {
 			"type": "Point",
-			"coordinates": [-122.337174, 42.877807]
+			"coordinates": [-78.688019, 43.9126042]
 		},
 		"properties": {
-			"flush": false,
-			"shower": false,
-			"vault": true,
-			"description": "Vault toilet",
-			"title": "Huckleberry Mountain",
-			"marker-size": "small"
+			"Bowmanville": true,
+			"marker-size": "medium"
 		}
+		
 	}, {
 		"type": "Feature",
 		"geometry": {
 			"type": "Point",
-			"coordinates": [-122.463867, 42.889648]
+			"coordinates": [-78.649839, 44.023014]
 		},
 		"properties": {
-			"flush": false,
-			"shower": false,
-			"vault": true,
-			"description": "Vault toilet",
-			"title": "Natural Bridge -USFS",
-			"marker-size": "small"
+			"OutOfTown": true,
+			"marker-size": "medium"
 		}
-	}, {
-		"type": "Feature",
-		"geometry": {
-			"type": "Point",
-			"coordinates": [-122.433105, 42.919678]
-		},
-		"properties": {
-			"flush": false,
-			"shower": false,
-			"vault": false,
-			"description": "",
-			"title": "Farewell Bend",
-			"marker-size": "small"
-		}
-	}, {
-		"type": "Feature",
-		"geometry": {
-			"type": "Point",
-			"coordinates": [-121.924772, 42.884588]
-		},
-		"properties": {
-			"flush": false,
-			"shower": false,
-			"vault": true,
-			"description": "Vault toilet",
-			"title": "Scott Creek",
-			"marker-size": "small"
-		}
-	}, {
-		"type": "Feature",
-		"geometry": {
-			"type": "Point",
-			"coordinates": [-122.324644, 42.913045]
-		},
-		"properties": {
-			"flush": false,
-			"shower": false,
-			"vault": true,
-			"description": "Vault toilet",
-			"title": "Thousand Springs Sno-Park-USFS",
-			"marker-size": "small"
-		}
-	}, {
-		"type": "Feature",
-		"geometry": {
-			"type": "Point",
-			"coordinates": [-122.45, 42.9102777778]
-		},
-		"properties": {
-			"flush": false,
-			"shower": false,
-			"vault": true,
-			"description": "Vault toilet",
-			"title": "Union Creek",
-			"marker-size": "small"
-		}
-	}, {
-		"type": "Feature",
-		"geometry": {
-			"type": "Point",
-			"coordinates": [-122.4353305556, 42.9162388889]
-		},
-		"properties": {
-			"flush": false,
-			"shower": false,
-			"vault": false,
-			"description": "",
-			"title": "Farewell Bend Campground",
-			"marker-size": "small"
-		}
+	}
 	}]
 }
