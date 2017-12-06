@@ -131,6 +131,8 @@ if($error == "")
 		{	
 $connection = db_connect();
 $results1 = pg_execute($connection, "update_password", array(md5($password2), $firstName, $lastName, $email, $_SESSION['username']));
+$_SESSION['password_change'] = "Password is changed successful";
+header("Location: dashboard.php");
 ob_flush();
 				
 	}
