@@ -76544,7 +76544,7 @@ function randomPassword($length) {
 
 function generateUsers() {
 	// iterate through 1000 users
-	for ($user = 1; $user < 1001; $user++) 
+	for ($user = 0; $user < 1250; $user++) 
 	{
 
 	// GENERATE USER INFORMATION
