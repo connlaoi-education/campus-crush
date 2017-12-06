@@ -194,4 +194,27 @@
 		return $output;
 	}
 	
+	function initMap()
+	{
+		var map = new google.maps.Map(document.getElementById('map'), {
+				zoom: 6,
+				center: {lat: 48.7791, lng: 9.0367}
+		});
+		$(document).on('change','.checkbox-network', function() {
+		   var checked_network = $( ".checkbox-network:checked" );
+		   checked_network.each(function(){
+			network_id = $( this ).data("network-id");
+			   //Get the hidden location longitudes and latitudes for each checked network element
+			network_locations_latitude = $(".location_latitude_network_"+network_id).val();
+			network_locations_longitude = $(".location_longitude_network_"+network_id).val();
+			console.log(network_id + " - " + network_locations_latitude);
+			var marker = new google.maps.Marker({
+					  position: new google.maps.LatLng(network_locations_latitude,network_locations_longitude),
+					  map: map,
+					  title: "test"
+			});
+			console.log(marker);
+		   });
+		});
+	}
 ?>

@@ -33,9 +33,6 @@ if(!isLoggedIn()) {
 <form class="w3-card w3-mobile" method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 
       <div class="w3-row">
-<<<<<<< HEAD
-=======
->>>>>>> cd39a24dc038b222a272478ba4fcf30c5d9e7528
 		  <input class="w3-center" style="margin-top:10px; margin-left:25%; margin-right:25%; width:50%;" type="text" name="search" placeholder="Enter a first name..." />
 
         <?php 
