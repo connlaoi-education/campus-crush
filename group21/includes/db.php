@@ -38,6 +38,8 @@
 	
 	pg_prepare($connection, "update_account", 'UPDATE users SET account_type = $1 WHERE id = $2');
 	
+	pg_prepare($connection, "update_password", 'UPDATE users SET password = $1, first_name = $2, last_name = $3, email_address = $4 WHERE id = $5');
+	
 	pg_prepare($connection, "select_all_user_info", "SELECT * FROM users WHERE first_name = $1");
 
 
@@ -104,6 +106,20 @@
 			else 
 			{
 				echo("<input type=\"radio\" name=\"" . $name . "\" value=\"" . $i . "\"/>" . $array[$i][$property] . "<br/>\n");
+			}
+		}
+	}
+
+	function buildCheckBox($name, $table, $property, $selected, $label)
+	{
+		
+		$array = getAllProperty($table, $property);
+		echo("<strong><legend>" . $label . "</legend></strong>");
+		for ($i=1; $i < count($array)+1; $i++) { 
+			if(isBitSet($i, $selected)) {
+				echo("<input type=\"checkbox\" name=\"".$name."[]\" value=\"" . pow(2, $i) . "\" checked>" . $array[$i-1][$property] . "<br/>\n");
+			} else {
+				echo("<input type=\"checkbox\" name=\"".$name."[]\" value=\"" . pow(2, $i) . "\"/>" . $array[$i-1][$property] . "<br/>\n");
 			}
 		}
 	}

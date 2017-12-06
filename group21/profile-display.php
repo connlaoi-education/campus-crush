@@ -65,7 +65,7 @@ elseif($_SERVER["REQUEST_METHOD"] == "GET")
 		// user data
 		$username = $userInfoArray["id"];
 		$birthday = $userInfoArray["birthday"];
-		$strBday = date_create($birthday,"Month-Day-Y");
+		$strBday = date_create($birthday);
 		$firstName = ucwords($userInfoArray['first_name']);
 		$lastName = ucwords($userInfoArray['last_name']);
 		$userName = strtoupper($userInfoArray['id']);

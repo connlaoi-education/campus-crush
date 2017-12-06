@@ -28,9 +28,9 @@ CREATE TABLE genders(
 	gender_id SMALLINT NOT NULL PRIMARY KEY,
 	gender_type VARCHAR(40) NOT NULL
 );
-INSERT INTO genders(gender_id, gender_type) VALUES('0','Male');
-INSERT INTO genders(gender_id, gender_type) VALUES('1','Female');
-INSERT INTO genders(gender_id, gender_type) VALUES('2','Other');
+INSERT INTO genders(gender_id, gender_type) VALUES('2','Male');
+INSERT INTO genders(gender_id, gender_type) VALUES('4','Female');
+INSERT INTO genders(gender_id, gender_type) VALUES('8','Other');
 
 
 -- CITIES
@@ -38,12 +38,12 @@ CREATE TABLE cities(
 	city_id INTEGER NOT NULL PRIMARY KEY,
 	city_name VARCHAR(40) NOT NULL
 );
-INSERT INTO cities(city_id, city_name) VALUES('0','Oshawa');
-INSERT INTO cities(city_id, city_name) VALUES('1','Whitby');
-INSERT INTO cities(city_id, city_name) VALUES('2','Ajax');
-INSERT INTO cities(city_id, city_name) VALUES('3','Courtice');
-INSERT INTO cities(city_id, city_name) VALUES('4','Bowmanville');
-INSERT INTO cities(city_id, city_name) VALUES('5','Out of Town');
+INSERT INTO cities(city_id, city_name) VALUES('2','Oshawa');
+INSERT INTO cities(city_id, city_name) VALUES('4','Whitby');
+INSERT INTO cities(city_id, city_name) VALUES('8','Ajax');
+INSERT INTO cities(city_id, city_name) VALUES('16','Courtice');
+INSERT INTO cities(city_id, city_name) VALUES('32','Bowmanville');
+INSERT INTO cities(city_id, city_name) VALUES('64','Out of Town');
 
 
 -- IMAGES
@@ -51,11 +51,11 @@ CREATE TABLE images(
 	image_id SMALLINT NOT NULL PRIMARY KEY,
 	image_address VARCHAR(40) NOT NULL
 );
-INSERT INTO images(image_id, image_address) VALUES('0','./images/default_user.png');
-INSERT INTO images(image_id, image_address) VALUES('1','./images/user-1-profile.png');
-INSERT INTO images(image_id, image_address) VALUES('2','./images/user-2-profile.png');
-INSERT INTO images(image_id, image_address) VALUES('3','./images/user-3-profile.png');
-INSERT INTO images(image_id, image_address) VALUES('4','./images/user-4-profile.png');
+INSERT INTO images(image_id, image_address) VALUES('2','./images/default_user.png');
+INSERT INTO images(image_id, image_address) VALUES('4','./images/user-1-profile.png');
+INSERT INTO images(image_id, image_address) VALUES('8','./images/user-2-profile.png');
+INSERT INTO images(image_id, image_address) VALUES('16','./images/user-3-profile.png');
+INSERT INTO images(image_id, image_address) VALUES('32','./images/user-4-profile.png');
 
 
 -- RELATIONSHIPS
@@ -63,11 +63,11 @@ CREATE TABLE relationships(
 	relationship_id INTEGER NOT NULL PRIMARY KEY,
 	relationship_type VARCHAR(40) NOT NULL
 );
-INSERT INTO relationships(relationship_id, relationship_type) VALUES('0','Friends');
-INSERT INTO relationships(relationship_id, relationship_type) VALUES('1','Casual');
-INSERT INTO relationships(relationship_id, relationship_type) VALUES('2','Activities');
-INSERT INTO relationships(relationship_id, relationship_type) VALUES('3','Dating');
-INSERT INTO relationships(relationship_id, relationship_type) VALUES('4','Long Term');
+INSERT INTO relationships(relationship_id, relationship_type) VALUES('2','Friends');
+INSERT INTO relationships(relationship_id, relationship_type) VALUES('4','Casual');
+INSERT INTO relationships(relationship_id, relationship_type) VALUES('8','Activities');
+INSERT INTO relationships(relationship_id, relationship_type) VALUES('16','Dating');
+INSERT INTO relationships(relationship_id, relationship_type) VALUES('32','Long Term');
 
 
 -- STATUSES
@@ -75,12 +75,12 @@ CREATE TABLE statuses(
 	status_id INTEGER NOT NULL PRIMARY KEY,
 	status_type VARCHAR(40) NOT NULL
 );
-INSERT INTO statuses(status_id, status_type) VALUES('0','Single');
-INSERT INTO statuses(status_id, status_type) VALUES('1','Off the Market');
-INSERT INTO statuses(status_id, status_type) VALUES('2','In a Relationship');
-INSERT INTO statuses(status_id, status_type) VALUES('3','Married');
-INSERT INTO statuses(status_id, status_type) VALUES('4','Single Parent');
-INSERT INTO statuses(status_id, status_type) VALUES('5','Taken Parent');
+INSERT INTO statuses(status_id, status_type) VALUES('2','Single');
+INSERT INTO statuses(status_id, status_type) VALUES('4','Off the Market');
+INSERT INTO statuses(status_id, status_type) VALUES('8','In a Relationship');
+INSERT INTO statuses(status_id, status_type) VALUES('16','Married');
+INSERT INTO statuses(status_id, status_type) VALUES('32','Single Parent');
+INSERT INTO statuses(status_id, status_type) VALUES('64','Taken Parent');
 
 
 -- RELIGIONS
@@ -88,16 +88,16 @@ CREATE TABLE religions(
 	religion_id INTEGER NOT NULL PRIMARY KEY,
 	religion_name VARCHAR(40) NOT NULL
 );
-INSERT INTO religions(religion_id, religion_name) VALUES('0','Agnostic');
-INSERT INTO religions(religion_id, religion_name) VALUES('1','Atheist');
-INSERT INTO religions(religion_id, religion_name) VALUES('2','Buddhist');
-INSERT INTO religions(religion_id, religion_name) VALUES('3','Catholic');
-INSERT INTO religions(religion_id, religion_name) VALUES('4','Christian');
-INSERT INTO religions(religion_id, religion_name) VALUES('5','Hindu');
-INSERT INTO religions(religion_id, religion_name) VALUES('6','Jewish');
-INSERT INTO religions(religion_id, religion_name) VALUES('7','Muslim');
-INSERT INTO religions(religion_id, religion_name) VALUES('8','Rastafarian');
-INSERT INTO religions(religion_id, religion_name) VALUES('9','Scientologist');
+INSERT INTO religions(religion_id, religion_name) VALUES('2','Agnostic');
+INSERT INTO religions(religion_id, religion_name) VALUES('4','Atheist');
+INSERT INTO religions(religion_id, religion_name) VALUES('8','Buddhist');
+INSERT INTO religions(religion_id, religion_name) VALUES('16','Catholic');
+INSERT INTO religions(religion_id, religion_name) VALUES('32','Christian');
+INSERT INTO religions(religion_id, religion_name) VALUES('64','Hindu');
+INSERT INTO religions(religion_id, religion_name) VALUES('128','Jewish');
+INSERT INTO religions(religion_id, religion_name) VALUES('256','Muslim');
+INSERT INTO religions(religion_id, religion_name) VALUES('512','Rastafarian');
+INSERT INTO religions(religion_id, religion_name) VALUES('1024','Scientologist');
 
 
 -- EDUCATION
@@ -105,13 +105,13 @@ CREATE TABLE education(
 	education_id INTEGER NOT NULL PRIMARY KEY,
 	education_type VARCHAR(40) NOT NULL
 );
-INSERT INTO education(education_id, education_type) VALUES('0','College');
-INSERT INTO education(education_id, education_type) VALUES('1','University');
-INSERT INTO education(education_id, education_type) VALUES('2','Diploma');
-INSERT INTO education(education_id, education_type) VALUES('3','Advanced Diploma');
-INSERT INTO education(education_id, education_type) VALUES('4','Bachelors');
-INSERT INTO education(education_id, education_type) VALUES('5','Masters');
-INSERT INTO education(education_id, education_type) VALUES('6','Doctorate');
+INSERT INTO education(education_id, education_type) VALUES('2','College');
+INSERT INTO education(education_id, education_type) VALUES('4','University');
+INSERT INTO education(education_id, education_type) VALUES('8','Diploma');
+INSERT INTO education(education_id, education_type) VALUES('16','Advanced Diploma');
+INSERT INTO education(education_id, education_type) VALUES('32','Bachelors');
+INSERT INTO education(education_id, education_type) VALUES('64','Masters');
+INSERT INTO education(education_id, education_type) VALUES('128','Doctorate');
 
 
 -- RACES
@@ -119,13 +119,13 @@ CREATE TABLE races(
 	race_id INTEGER NOT NULL PRIMARY KEY,
 	race_name VARCHAR(40) NOT NULL
 );
-INSERT INTO races(race_id, race_name) VALUES('0','Native American');
-INSERT INTO races(race_id, race_name) VALUES('1','Asian');
-INSERT INTO races(race_id, race_name) VALUES('2','Black or African American');
-INSERT INTO races(race_id, race_name) VALUES('3','Caucasian');
-INSERT INTO races(race_id, race_name) VALUES('4','Pacific or Hawaiian Native');
-INSERT INTO races(race_id, race_name) VALUES('5','Middle Eastern');
-INSERT INTO races(race_id, race_name) VALUES('6','Indian');
+INSERT INTO races(race_id, race_name) VALUES('2','Native American');
+INSERT INTO races(race_id, race_name) VALUES('4','Asian');
+INSERT INTO races(race_id, race_name) VALUES('8','Black or African American');
+INSERT INTO races(race_id, race_name) VALUES('16','Caucasian');
+INSERT INTO races(race_id, race_name) VALUES('32','Pacific or Hawaiian Native');
+INSERT INTO races(race_id, race_name) VALUES('64','Middle Eastern');
+INSERT INTO races(race_id, race_name) VALUES('128','Indian');
 
 
 -- HABITS
@@ -133,10 +133,10 @@ CREATE TABLE habits(
 	habit_id INTEGER NOT NULL PRIMARY KEY,
 	habit_type VARCHAR(40) NOT NULL
 );
-INSERT INTO habits(habit_id, habit_type) VALUES('0','None');
-INSERT INTO habits(habit_id, habit_type) VALUES('1','Drinker');
-INSERT INTO habits(habit_id, habit_type) VALUES('2','Smoker');
-INSERT INTO habits(habit_id, habit_type) VALUES('3','Gamer');
+INSERT INTO habits(habit_id, habit_type) VALUES('2','None');
+INSERT INTO habits(habit_id, habit_type) VALUES('4','Drinker');
+INSERT INTO habits(habit_id, habit_type) VALUES('8','Smoker');
+INSERT INTO habits(habit_id, habit_type) VALUES('16','Gamer');
 
 
 -- EXERCISES
@@ -144,10 +144,10 @@ CREATE TABLE exercises(
 	exercise_id INTEGER NOT NULL PRIMARY KEY,
 	exercise_type VARCHAR(40) NOT NULL
 );
-INSERT INTO exercises(exercise_id, exercise_type) VALUES('0','Occasionally');
-INSERT INTO exercises(exercise_id, exercise_type) VALUES('1','1-2/Week');
-INSERT INTO exercises(exercise_id, exercise_type) VALUES('2','3-6/Week');
-INSERT INTO exercises(exercise_id, exercise_type) VALUES('3','Every Day');
+INSERT INTO exercises(exercise_id, exercise_type) VALUES('2','Occasionally');
+INSERT INTO exercises(exercise_id, exercise_type) VALUES('4','1-2/Week');
+INSERT INTO exercises(exercise_id, exercise_type) VALUES('8','3-6/Week');
+INSERT INTO exercises(exercise_id, exercise_type) VALUES('16','Every Day');
 
 
 -- RESIDENCES
@@ -155,13 +155,13 @@ CREATE TABLE residences(
 	residence_id INTEGER NOT NULL PRIMARY KEY,
 	residence_type VARCHAR(40) NOT NULL
 );
-INSERT INTO residences(residence_id, residence_type) VALUES('0','My Dorm Room');
-INSERT INTO residences(residence_id, residence_type) VALUES('1','My Parents Place');
-INSERT INTO residences(residence_id, residence_type) VALUES('2','My House');
-INSERT INTO residences(residence_id, residence_type) VALUES('3','My Apartment');
-INSERT INTO residences(residence_id, residence_type) VALUES('4','My Condo');
-INSERT INTO residences(residence_id, residence_type) VALUES('5','My Beach House');
-INSERT INTO residences(residence_id, residence_type) VALUES('6','My Parents Mansion');
+INSERT INTO residences(residence_id, residence_type) VALUES('2','My Dorm Room');
+INSERT INTO residences(residence_id, residence_type) VALUES('4','My Parents Place');
+INSERT INTO residences(residence_id, residence_type) VALUES('8','My House');
+INSERT INTO residences(residence_id, residence_type) VALUES('16','My Apartment');
+INSERT INTO residences(residence_id, residence_type) VALUES('32','My Condo');
+INSERT INTO residences(residence_id, residence_type) VALUES('64','My Beach House');
+INSERT INTO residences(residence_id, residence_type) VALUES('128','My Parents Mansion');
 
 
 -- CAMPUSES
@@ -169,10 +169,10 @@ CREATE TABLE campuses(
 	campus_id INTEGER NOT NULL PRIMARY KEY,
 	campus_name VARCHAR(40) NOT NULL
 ); 
-INSERT INTO campuses(campus_id, campus_name) VALUES('0','North Oshawa');
-INSERT INTO campuses(campus_id, campus_name) VALUES('1','Downtown Oshawa');
-INSERT INTO campuses(campus_id, campus_name) VALUES('2','Whitby');
-INSERT INTO campuses(campus_id, campus_name) VALUES('3','Pickering');
+INSERT INTO campuses(campus_id, campus_name) VALUES('2','North Oshawa');
+INSERT INTO campuses(campus_id, campus_name) VALUES('4','Downtown Oshawa');
+INSERT INTO campuses(campus_id, campus_name) VALUES('8','Whitby');
+INSERT INTO campuses(campus_id, campus_name) VALUES('16','Pickering');
 
 
 -- MONTHS
