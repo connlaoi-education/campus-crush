@@ -19,7 +19,7 @@
 	$connection = db_connect();
 
 	//SQL PREPARED STATEMENTS
-	pg_prepare($connection, "date_update", 'UPDATE users SET last_access = current_date WHERE id = $1');
+	pg_prepare($connection, "date_update", 'UPDATE users SET last_access = $2 WHERE id = $1');
 
 	pg_prepare($connection, "find_user", 'SELECT id, password, first_name, last_name, email_address, account_type, enroll_date, last_access FROM users WHERE id = $1');
 	

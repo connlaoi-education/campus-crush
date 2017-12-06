@@ -17,5 +17,16 @@
 
 <!-- Include Header PHP -->
 <?php include 'header.php';?>
+<p class="content"><?php 
+if($_SESSION['account_type'] != ADMIN)
+{
+	header("Location:dashboard.php");
+}
+if(isset($_SESSION["admin_message"])) 
+{
+   echo($_SESSION["admin_message"]);
+}
 
+   echo("<p style=\"color: red\">"  .$_SESSION['output'] . "</p>");
+  ?></p>
 <?php include 'footer.php';?>

@@ -88,7 +88,7 @@ if(isLoggedIn()) {
 				$_SESSION['output'] = $output;
 				$connection = db_connect();
 
-				$results = pg_execute($connection, "date_update", array($username));
+				$results = pg_execute($connection, "date_update", array($username, date("Y-m-d",time())));
 
 				$results = pg_execute($connection, "find_user", array($username));
 				$dataArray = pg_fetch_assoc($results);
@@ -103,6 +103,7 @@ if(isLoggedIn()) {
 				if($_SESSION['account_type'] == INCOMPLETE) {
 					header("Location:profile-create.php");
 				} elseif($_SESSION['account_type'] == ADMIN){
+					$_SESSION["admin_message"] = "Hello admin, today we have a lot of couple we need to check them out";
 					header("Location:admin.php");
 				} else {
 					header("Location:dashboard.php");
