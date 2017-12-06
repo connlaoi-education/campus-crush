@@ -107,6 +107,19 @@
 			}
 		}
 	}
+
+	function buildCheckBox($name, $table, $property, $selected)
+	{
+		$array = getAllProperty($table, $property);
+
+		for ($i=1; $i < count($array)+1; $i++) { 
+			if(isBitSet($i, $selected)) {
+				echo("<input type=\"checkbox\" name=\"".$name."\" value=\"" . pow(2, $i) . "\" checked>" . $array[$i-1][$property] . "<br/>\n");
+			} else {
+				echo("<input type=\"checkbox\" name=\"".$name."\" value=\"" . pow(2, $i) . "\"/>" . $array[$i-1][$property] . "<br/>\n");
+			}
+		}
+	}
 	
 	function buildSearchResults($search)
 	{

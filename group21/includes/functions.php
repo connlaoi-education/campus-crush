@@ -29,5 +29,34 @@
 		}
 	}
 	
+
+	/*
+		this function should be passed a integer power of 2, and any 
+		decimal number,	it will return true (1) if the power of 2 is 
+		contain as part of the decimal argument
+	*/
+	function isBitSet($power, $decimal) {
+		if((pow(2,$power)) & ($decimal)) 
+			return 1;
+		else
+			return 0;
+	} 
+	
+	/*
+		this function can be passed an array of numbers 
+		(like those submitted as part of a named[] check 
+		box array in the $_POST array).
+	*/
+	function sumCheckBox($array)
+	{
+		$num_checks = count($array); 
+		$sum = 0;
+		for ($i = 0; $i < $num_checks; $i++)
+		{
+		  $sum += $array[$i]; 
+		}
+		return $sum;
+	}
+
 	// NEW STUFF HERE
 ?>

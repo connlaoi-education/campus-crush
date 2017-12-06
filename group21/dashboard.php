@@ -51,7 +51,8 @@ $content = file_get_contents('http://loripsum.net/api'); // for testing
 if($_SESSION["account_type"] == ADMIN)
 {
 	// LOAD ADMIN TOOLS in tabs(?)
-	echo '<h2>ADMIN</h2>';
+	header("Location:admin.php");
+  ob_flush();
 	
 	// Redirect  incomplete profiles to profile creation DELIVERABLE 3
 	// header("Location:admin.php");

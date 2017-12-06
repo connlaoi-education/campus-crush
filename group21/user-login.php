@@ -61,7 +61,7 @@ if(isLoggedIn()) {
 	
 	elseif($_SERVER["REQUEST_METHOD"] == "POST")
 	{
-		$username = trim(htmlspecialchars($_POST["login"]));
+		$username = trim(htmlspecialchars(strtolower($_POST["login"])));
 		$password = trim(htmlspecialchars($_POST["pass"]));
 		
 		if(!isset($username) || $username == "")
@@ -102,6 +102,8 @@ if(isLoggedIn()) {
 
 				if($_SESSION['account_type'] == INCOMPLETE) {
 					header("Location:profile-create.php");
+				} elseif($_SESSION['account_type'] == ADMIN){
+					header("Location:admin.php");
 				} else {
 					header("Location:dashboard.php");
 				}
