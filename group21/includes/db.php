@@ -226,7 +226,7 @@
 			}
 		}
 
-		$sql2 = substr($sql, 0, -4) . ") LIMIT " . SEARCH_LIMIT . ";";
+		$sql2 = substr($sql, 0, -4) . ") ORDER BY users.last_access DESC LIMIT " . SEARCH_LIMIT . ";";
 		define("results_per_page", 20);
 
 		$results = pg_query($connection, $sql2);
@@ -304,7 +304,7 @@
 		}
 		else
 		{
-			echo('<h3 style="text-align:center;">No users named <b>' . $search . '</b> exist on our site, Please try again!</h3>');
+			echo('<h3 style="text-align:center;">No users that fit that criteria <b> </b> exist on our site, Please try again!</h3>');
 		}
     }
 	function buildUserProfile($user)
