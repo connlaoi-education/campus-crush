@@ -112,14 +112,33 @@
 
 	function buildCheckBox($name, $table, $property, $selected, $label)
 	{
-		
 		$array = getAllProperty($table, $property);
 		echo("<strong><legend>" . $label . "</legend></strong>");
 		for ($i=1; $i < count($array)+1; $i++) { 
 			if(isBitSet($i, $selected)) {
-				echo("<input type=\"checkbox\" name=\"".$name."[]\" value=\"" . pow(2, $i) . "\" checked>" . $array[$i-1][$property] . "<br/>\n");
+				echo("<input type=\"checkbox\" name=\"".$name."[]\" value=\"" . pow(2, $i) . "\" checked>" . $array[$i-1][$property] . "\n");
+
 			} else {
-				echo("<input type=\"checkbox\" name=\"".$name."[]\" value=\"" . pow(2, $i) . "\"/>" . $array[$i-1][$property] . "<br/>\n");
+				echo("<input type=\"checkbox\" name=\"".$name."[]\" value=\"" . pow(2, $i) . "\"/>" . $array[$i-1][$property] . "\n");
+			}
+		}
+	}
+	
+	function buildMapCheckBox($name, $table, $property, $selected, $label)
+	{
+		$array = getAllProperty($table, $property);
+		
+		echo("<h1>" . $label . "</h1>");
+		
+		for ($i=1; $i < count($array)+1; $i++)
+		{ 
+			if(isBitSet($i, $selected))
+			{
+				echo("<input type=\"checkbox\" name=\"" . $name . $i . "\" value=\"" . pow(2, $i) . "\" checked>" . $array[$i-1][$property] . "\n");
+			} 
+			else
+			{
+				echo("<input type=\"checkbox\" name=\"" . $name . $i . "\" value=\"" . pow(2, $i) . "\" >" . $array[$i-1][$property] . "\n");
 			}
 		}
 	}
@@ -193,5 +212,4 @@
 		$output = "header('Location:profile-display.php?user=$user');";
 		return $output;
 	}
-	
 ?>
