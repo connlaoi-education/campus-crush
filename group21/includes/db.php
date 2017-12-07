@@ -114,7 +114,7 @@
 	{
 		$array = getAllProperty($table, $property);
 		
-		echo("<h1>" . $label . "</h1>");
+		echo("<h3>" . $label . "</h3>");
 		
 		for ($i=1; $i < count($array)+1; $i++)
 		{ 
@@ -130,48 +130,139 @@
 		}
 	}
 	
-	function buildMapCheckBox($name, $table, $property, $selected, $label)
+	function buildMapCheckBox($name, $table, $property, $selected, $enabled)
 	{
 		$array = getAllProperty($table, $property);
-		
-		echo("<h1>" . $label . "</h1>");
-		
-		for ($i=1; $i < count($array)+1; $i++)
-		{ 
-			if(isBitSet($i, $selected))
-			{
-				echo("<input type=\"checkbox\" name=\"" . $name . "[]\" value=\"" . pow(2, $i) . "\" checked>" . $array[$i-1][$property] . "\n");
-			} 
-			else
-			{
-				echo("<input type=\"checkbox\" name=\"" . $name . "[]\" value=\"" . pow(2, $i) . "\" >" . $array[$i-1][$property] . "\n");
+		if($enabled)
+		{
+			for ($i=1; $i < count($array)+1; $i++)
+			{ 
+				if(isBitSet($i, $selected))
+				{
+					echo("<label for=\"city" . $i . "\"><input type=\"checkbox\" name=\"" . $name . "[]\" value=\"" . pow(2, $i) . "\" onchange=\"filterMarkers();\" id=\"city" . $i . "\" checked>" . $array[$i-1][$property] . "</label>\n");
+	
+				}
+				else
+				{
+					echo("<label for=\"city" . $i . "\"><input type=\"checkbox\" name=\"" . $name . "[]\" value=\"" . pow(2, $i) . "\" onchange=\"filterMarkers();\" id=\"city" . $i . "\"/>" . 	$array[$i-1][$property] . "</label>\n");
+				}
+			}
+		}
+		else
+		{
+			for ($i=1; $i < count($array)+1; $i++)
+			{ 
+				if(isBitSet($i, $selected))
+				{
+					echo("<label for=\"city" . $i . "\"><input type=\"checkbox\" name=\"" . $name . "[]\" value=\"" . pow(2, $i) . "\" onchange=\"filterMarkers();\" id=\"city" . $i . "\" checked disabled>" . $array[$i-1][$property] . "</label>\n");
+	
+				}
+				else
+				{
+					echo("<label for=\"city" . $i . "\"><input type=\"checkbox\" name=\"" . $name . "[]\" value=\"" . pow(2, $i) . "\" onchange=\"filterMarkers();\" id=\"city" . $i . "\" disabled/>" . 	$array[$i-1][$property] . "</label>\n");
+				}
 			}
 		}
 	}
+
 	
-	function buildSearchResults($genders, $religion, $relationship)
+	function buildSearchResults($genders, $relationships, $religions, $cities, $page)
 	{
-		
 		// do validation on input here eventually
 		$connection = db_connect();
-		$sql = "SELECT * FROM profiles, users WHERE profiles.gender = '" . $genders . "', profiles.religion_sought = '" . $religion . "', profiles.relationship_sought = '" . $relationship . "' ORDER BY users.last_access DESC LIMIT 200";
-		$results = pg_query($connection, $sql);
+		/*$sql = "SELECT * FROM profiles, users WHERE profiles.gender = '" . $genders . "', profiles.religion_sought = '" . $religions . "', profiles.relationship_sought = '" . $relationships . "' ORDER BY users.last_access DESC LIMIT 200";*/
+
+		$sql = "SELECT *
+		FROM profiles, users 
+		WHERE (profiles.user_id = users.id) AND ";
+
+		if(sizeof($genders) > 0)
+		{
+			$sql .= "(";
+			$sumOfGenders = sumCheckBox($genders);
+			for ($i=1; $i <= 3; $i++) { 
+				if (isBitSet($i, $sumOfGenders)) {
+					$sql .= "profiles.gender = '" . ($i-1) . "' OR ";
+				}
+			}
+		}
+
+		$sql = substr($sql, 0, -4) . ") AND ";
+
+		if(sizeof($relationships) > 0)
+		{
+			$sql .= "(";
+			$sumOfRelationships = sumCheckBox($relationships);
+			for ($i=1; $i <= 5; $i++) { 
+				if (isBitSet($i, $sumOfRelationships)) {
+					$sql .= "profiles.relationship_sought = '" . ($i-1) . "' OR ";
+				}
+			}
+		}
+
+		$sql = substr($sql, 0, -4) . ") AND ";
+
+		if(sizeof($religions) > 0)
+		{
+			$sql .= "(";
+			$sumOfReligions = sumCheckBox($religions);
+			for ($i=1; $i <= 10; $i++) { 
+				if (isBitSet($i, $sumOfReligions)) {
+					$sql .= "profiles.religion_sought = '" . ($i-1) . "' OR ";
+				}
+			}
+		}
+
+		$sql = substr($sql, 0, -4) . ") AND ";
+
+		if(isset($_COOKIE["CityCookie"]))
+		{
+			$sql .= "(";
+			$sumOfCities = sumCheckBox(unserialize($_COOKIE["CityCookie"]));
+			for ($i=1; $i <= 6; $i++) { 
+				if (isBitSet($i, $sumOfCities)) {
+					$sql .= "profiles.city = '" . ($i-1) . "' OR ";
+				}
+			}
+		}
+
+		$sql2 = substr($sql, 0, -4) . ") ORDER BY users.last_access DESC LIMIT " . SEARCH_LIMIT . ";";
+		define("results_per_page", 20);
+
+		$results = pg_query($connection, $sql2);
 		$userInfo = pg_fetch_all($results);
 		$count = pg_num_rows($results);
 
+		if(!isset($page))
+		{
+			$page=1;
+		}
 
-		if($count > 0)
+		$number_of_pages = ceil($count/results_per_page);
+		if(isset($_SESSION["Searched"]))
+		{
+				$sql3 = substr($sql, 0, -4) . ") LIMIT " . results_per_page . " OFFSET " . 		results_per_page*($page-1);
+				$results = pg_query($connection, $sql3);
+				$userInfo = pg_fetch_all($results);
+		}
+
+		if($count == 1)
+		{
+			buildUserProfile($userinfo[0]["id"]);
+		}
+
+		elseif($count > 0)
 		{
 			echo("
 					<table>
 					");
 						
 			// FOR LOOP STARTS HERE
-			
-			for($i=0; $i < count($userInfo); $i++)	
+			//var_dump($userInfo);
+			for($i=0; $i < count($userInfo); $i++)
 			{
 					
-				$userName = strtolower($userInfo[$i]['user_id']);
+				$userName = strtolower($userInfo[$i]['id']);
 				
 				$age = calculate_Age($userInfo[$i]['birthday']);
 				
@@ -179,21 +270,21 @@
 				{
 					$age = "";
 				}
-				
+
 				$sql = "SELECT gender, image, campus FROM profiles WHERE user_id = '" . $userInfo[$i]['user_id'] . "'";
 				$results1 = pg_query($connection, $sql);
 				$userProfiles = pg_fetch_all($results1);
+				$name = ucwords($userInfo[$i]["first_name"]) . ucwords($userInfo[$i]["last_name"]);
 
 				$image = getProperty('images', 'image_address', $userProfiles[0]['image'], 'image_id');
 				$gender = ucwords(getProperty('genders', 'gender_type', $userProfiles[0]['gender'], 'gender_id'));
-				$relationship = getProperty('relationships', 'relationship_type', $userProfiles[0]['relationship_sought'], 'power_id');
 				$campus = ucwords(getProperty('campuses', 'campus_name', $userProfiles[0]['campus'], 'campus_id'));
 				
 				echo("<tr class='w3-card w3-round' style='width:100%;>
 								<td style='min-width:60%; max-width:80%; height:2%; padding-left:10%; padding-right:10%;'>\n
 									<td style='height:100%; width:auto;'><a href='profile-display.php?user=" . $userName . "'><img class='w3-animate-zoom hero-image w3-round' style='height:100px; width:100px; box-shadow: 3px 3px 3px #999;background-size: cover; position: relative;' src='" . $image . "'/></a></td>\n
-									<td style='height:100%; width:auto; text-align:right; padding-left:5px;'><h3>" . $relationship . "</h3></td>\n
-									<td style='height:100%; width:auto; text-align:left; padding-left:5px;'><h3>" . $religion . "</h3></td>\n
+									<td style='height:100%; width:auto; text-align:right; padding-left:5px;'><h3>" . $name . "</h3></td>\n
+									<td style='height:100%; width:auto; text-align:lesSft; padding-left:5px;'><h3></h3></td>\n
 									<td style='height:100%; width:auto; text-align:left; padding-left:5px;'><p>" . $gender . "</p></td>\n
 									<td style='height:100%; width:auto; text-align:left; padding-left:5px;'><p>" . $age . "</p></td>\n
 								</td>\n
@@ -202,13 +293,20 @@
 			}
 			// FOR LOOP ENDS HERE
 			echo("</table>\n");
+		echo("<div class=\"w3-center\">");
+    echo("<div class=\"w3-bar\" text-align:center>");
+    for ($page=1; $page <= $number_of_pages; $page++) { 
+    	echo("<a href=\"" . $_SERVER['PHP_SELF'] . "?page=" . $page . "\" class=\"w3-button\">" . $page . "</a>");
+    }
+		
+		echo("</div>");
+		echo("</div>");
 		}
 		else
 		{
-			echo('<h3 style="text-align:center;">No users named <b>' . $search . '</b> exist on our site, Please try again!</h3>');
+			echo('<h3 style="text-align:center;">No users that fit that criteria <b> </b> exist on our site, Please try again!</h3>');
 		}
     }
-	
 	function buildUserProfile($user)
 	{
 		// do validation on input here eventually

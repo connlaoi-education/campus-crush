@@ -38,6 +38,9 @@
 		//if the city is set
 		if(isset($_COOKIE["CityCookie"]))
 		{
+			buildMapCheckBox("city", "cities", "city_name", sumCheckBox(unserialize($_COOKIE["CityCookie"])), false);
+			echo("<br/>");
+
 			echo('<a href="./profile-city-select.php" style="font-style:italic; font-size:10pt;" class="w3-bar-item ">Change your selected Cities</a>');
 			$_COOKIE["CityCookie"];
 		}
@@ -104,10 +107,29 @@
 	
 	if($_SERVER["REQUEST_METHOD"] == "GET")
 	{
-		$genderFromCookie = "";
+    	if(isset($_GET['page']))
+    	{
+    		$page = $_GET['page'];
+    	}
+    	else
+    	{
+    		$page = 1;
+    	}
+		if(isset($_SESSION["Searched"]))
+		{
+			buildSearchResults($_SESSION["gender"], $_SESSION["relationship"], $_SESSION["religion"], $_COOKIE["CityCookie"], $page);
+		}
 	}
 	elseif($_SERVER["REQUEST_METHOD"] == "POST")
     {
+    	if(isset($_GET['page']))
+    	{
+    		$page = $_GET['page'];
+    	}
+    	else
+    	{
+    		$page = 1;
+    	}
 		 //gender index of cookie
 		  if(isset($_POST["gender"]))
 		  {
@@ -142,14 +164,13 @@
 		  setcookie("SearchCookie", serialize($search), time() + COOKIE_DURATION);
 		  
 		  //generate search results based on what is selected
-		  buildSearchResults($search["genders"], $search["relationships"], $search["religions"]);
+			$_SESSION["Searched"] = true;
+		  $_SESSION["gender"] = $_POST["gender"];
+		  $_SESSION["relationship"] = $_POST["relationship"];
+		  $_SESSION["religion"] = $_POST["religion"];
+
+		  buildSearchResults($_POST["gender"], $_POST["relationship"], $_POST["religion"], $_COOKIE["CityCookie"], $page);
 		  
-		  
-		  
-		  
-		  // TESTING PURPOSES
-		  print_r(unserialize($_COOKIE["SearchCookie"]));
-		  print($_COOKIE["CityCookie"]);
 	}
 
 ?>
