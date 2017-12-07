@@ -112,14 +112,33 @@
 
 	function buildCheckBox($name, $table, $property, $selected, $label)
 	{
-		
 		$array = getAllProperty($table, $property);
 		echo("<strong><legend>" . $label . "</legend></strong>");
 		for ($i=1; $i < count($array)+1; $i++) { 
 			if(isBitSet($i, $selected)) {
-				echo("<input type=\"checkbox\" name=\"".$name."[]\" value=\"" . pow(2, $i) . "\" checked>" . $array[$i-1][$property] . "<br/>\n");
+				echo("<input type=\"checkbox\" name=\"".$name."[]\" value=\"" . pow(2, $i) . "\" checked>" . $array[$i-1][$property] . "\n");
+
 			} else {
-				echo("<input type=\"checkbox\" name=\"".$name."[]\" value=\"" . pow(2, $i) . "\"/>" . $array[$i-1][$property] . "<br/>\n");
+				echo("<input type=\"checkbox\" name=\"".$name."[]\" value=\"" . pow(2, $i) . "\"/>" . $array[$i-1][$property] . "\n");
+			}
+		}
+	}
+	
+	function buildMapCheckBox($name, $table, $property, $selected, $label)
+	{
+		$array = getAllProperty($table, $property);
+		
+		echo("<h1>" . $label . "</h1>");
+		
+		for ($i=1; $i < count($array)+1; $i++)
+		{ 
+			if(isBitSet($i, $selected))
+			{
+				echo("<input type=\"checkbox\" name=\"" . $name . $i . "\" value=\"" . pow(2, $i) . "\" checked>" . $array[$i-1][$property] . "\n");
+			} 
+			else
+			{
+				echo("<input type=\"checkbox\" name=\"" . $name . $i . "\" value=\"" . pow(2, $i) . "\" >" . $array[$i-1][$property] . "\n");
 			}
 		}
 	}
@@ -192,29 +211,5 @@
 		// do validation on input here eventually
 		$output = "header('Location:profile-display.php?user=$user');";
 		return $output;
-	}
-	
-	function initMap()
-	{
-		var map = new google.maps.Map(document.getElementById('map'), {
-				zoom: 6,
-				center: {lat: 48.7791, lng: 9.0367}
-		});
-		$(document).on('change','.checkbox-network', function() {
-		   var checked_network = $( ".checkbox-network:checked" );
-		   checked_network.each(function(){
-			network_id = $( this ).data("network-id");
-			   //Get the hidden location longitudes and latitudes for each checked network element
-			network_locations_latitude = $(".location_latitude_network_"+network_id).val();
-			network_locations_longitude = $(".location_longitude_network_"+network_id).val();
-			console.log(network_id + " - " + network_locations_latitude);
-			var marker = new google.maps.Marker({
-					  position: new google.maps.LatLng(network_locations_latitude,network_locations_longitude),
-					  map: map,
-					  title: "test"
-			});
-			console.log(marker);
-		   });
-		});
 	}
 ?>
