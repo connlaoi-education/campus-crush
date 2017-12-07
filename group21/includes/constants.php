@@ -18,6 +18,7 @@
 	define("DEFAULT_IMAGEID", 0, true);
 
 	define("COOKIE_DURATION", 60*60*24*30, true);
+	define("SEARCH_LIMIT", 200, true);
 	
 	// define the user types
 	define("ADMIN", 'a', true);

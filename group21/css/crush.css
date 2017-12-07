@@ -317,3 +317,8 @@ em {
 {
 	vertical-align: middle;
 }
+
+#map {
+  height: 400px;
+  width: 40%;
+}
