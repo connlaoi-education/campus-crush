@@ -44,10 +44,12 @@ if(!isLoggedIn()) {
 			//if cookie is not stored
 			if(!isset($_COOKIE["CityCookie"]))
 			{
-				if(isset($_POST["cities"]))
-				$search = sumCheckBox($_POST["cities"]);
-				setcookie("CityCookie", serialize($search), time() + COOKIE_DURATION);
+				if(isset($_POST["city"]))
+				{
+				$search = sumCheckBox($_POST["city"]);
+				setcookie("CityCookie", $search, time() + COOKIE_DURATION);
 				header("Location:profile-search.php"); //redirect
+				}
 			}
 			else
 			{

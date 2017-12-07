@@ -113,13 +113,19 @@
 	function buildCheckBox($name, $table, $property, $selected, $label)
 	{
 		$array = getAllProperty($table, $property);
-		echo("<strong><legend>" . $label . "</legend></strong>");
-		for ($i=1; $i < count($array)+1; $i++) { 
-			if(isBitSet($i, $selected)) {
-				echo("<input type=\"checkbox\" name=\"".$name."[]\" value=\"" . pow(2, $i) . "\" checked>" . $array[$i-1][$property] . "\n");
+		
+		echo("<h1>" . $label . "</h1>");
+		
+		for ($i=1; $i < count($array)+1; $i++)
+		{ 
+			if(isBitSet($i, $selected))
+			{
+				echo("<input type=\"checkbox\" name=\"" .$name . "[]\" value=\"" . pow(2, $i) . "\" checked>" . $array[$i-1][$property] . "\n");
 
-			} else {
-				echo("<input type=\"checkbox\" name=\"".$name."[]\" value=\"" . pow(2, $i) . "\"/>" . $array[$i-1][$property] . "\n");
+			}
+			else
+			{
+				echo("<input type=\"checkbox\" name=\"" . $name . "[]\" value=\"" . pow(2, $i) . "\"/>" . $array[$i-1][$property] . "\n");
 			}
 		}
 	}
@@ -134,23 +140,23 @@
 		{ 
 			if(isBitSet($i, $selected))
 			{
-				echo("<input type=\"checkbox\" name=\"" . $name . $i . "\" value=\"" . pow(2, $i) . "\" checked>" . $array[$i-1][$property] . "\n");
+				echo("<input type=\"checkbox\" name=\"" . $name . "[]\" value=\"" . pow(2, $i) . "\" checked>" . $array[$i-1][$property] . "\n");
 			} 
 			else
 			{
-				echo("<input type=\"checkbox\" name=\"" . $name . $i . "\" value=\"" . pow(2, $i) . "\" >" . $array[$i-1][$property] . "\n");
+				echo("<input type=\"checkbox\" name=\"" . $name . "[]\" value=\"" . pow(2, $i) . "\" >" . $array[$i-1][$property] . "\n");
 			}
 		}
 	}
 	
-	function buildSearchResults($search)
+	function buildSearchResults($genders, $religion, $relationship)
 	{
 		
 		// do validation on input here eventually
 		$connection = db_connect();
-		$sql = "SELECT * FROM users WHERE first_name = '" . $search . "'";
+		$sql = "SELECT * FROM profiles, users WHERE profiles.gender = '" . $genders . "', profiles.religion_sought = '" . $religion . "', profiles.relationship_sought = '" . $relationship . "' ORDER BY users.last_access DESC LIMIT 200";
 		$results = pg_query($connection, $sql);
-		$userIDs = pg_fetch_all($results);
+		$userInfo = pg_fetch_all($results);
 		$count = pg_num_rows($results);
 
 
@@ -162,35 +168,32 @@
 						
 			// FOR LOOP STARTS HERE
 			
-			for($i=0; $i < count($userIDs); $i++) {
-				
-				$firstName = ucwords($userIDs[$i]['first_name']);
-				
-				$lastName = ucwords($userIDs[$i]['last_name']);
+			for($i=0; $i < count($userInfo); $i++)	
+			{
 					
-				$userName = strtoupper($userIDs[$i]['id']);
-				$user = strtolower($userIDs[$i]['id']);
+				$userName = strtolower($userInfo[$i]['user_id']);
 				
-				$age = calculate_Age($userIDs[$i]['birthday']);
+				$age = calculate_Age($userInfo[$i]['birthday']);
 				
 				if($age == 0)
 				{
 					$age = "";
 				}
 				
-				$sql = "SELECT gender, image, campus FROM profiles WHERE user_id = '" . $userIDs[$i]['id'] . "'";
+				$sql = "SELECT gender, image, campus FROM profiles WHERE user_id = '" . $userInfo[$i]['user_id'] . "'";
 				$results1 = pg_query($connection, $sql);
 				$userProfiles = pg_fetch_all($results1);
 
 				$image = getProperty('images', 'image_address', $userProfiles[0]['image'], 'image_id');
 				$gender = ucwords(getProperty('genders', 'gender_type', $userProfiles[0]['gender'], 'gender_id'));
+				$relationship = getProperty('relationships', 'relationship_type', $userProfiles[0]['relationship_sought'], 'power_id');
 				$campus = ucwords(getProperty('campuses', 'campus_name', $userProfiles[0]['campus'], 'campus_id'));
 				
 				echo("<tr class='w3-card w3-round' style='width:100%;>
 								<td style='min-width:60%; max-width:80%; height:2%; padding-left:10%; padding-right:10%;'>\n
-									<td style='height:100%; width:auto;'><a href='profile-display.php?user=" . $user . "'><img class='w3-animate-zoom hero-image w3-round' style='height:100px; width:100px; box-shadow: 3px 3px 3px #999;background-size: cover; position: relative;' src='" . $image . "'/></a></td>\n
-									<td style='height:100%; width:auto; text-align:right; padding-left:5px;'><h3>" . $firstName . "</h3></td>\n
-									<td style='height:100%; width:auto; text-align:left; padding-left:5px;'><h3>" . $lastName . "</h3></td>\n
+									<td style='height:100%; width:auto;'><a href='profile-display.php?user=" . $userName . "'><img class='w3-animate-zoom hero-image w3-round' style='height:100px; width:100px; box-shadow: 3px 3px 3px #999;background-size: cover; position: relative;' src='" . $image . "'/></a></td>\n
+									<td style='height:100%; width:auto; text-align:right; padding-left:5px;'><h3>" . $relationship . "</h3></td>\n
+									<td style='height:100%; width:auto; text-align:left; padding-left:5px;'><h3>" . $religion . "</h3></td>\n
 									<td style='height:100%; width:auto; text-align:left; padding-left:5px;'><p>" . $gender . "</p></td>\n
 									<td style='height:100%; width:auto; text-align:left; padding-left:5px;'><p>" . $age . "</p></td>\n
 								</td>\n

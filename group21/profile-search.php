@@ -32,16 +32,14 @@
 <hr />
 
 <form class="w3-card w3-mobile" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
-	<div class="w3-row">
-		<input class="w3-center" style="margin-top:10px; margin-left:25%; margin-right:25%; width:50%;" type="text" name="search" placeholder="Enter a first name..." />
-		<input style="margin-left:45%; margin-right:45%;" type="submit" value="Search" class="btn" />
-	</div>
+
 	<div class="w3-row">
 		<?php
 		//if the city is set
 		if(isset($_COOKIE["CityCookie"]))
 		{
 			echo('<a href="./profile-city-select.php" style="font-style:italic; font-size:10pt;" class="w3-bar-item ">Change your selected Cities</a>');
+			$_COOKIE["CityCookie"];
 		}
 		else
 		{
@@ -95,7 +93,9 @@
 		}
 		?>
 	</div>
-
+	<div class="w3-row">
+		<input style="margin-left:45%; margin-right:45%;" type="submit" value="Search" class="btn" />
+	</div>
 <hr />
 
 <?php
@@ -139,30 +139,17 @@
 		  }
 
 		  //build final cookie
-		  print_r(unserialize($_COOKIE["SearchCookie"]));
-		  echo(unserialize($_COOKIE["CityCookie"]));
 		  setcookie("SearchCookie", serialize($search), time() + COOKIE_DURATION);
 		  
-		  if(isset($_POST["search"]))
-		  {
-			$input = $_POST["search"];
-			
-			  if($input != "")
-			  {
-				// add logic for user exists (count results array, == 0, display No Results prompt)
-				buildSearchResults(strtolower(htmlspecialchars($input)));
-			  }
-			  else
-			  {
-				echo('<h3 style="text-align:center;">Enter a <b>First Name</b> above to look someone  up!</h3>');
-			  }
-			  echo('</form>');
-		  }
-		  else
-		  {
-			  echo('<h3 style="text-align:center;">Enter a <b>First Name</b> above to look someone  up!</h3>');
-			echo('</form>');
-		}
+		  //generate search results based on what is selected
+		  buildSearchResults($search["genders"], $search["relationships"], $search["religions"]);
+		  
+		  
+		  
+		  
+		  // TESTING PURPOSES
+		  print_r(unserialize($_COOKIE["SearchCookie"]));
+		  print($_COOKIE["CityCookie"]);
 	}
 
 ?>
