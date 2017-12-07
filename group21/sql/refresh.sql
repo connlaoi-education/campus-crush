@@ -41,9 +41,9 @@ CREATE TABLE cities(
 	power_id SMALLINT NOT NULL,
 	city_name VARCHAR(40) NOT NULL
 );
-INSERT INTO cities(city_id, power_id, city_name) VALUES('0','2','Oshawa');
+INSERT INTO cities(city_id, power_id, city_name) VALUES('0','2','Ajax');
 INSERT INTO cities(city_id, power_id, city_name) VALUES('1','4','Whitby');
-INSERT INTO cities(city_id, power_id, city_name) VALUES('2','8','Ajax');
+INSERT INTO cities(city_id, power_id, city_name) VALUES('2','8','Oshawa');
 INSERT INTO cities(city_id, power_id, city_name) VALUES('3','16','Courtice');
 INSERT INTO cities(city_id, power_id, city_name) VALUES('4','32','Bowmanville');
 INSERT INTO cities(city_id, power_id, city_name) VALUES('5','64','Out of Town');
