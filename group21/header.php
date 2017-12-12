@@ -29,7 +29,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
     <title><?php echo "$title";?></title>
     <link rel="shortcut icon" type="image/x-icon" href="./images/cc_logo.png" />
-
 </head>
 
 <body>
@@ -72,7 +71,7 @@
 					elseif($_SESSION['account_type'] == CLIENT)
 					{
 						echo('
-						<a href="./profile-display.php?user=' . $_SESSION['username'] . '" class="w3-bar-item w3-button">Public Profile</a>
+						<a href="./profile-display.php?user=' . $_SESSION['username'] . '" class="w3-bar-item w3-button">View Profile</a>
 						<a href="./profile-create.php" class="w3-bar-item w3-button">Manage Profile</a>
 						<a href="./user-update.php" class="w3-bar-item w3-button">Update Account</a>');
 					}

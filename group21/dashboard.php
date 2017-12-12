@@ -57,12 +57,6 @@ if($_SESSION["account_type"] == ADMIN)
 	header("Location:admin.php");
   ob_flush();
 	
-	// Redirect  incomplete profiles to profile creation DELIVERABLE 3
-	// header("Location:admin.php");
-	
-	// Database Moderation (Delete Account, Send Password Reset Email,etc)
-	// User Summaries (Graphs, Charts, etc)
-	
 }
 
 // if complete user

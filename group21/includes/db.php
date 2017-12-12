@@ -1,11 +1,9 @@
 <?php
 	// FILE FOR DATABASE CONNECTIVITY
 	$filename = "db.php";
-	$authors = "Connlaoi";
-	
+	$authors = "Connlaoi Smith";
 	$createddate = "September 19 2017";
-	$updateddate = "xxxx xx 2017";
-	
+	$updateddate = "December 11 2017";
 
 	// open a database connection
 	function db_connect()
@@ -26,8 +24,7 @@
 	pg_prepare($connection, "display_user", 'SELECT id, first_name, last_name, email_address, birthday FROM users WHERE id = $1');
 
 	pg_prepare($connection, "select_id_pass", 'SELECT id, password, first_name, last_name, email_address, enroll_date, last_access FROM users WHERE id = $1 AND password = $2');
-	
-	// which one is the required one
+
 	pg_prepare($connection, "select_all_profile", 'SELECT * FROM profiles WHERE user_id = $1');
 
 	pg_prepare($connection, "insert_profile", 'INSERT INTO profiles (user_id, gender, gender_sought, city, image, headline, self_description, match_description, relationship_sought, relationship_status, preferred_age_minimum, preferred_age_maximum, religion_sought, education_experience, race, habit, exercise, residence_type, campus) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19)');
@@ -38,12 +35,12 @@
 	
 	pg_prepare($connection, "update_account", 'UPDATE users SET account_type = $1 WHERE id = $2');
 	
-	pg_prepare($connection, "update_password", 'UPDATE users SET password = $1, first_name = $2, last_name = $3, email_address = $4 WHERE id = $5');
+	pg_prepare($connection, "update_password", 'UPDATE users SET password = $1 WHERE id = $2');
 	
 	pg_prepare($connection, "select_all_user_info", "SELECT * FROM users WHERE first_name = $1");
 
 
-//retrieves one piece of data from DB
+	//retrieves one piece of data from DB
 	function getProperty($table, $property, $id, $idName)
 	{
 		$connection = db_connect();
@@ -52,7 +49,7 @@
 		return pg_fetch_result($results, 0, $property);
 	}
 
-//retrieves a column of data as an array given the table and column name
+	//retrieves a column of data as an array given the table and column name
 	function getAllProperty($table, $property)
 	{
 		$connection = db_connect();
@@ -60,11 +57,12 @@
 		$results = pg_query($connection, $sql);
 		return pg_fetch_all($results);
 	}
-		//creates a dropdown box given
-		//$name - the name of the select object
-		//$table - the table to retrieve data objects from
-		//$property - the column to retrieve the values shown
-		//$selected - the default option when created
+	
+	//creates a dropdown box given
+	//$name - the name of the select object
+	//$table - the table to retrieve data objects from
+	//$property - the column to retrieve the values shown
+	//$selected - the default option when created
     function buildDropDown($name, $table, $property, $selected)
 	{
 		
@@ -88,11 +86,11 @@
         echo("</select>");
     }
 
-		//creates radio buttons given
-		//$name - the name of the radio buttons object
-		//$table - the table to retrieve data objects from
-		//$property - the column to retrieve the values shown
-		//$selected - the default option when created
+	//creates radio buttons given
+	//$name - the name of the radio buttons object
+	//$table - the table to retrieve data objects from
+	//$property - the column to retrieve the values shown
+	//$selected - the default option when created
 	function buildRadioButton($name, $table, $property, $selected)
 	{
 		
@@ -114,18 +112,22 @@
 	{
 		$array = getAllProperty($table, $property);
 		
-		echo("<h3>" . $label . "</h3>");
+		echo("<h2 style='text-align:center;'>" . $label . "</h2>");
 		
 		for ($i=1; $i < count($array)+1; $i++)
 		{ 
 			if(isBitSet($i, $selected))
 			{
-				echo("<input type=\"checkbox\" name=\"" .$name . "[]\" value=\"" . pow(2, $i) . "\" checked>" . $array[$i-1][$property] . "\n");
+				echo("<label class=\"container\">" . $array[$i-1][$property]);
+				echo("<input type=\"checkbox\" name=\"" .$name . "[]\" value=\"" . pow(2, $i) . "\" checked>");
+				echo("<span class=\"checkmark\"></span></label>");
 
 			}
 			else
 			{
-				echo("<input type=\"checkbox\" name=\"" . $name . "[]\" value=\"" . pow(2, $i) . "\"/>" . $array[$i-1][$property] . "\n");
+				echo("<label class=\"container\">" . $array[$i-1][$property]);
+				echo("<input type=\"checkbox\" name=\"" .$name . "[]\" value=\"" . pow(2, $i) . "\" >");
+				echo("<span class=\"checkmark\"></span></label>");
 			}
 		}
 	}
@@ -133,18 +135,27 @@
 	function buildMapCheckBox($name, $table, $property, $selected, $enabled)
 	{
 		$array = getAllProperty($table, $property);
+		
 		if($enabled)
 		{
 			for ($i=1; $i < count($array)+1; $i++)
 			{ 
 				if(isBitSet($i, $selected))
 				{
-					echo("<label for=\"city" . $i . "\"><input type=\"checkbox\" name=\"" . $name . "[]\" value=\"" . pow(2, $i) . "\" onchange=\"filterMarkers();\" id=\"city" . $i . "\" checked>" . $array[$i-1][$property] . "</label>\n");
+					echo("<label for=\"city" . $i . "\" class=\"container\">" . $array[$i-1][$property]);
+					echo("<input type=\"checkbox\" name=\"" .$name . "[]\" value=\"" . pow(2, $i) . "\" onchange=\"filterMarkers();\" id=\"city" . $i . "\" checked />");
+					echo("<span class=\"checkmark\"></span></label>");
+					
+					//echo("<label for=\"city" . $i . "\"><input type=\"checkbox\" name=\"" . $name . "[]\" value=\"" . pow(2, $i) . "\" onchange=\"filterMarkers();\" id=\"city" . $i . "\" checked>" . $array[$i-1][$property] . "</label>\n");
 	
 				}
 				else
 				{
-					echo("<label for=\"city" . $i . "\"><input type=\"checkbox\" name=\"" . $name . "[]\" value=\"" . pow(2, $i) . "\" onchange=\"filterMarkers();\" id=\"city" . $i . "\"/>" . 	$array[$i-1][$property] . "</label>\n");
+					echo("<label for=\"city" . $i . "\" class=\"container\">" . $array[$i-1][$property]);
+					echo("<input type=\"checkbox\" name=\"" .$name . "[]\" value=\"" . pow(2, $i) . "\" onchange=\"filterMarkers();\" id=\"city" . $i . "\" />");
+					echo("<span class=\"checkmark\"></span></label>");
+					
+					//echo("<label for=\"city" . $i . "\"><input type=\"checkbox\" name=\"" . $name . "[]\" value=\"" . pow(2, $i) . "\" onchange=\"filterMarkers();\" id=\"city" . $i . "\"/>" . 	$array[$i-1][$property] . "</label>\n");
 				}
 			}
 		}
@@ -154,18 +165,24 @@
 			{ 
 				if(isBitSet($i, $selected))
 				{
-					echo("<label for=\"city" . $i . "\"><input type=\"checkbox\" name=\"" . $name . "[]\" value=\"" . pow(2, $i) . "\" onchange=\"filterMarkers();\" id=\"city" . $i . "\" checked disabled>" . $array[$i-1][$property] . "</label>\n");
-	
+					echo("<label for=\"city" . $i . "\" class=\"container\">" . $array[$i-1][$property]);
+					echo("<input type=\"checkbox\" name=\"" .$name . "[]\" value=\"" . pow(2, $i) . "\" onchange=\"filterMarkers();\" id=\"city" . $i . "\" checked disabled />");
+					echo("<span class=\"checkmark\"></span></label>");
+					
+					//echo("<label for=\"city" . $i . "\"><input type=\"checkbox\" name=\"" . $name . "[]\" value=\"" . pow(2, $i) . "\" onchange=\"filterMarkers();\" id=\"city" . $i . "\" checked disabled>" . $array[$i-1][$property] . "</label>\n");
 				}
 				else
 				{
-					echo("<label for=\"city" . $i . "\"><input type=\"checkbox\" name=\"" . $name . "[]\" value=\"" . pow(2, $i) . "\" onchange=\"filterMarkers();\" id=\"city" . $i . "\" disabled/>" . 	$array[$i-1][$property] . "</label>\n");
+					echo("<label for=\"city" . $i . "\" class=\"container\">" . $array[$i-1][$property]);
+					echo("<input type=\"checkbox\" name=\"" .$name . "[]\" value=\"" . pow(2, $i) . "\" onchange=\"filterMarkers();\" id=\"city" . $i . "\" disabled />");
+					echo("<span class=\"checkmark\"></span></label>");
+					
+					//echo("<label for=\"city" . $i . "\"><input type=\"checkbox\" name=\"" . $name . "[]\" value=\"" . pow(2, $i) . "\" onchange=\"filterMarkers();\" id=\"city" . $i . "\" disabled/>" . 	$array[$i-1][$property] . "</label>\n");
 				}
 			}
 		}
 	}
 
-	
 	function buildSearchResults($genders, $relationships, $religions, $cities, $page)
 	{
 		// do validation on input here eventually
@@ -174,7 +191,7 @@
 
 		$sql = "SELECT *
 		FROM profiles, users 
-		WHERE (profiles.user_id = users.id) AND ";
+		WHERE (profiles.user_id = users.id) AND users.account_type <> 'i' AND";
 
 		if(sizeof($genders) > 0)
 		{
@@ -271,22 +288,28 @@
 					$age = "";
 				}
 
-				$sql = "SELECT gender, image, campus FROM profiles WHERE user_id = '" . $userInfo[$i]['user_id'] . "'";
+				$sql = "SELECT * FROM profiles WHERE user_id = '" . $userInfo[$i]['user_id'] . "'";
 				$results1 = pg_query($connection, $sql);
 				$userProfiles = pg_fetch_all($results1);
+				
 				$name = ucwords($userInfo[$i]["first_name"]) . ucwords($userInfo[$i]["last_name"]);
-
 				$image = getProperty('images', 'image_address', $userProfiles[0]['image'], 'image_id');
 				$gender = ucwords(getProperty('genders', 'gender_type', $userProfiles[0]['gender'], 'gender_id'));
-				$campus = ucwords(getProperty('campuses', 'campus_name', $userProfiles[0]['campus'], 'campus_id'));
+				$city = ucwords(getProperty('cities', 'city_name', $userProfiles[0]['city'], 'city_id'));
+				$relationship = ucwords(getProperty('relationships', 'relationship_type', $userProfiles[0]['relationship_sought'], 'relationship_id'));
+				$religion = ucwords(getProperty('religions', 'religion_name', $userProfiles[0]['religion_sought'], 'religion_id'));
 				
 				echo("<tr class='w3-card w3-round' style='width:100%;>
 								<td style='min-width:60%; max-width:80%; height:2%; padding-left:10%; padding-right:10%;'>\n
-									<td style='height:100%; width:auto;'><a href='profile-display.php?user=" . $userName . "'><img class='w3-animate-zoom hero-image w3-round' style='height:100px; width:100px; box-shadow: 3px 3px 3px #999;background-size: cover; position: relative;' src='" . $image . "'/></a></td>\n
-									<td style='height:100%; width:auto; text-align:right; padding-left:5px;'><h3>" . $name . "</h3></td>\n
-									<td style='height:100%; width:auto; text-align:lesSft; padding-left:5px;'><h3></h3></td>\n
-									<td style='height:100%; width:auto; text-align:left; padding-left:5px;'><p>" . $gender . "</p></td>\n
-									<td style='height:100%; width:auto; text-align:left; padding-left:5px;'><p>" . $age . "</p></td>\n
+									<td style='height:100%; width:auto;'>
+										<a href='profile-display.php?user=" . $userName . "'><img class='w3-animate-zoom hero-image w3-round' style='height:100px; width:100px; box-shadow: 3px 3px 3px #999;background-size: cover; position: relative;' src='" . $image . "'/></a>
+									</td>\n
+									<td style='height:100%; width:auto; text-align:left; padding-left:5px; color:#285C9B;'><h3>" . $name . "</h3></td>\n
+									<td style='height:100%; width:auto; text-align:right; padding-left:5px;'><p>" . $relationship . "</p></td>\n
+									<td style='height:100%; width:auto; text-align:right; padding-left:5px;'><p>" . $religion . "</p></td>\n
+									<td style='height:100%; width:auto; text-align:right; padding-left:5px;'><p>" . $city . "</p></td>\n
+									<td style='height:100%; width:auto; text-align:center; padding-left:5px;'><p>" . $gender . "</p></td>\n
+									<td style='height:100%; width:auto; text-align:center; padding-left:5px;'><p>" . $age . "</p></td>\n
 								</td>\n
 							</tr>
 						");
@@ -307,6 +330,7 @@
 			echo('<h3 style="text-align:center;">No users that fit that criteria <b> </b> exist on our site, Please try again!</h3>');
 		}
     }
+	
 	function buildUserProfile($user)
 	{
 		// do validation on input here eventually

@@ -131,7 +131,7 @@ else
   <div class="w3-third w3-container">
 	<div class="w3-card-4">
 		<header class="w3-container" style="background-color: #4A7C59;">
-			<h3><?php echo($firstName . " " . $lastName);?></h3>
+			<h3 class="profileCardHeader"><?php echo($firstName . " " . $lastName);?></h3>
 		</header>
 		<img class="w3-image w3-animate-zoom hero-image" style="width:auto; max-height:400px;" src="<?php echo($image) ?>" alt="" />
 		<div class="w3-container w3-light-grey">
@@ -145,7 +145,7 @@ else
   <div class="w3-twothird w3-container"> 
 	<div class="w3-card-4">
 		<header class="w3-container"  style="background-color: #4A7C59;">
-		<h3>Overview</h3>
+		<h3 class="profileCardHeader">Overview</h3>
 		</header>
 		<div class="w3-container w3-light-grey">
 			<h4><b><?php echo($match_description);?></b></h4>
@@ -155,7 +155,7 @@ else
 	</div>
 	<div class="w3-card-4">
 	<header class="w3-container"  style="background-color: #4A7C59;">
-	<h3>Lifestyle</h3>
+	<h3 class="profileCardHeader">Lifestyle</h3>
 	</header>
 	<div class="w3-container w3-light-grey" style="margin-bottom:15%;" >
 		<h5><b><?php echo("Living at " . $residence_type . " in " . $city); ?></b></h5>
