@@ -53,7 +53,7 @@ $content = file_get_contents('http://loripsum.net/api'); // for testing
 // if admin user
 if($_SESSION["account_type"] == ADMIN)
 {
-	// LOAD ADMIN TOOLS in tabs(?)
+	// LOAD ADMIN TOOLS
 	header("Location:admin.php");
   ob_flush();
 	

@@ -192,7 +192,7 @@ if(isLoggedIn()) {
 			}
 			else
 			{	
-				$today = date("Y-m-d", time());
+				$today = date("Y-m-d h:i:s", time());
 				$connection = db_connect();
 				$birthdate = date("Y-m-d", ($year . "-" . $month . "-" . $day));
 				$results = pg_execute($connection, "insert_user", array(strtolower($username), md5($password), strtolower($first_name), strtolower($last_name), $email, $account_type, $birthdate, $today, $today));

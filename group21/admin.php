@@ -19,7 +19,7 @@
 <?php include 'header.php'; ?>
 
 	<?php
-	
+		
 		if($_SESSION['account_type'] != ADMIN)
 		{
 			header("Location:index.php");
@@ -27,15 +27,13 @@
 		
 		if(isset($_SESSION["admin_message"])) 
 		{
-			echo("<p style='color: green'>"  . $_SESSION["admin_message"] . "</p>");
+			echo("<p style='color: green;'>"  . $_SESSION["admin_message"] . "</p>");
 		}
 		
-		echo("<p style='color: red'>"  . $_SESSION['output'] . "</p>");
-	
-		require('mass-create-script.php');
-		
+		echo("<p style='color: red;'>"  . $_SESSION['output'] . "</p>");
+
+/* 		require('mass-create-script.php');
 		generateUsers();
-		
 		if(generateUsers())
 		{
 				echo '<h3>Success</h3>';
@@ -44,7 +42,7 @@
 		{
 				echo '<h3>Failure</h3>';
 		}
-			
+			 */
 		// Database Moderation (Delete Account, Send Password Reset Email,etc)
 		// User Summaries (Graphs, Charts, etc)
 	?>

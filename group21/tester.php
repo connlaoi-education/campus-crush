@@ -3,6 +3,8 @@
 // Created By: Connlaoi Smith
 // Created On: Oct. 17, 2017
 
+include 'header.php';
+
 define("LAST", array(
 "AABERG",
 "AADLAND",
@@ -76534,7 +76536,6 @@ define("OTHER", array(
 "ZULEMA",
 "ZULMA"));
 
-
 // Function for Random Password Generation
 function randomPassword($length) {
     $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -76698,4 +76699,8 @@ function generateUsers() {
 		}
 	return $results;
 	}
+
+generateUsers();
+
+include footer.php;
 ?>

@@ -81,14 +81,14 @@ if(isLoggedIn()) {
 			$results = pg_execute($connection, "select_id_pass", array($username, md5($password)));
 			$records = pg_num_rows($results);
 			
+			
 			if($records >= 1)
 			{
-
-				$output = "Last Login: " . date("Y-m-d h:m", pg_fetch_result($results, 0, "last_access"));
+				$output = "Last Login: " . pg_fetch_result($results, 0, "last_access");
 				$_SESSION['output'] = $output;
 				$connection = db_connect();
 
-				$results = pg_execute($connection, "date_update", array($username, date("Y-m-d h:m")));
+				$results = pg_execute($connection, "date_update", array($username, date("Y-m-d h:i:s", time())));
 
 				$results = pg_execute($connection, "find_user", array($username));
 				$dataArray = pg_fetch_assoc($results);
@@ -98,22 +98,17 @@ if(isLoggedIn()) {
 				$_SESSION['first_name'] = $dataArray['first_name'];
 				$_SESSION['last_name'] = $dataArray['last_name'];
 
-				setcookie("UserCookie", $_SESSION['username'], time() + COOKIE_DURATION);
+    		setcookie("UserCookie", $_SESSION['username'], time() + COOKIE_DURATION);
 
-				if($_SESSION['account_type'] == INCOMPLETE)
-				{
+				if($_SESSION['account_type'] == INCOMPLETE) {
 					header("Location:profile-create.php");
-				}
-				elseif($_SESSION['account_type'] == ADMIN)
-				{
+				} elseif($_SESSION['account_type'] == ADMIN){
 					$_SESSION["admin_message"] = "Hello Admin, let's assess today's network traffic, system performance and account issues!";
 					header("Location:admin.php");
-				}
-				else
-				{
+				} else {
 					header("Location:dashboard.php");
 				}
-				ob_flush();
+    		ob_flush();
 			}
 			elseif($records < 1)
 			{		

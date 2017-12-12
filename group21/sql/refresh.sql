@@ -216,7 +216,7 @@ CREATE TABLE users(
 	account_type CHAR(1) NOT NULL,
 	birthday DATE NOT NULL,
 	enroll_date DATE NOT NULL,
-	last_access DATE NOT NULL
+	last_access TIMESTAMP NOT NULL
 	);
 	
 -- CREATE initial user data

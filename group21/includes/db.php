@@ -299,6 +299,8 @@
 				$relationship = ucwords(getProperty('relationships', 'relationship_type', $userProfiles[0]['relationship_sought'], 'relationship_id'));
 				$religion = ucwords(getProperty('religions', 'religion_name', $userProfiles[0]['religion_sought'], 'religion_id'));
 				
+				if($_SESSION['account_type'] == CLIENT || $_SESSION['account_type'] == ADMIN)
+				{
 				echo("<tr class='w3-card w3-round' style='width:100%;>
 								<td style='min-width:60%; max-width:80%; height:2%; padding-left:10%; padding-right:10%;'>\n
 									<td style='height:100%; width:auto;'>
@@ -313,6 +315,21 @@
 								</td>\n
 							</tr>
 						");
+				}
+				else
+				{
+				echo("<tr class='w3-card w3-round' style='width:100%;>
+								<td style='min-width:60%; max-width:80%; height:2%; padding-left:10%; padding-right:10%;'>\n
+									<td style='height:100%; width:auto;'>
+										<a href='profile-display.php?user=" . $userName . "'>
+									</td>\n
+									<td style='height:100%; width:auto; text-align:left; padding-left:5px; color:#285C9B;'><h3>" . $name . "</h3></td>\n
+									<td style='height:100%; width:auto; text-align:right; padding-left:5px;'><p>" . $city . "</p></td>\n
+									<td style='height:100%; width:auto; text-align:center; padding-left:5px;'><p>" . $gender . "</p></td>\n
+								</td>\n
+							</tr>
+						");
+				}
 			}
 			// FOR LOOP ENDS HERE
 			echo("</table>\n");
