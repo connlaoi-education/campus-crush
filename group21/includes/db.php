@@ -39,7 +39,7 @@
 	
 	pg_prepare($connection, "update_password", 'UPDATE users SET password = $1 WHERE id = $2');
 	
-	pg_prepare($connection, "update_email", 'UPDATE users SET email = $1 WHERE id = $2');
+	pg_prepare($connection, "update_email", 'UPDATE users SET email_address = $1 WHERE id = $2');
 	
 	pg_prepare($connection, "select_all_user_info", 'SELECT * FROM users WHERE first_name = $1');
 	
