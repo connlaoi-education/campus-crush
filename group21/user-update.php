@@ -28,6 +28,11 @@
 	$results = "";
 	$results2 = "";
 	$completed = "";
+	$ready = 1;
+	
+	$sql = "SELECT * FROM users WHERE id = '" . $_SESSION['username'] . "'";
+	$results = pg_query($connection, $sql);
+	$userInfoArray = pg_fetch_array($results);
 	
 	if($_SERVER["REQUEST_METHOD"] == "GET")
 	{
@@ -42,7 +47,7 @@
 
 		$lastName = ucwords($userInfoArray['last_name']);
 
-		$email = $userInfoArray['email_address'];
+		$checkEmail = $userInfoArray['email_address'];
 	}
 	elseif($_SERVER["REQUEST_METHOD"] == "POST")
 	{
@@ -51,102 +56,125 @@
 		$userInfoArray = pg_fetch_array($results);
 		
 		$checkPass = $userInfoArray["password"];
+		$checkEmail = $userInfoArray["email_address"];
 		$username = $userInfoArray["id"];
 		
 		$password = trim($_POST["pass"]); // old password
 		$password1 = trim($_POST["pass1"]); // new password
 		$password2 = trim($_POST["pass2"]); // confirm new password
-		
-/* 	$firstName = trim($_POST["newFirst"]);
-		$lastName = trim($_POST["newLast"]);
-		$email = trim($_POST["newEmail"]); 
-*/
-
-		if(!isset($password) || $password == "" || !isset($password1) || $password1 == "" || !isset($password2) || $password2 == "" )
-				{
-					$error .= "You forgot to enter a password. <br/>";
-					$password = "";
-					$password1 = "";
-					$password2 = "";
-				}
-				else if (strlen($password1) < MINIMUM_PASSWORD_LENGTH || strlen($password2) < MINIMUM_PASSWORD_LENGTH)
-				{
-					$error .= "Your new password must be at least 6 characters. <br/>";
-					$password1 = "";
-					$password2 = "";
-				}
-				else if (strlen($password1) > MAXIMUM_PASSWORD_LENGTH || strlen($password2) > MAXIMUM_PASSWORD_LENGTH)
-				{
-					$error .= "Your new password must be less than 20 characters. <br/>";
-					$password1 = "";
-					$password2 = "";
-				}
-				else if (strcmp($password1, $password2) !== 0)
-				{
-					$error .= "Your new password's do not match!<br/>";
-					$password1 = "";
-					$password2 = "";
-				}
-				else if (strcmp(md5($password), $checkPass) !== 0)
-				{
-					$error .= "Your old password does not match your account!<br/>";
-					$password = "";
-					$password1 = "";
-					$password2 = "";
-				}
-				
-/* 				if (!isset($firstName) || $firstName == "")
-				{
-					$error .= "You did not enter your first name!<br/>";
-					$firstName = "";
-				}
-				else if (is_numeric($firstName))
-				{
-					$error .= "Your first name can not contain any numeric values. <br/>";
-					$firstName = "";
-				}
-				else if (strlen($firstName) > MAXIMUM_FIRST_NAME_LENGTH)
-				{
-					$error .= "Your first name must be less than 20 characters. <br/>";
-					$firstName = "";
-				}
-				
-				if (!isset($lastName) || $lastName == "")
-				{
-					$error .= "You did not enter your last name! <br/>";
-					$lastName = "";
-				}
-				else if (is_numeric($lastName))
-				{
-					$error .= "Your last name may not contain any numeric values. <br/>";
-					$last_name = "";
-				}
-				else if (strlen($lastName) > MAXIMUM_LAST_NAME_LENGTH)
-				{
-					$error .= "Your last name must be less than 30 characters. <br/>";
-					$lastName = "";
-				}
 			
-				if (!isset($email) || $email == "")
-				{
-					$error .= "You did not enter an email address! <br/>";
-					$email = "";
-				}
-					else if (filter_var($email, FILTER_VALIDATE_EMAIL) == false)
-				{
-					$error .= "The email address you entered is not valid! <br/>";
-					$email = "";
-				}
-*/
-				
-		// If there are no errors, update user
+		$firstName = trim($_POST["newFirst"]);
+		$lastName = trim($_POST["newLast"]);
+		
+		$email = trim($_POST["email"]);
+		$email1 = trim($_POST["email1"]);
+		$email2 = trim($_POST["email2"]);
+		
+		if(isset($_POST['pass']) || isset($_POST['pass1']) || isset($_POST['pass2']))
+		{
+			if(!isset($password) || $password == "" || !isset($password1) || $password1 == "" || !isset($password2) || $password2 == "" )
+			{
+				$error .= "You forgot to enter a password. <br/>";
+				$password = "";
+				$password1 = "";
+				$password2 = "";
+			}
+			else if(strlen($password1) < MINIMUM_PASSWORD_LENGTH || strlen($password2) < MINIMUM_PASSWORD_LENGTH)
+			{
+				$error .= "Your new password must be at least 6 characters. <br/>";
+				$password1 = "";
+				$password2 = "";
+			}
+			else if(strlen($password1) > MAXIMUM_PASSWORD_LENGTH || strlen($password2) > MAXIMUM_PASSWORD_LENGTH)
+			{
+				$error .= "Your new password must be less than 20 characters. <br/>";
+				$password1 = "";
+				$password2 = "";
+			}
+			else if(strcmp($password1, $password2) !== 0)
+			{
+				$error .= "Your new password's do not match!<br/>";
+				$password1 = "";
+				$password2 = "";
+			}
+			else if(strcmp(md5($password), $checkPass) !== 0)
+			{
+				$error .= "Your old password does not match your account!<br/>";
+				$password = "";
+				$password1 = "";
+				$password2 = "";
+			}
+			else
+			{
+				$ready = $ready + 1;
+			}
+		}
+			
+		if(isset($_POST['email']) || isset($_POST['email1']) || isset($_POST['email2']))
+		{
+			if(!isset($email) || $email == "" || !isset($email1) || $email1 == "" || !isset($email2) || $email2 == "")
+			{
+				$error .= "You forgot to enter an email address! <br/>";
+				$email = "";
+			}
+			else if(filter_var($email, FILTER_VALIDATE_EMAIL) == false)
+			{
+				$error .= "The old email address you entered is not valid! <br/>";
+				$email = "";
+			}
+			else if(filter_var($email1, FILTER_VALIDATE_EMAIL) == false || filter_var($email2, FILTER_VALIDATE_EMAIL) == false)
+			{
+				$error .= "The new email address you entered is not a valid address! <br/>";
+				$email = "";
+			}
+			else if(strcmp($email1, $email2) !== 0)
+			{
+				$error .= "Your new email's do not match!<br/>";
+				$email1 = "";
+				$email2 = "";
+			}
+			else if(strcmp($email, $checkEmail) !== 0)
+			{
+				$error .= "Your old email does not match your account!<br/>";
+				$email = "";
+				$email1 = "";
+				$email2 = "";
+			}
+			else
+			{
+				$ready = $ready + 2;
+			}
+		}
+		
+		// If there are no errors, update user email
 		if($error == "")
 		{	
-			$connection = db_connect();
-			$results1 = pg_execute($connection, "update_password", array(md5($password2), $_SESSION['username']));
-			$_SESSION['password_change'] = "Password changed successfully!";
-			header("Location: dashboard.php");
-			ob_flush();		
+			if($ready == 3)
+			{
+				$connection = db_connect();
+				$completed = pg_execute($connection, "update_email", array($email2, $_SESSION['username']));
+				$_SESSION['redirected'] .= "\nEmail changed successfully!";
+				header("Location: dashboard.php");
+				ob_flush();
+			}
+			elseif($ready == 2)
+			{
+				$connection = db_connect();
+				$completed = pg_execute($connection, "update_password", array(md5($password2), $_SESSION['username']));
+				$_SESSION['redirected'] .= "\nPassword changed successfully!";
+				header("Location: dashboard.php");
+				ob_flush();
+			}
+			elseif($ready == 4)
+			{
+				$connection = db_connect();
+				$completed = pg_execute($connection, "update_email", array($email2, $_SESSION['username']));
+				$_SESSION['redirected'] .= "\nEmail changed successfully!";
+				$completed .= pg_execute($connection, "update_password", array(md5($password2), $_SESSION['username']));
+				$_SESSION['redirected'] .= "\nPassword changed successfully!";
+				header("Location: dashboard.php");
+				ob_flush();
+			}
 		}
 	}
 ?>
@@ -157,8 +185,7 @@
 <p class="content"><?php echo $description; ?></p>
 	<p style="color:red;">
 		<?php echo $error; ?>
-	</p>
-	<p style="color:red;">
+		<br />
 		<?php echo $error_2; ?>
 	</p>
 <?php
@@ -187,29 +214,40 @@
 		</tr>
 		<tr>
 			<td>First Name</td>
-			<td><input type="text" name="newFirst" maxlength="20" placeholder="<?php echo htmlspecialchars($firstName);  ?>" size="30" /readonly></td>
+			<td><input type="text" name="newFirst" maxlength="20" placeholder="<?php echo $firstName;  ?>" size="30" /readonly></td>
 		</tr>
 		<tr>
 			<td>Last Name</td>
-			<td><input type="text" name="newLast" maxlength="30" placeholder="<?php echo htmlspecialchars($lastName);  ?>" size="30" /readonly></td>
-		</tr>
-		<tr>
-			<td>Email Address</td>
-			<td><input type="text" name="newEmail" maxlength="255" placeholder="<?php echo htmlspecialchars($email);  ?>" size="30" /readonly></td>
+			<td><input type="text" name="newLast" maxlength="30" placeholder="<?php echo $lastName;  ?>" size="30" /readonly></td>
 		</tr>
 		<tr>
 			<td><br /></td>
 		</tr>
 		<tr>
+			<td>Old Email</td>
+			<td><input type="text" name="email" maxlength="255" placeholder="<?php echo htmlspecialchars($checkEmail);  ?> Enter old Email..." size="30" /></td>
+		</tr>
+		<tr>
+			<td>New Email</td>
+			<td><input type="text" name="email1" maxlength="32" placeholder="Enter new Email..." size="30" /></td>
+		</tr>
+		<tr>
+			<td>Confirm Email</td>
+			<td><input type="text" name="email2" maxlength="32" placeholder="Confirm new Email..." size="30" /></td>
+		</tr>
+		
+		</br >
+		
+		<tr>
 			<td>Old Password</td>
 			<td><input type="password" name="pass" maxlength="32" placeholder="Enter old password..." size="30" /></td>
 		</tr>
 		<tr>
-			<td>New Password  </td>
+			<td>New Password</td>
 			<td><input type="password" name="pass1" maxlength="32" placeholder="Enter new password..." size="30" /></td>
 		</tr>
 		<tr>
-			<td>Confirm Password  </td>
+			<td>Confirm Password</td>
 			<td><input type="password" name="pass2" maxlength="32" placeholder="Confirm new password..." size="30" /></td>
 		</tr>
 		<tr>

@@ -46,6 +46,7 @@ if(!isLoggedIn()) {
 			$gender_sought = "0";
 			$city = "0";
 			$imageID = "0";
+			$imageAddress = "./images/users/default_user.jpg";
 			$headline = "";
 			$self_description = "";
 			$match_description = "";
@@ -96,57 +97,6 @@ if(!isLoggedIn()) {
 		$connection = db_connect();
 		$results = pg_execute($connection, "select_all_profile", array($_SESSION['username']));
 		$userArray = pg_fetch_array($results);
-		
-		// IMAGE VALIDATION AND UPLOADING
-		$target_dir = "./images/";
-		$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-		$uploadOk = 1;
-		$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-		
-		// Check if image file is a actual image or fake image
-		if(isset($_POST["fileToUpload"])) {
-			$check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-			
-			if($check !== false) {
-				$completed =  "File is an image - " . $check["mime"] . ".";
-				$uploadOk = 1;
-			} else {
-				$error_2 =  "File is not an image.";
-				$uploadOk = 0;
-			}
-		}
-		// Check if file already exists
-		if (file_exists($target_file)) {
-			$error_2 = "Sorry, file already exists.";
-			$uploadOk = 0;
-		}
-		// Check file size
-		if ($_FILES["fileToUpload"]["size"] > 500000) {
-			$error_2=  "Sorry, your file is too large.";
-			$uploadOk = 0;
-		}
-		// Allow certain file formats
-		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-		&& $imageFileType != "gif" ) {
-			$error_2 =  "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-			$uploadOk = 0;
-		}
-		// Check if $uploadOk is set to 0 by an error
-		if ($uploadOk == 0) {
-			$error_2 = "Sorry, your file was not uploaded.";
-		// if everything is ok, try to upload file
-		} else {
-			if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-				
-				$completed = "The Image ". basename( $_FILES["fileToUpload"]["name"]) . " has been uploaded.";
-				
-				$sql2 = "INSERT INTO images (image_address) VALUES ('./images/" . $_FILES["fileToUpload"]["name"] . "')";
-				$results4 = pg_query($connection, $sql2);
-				 
-			} else {
-				$error_2 = "Sorry, there was an error uploading your file.";
-			}
-		}
 		
 		//retrieve variables from POST
 		$gender = trim($_POST["gender"]);
@@ -201,23 +151,36 @@ if(!isLoggedIn()) {
 
 <p class="highlight" style="color:red;">
 	<?php echo($error); ?>
-	<?php echo($error_2); ?>
-	<?php echo($completed); ?>
+	<?php echo($error_2);
+		  if(isset($_SESSION["redirected"]))
+		  {
+			echo($_SESSION["redirected"]);
+			unset($_SESSION["redirected"]);
+		  }
+	  ?>
 </p>
-
+<p class="highlight" style="color:green;">
+	<?php
+		  echo($completed);
+	?>
 <br />
 
 <form enctype="multipart/form-data" name="input" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 	<table>
 		<tr>
 			<td>Image</td>
-			<td>
-				<img style="max-width:260px; min-height:100px; max-height:150px; box-shadow:5px 5px 5px #999;" src="<?php echo $imageAddress; ?>"/>
-				<br />
-				<input class="btn" style="height:25px; width:260px; background-color:#b6b6b6;" type="file" name="fileToUpload" id="fileToUpload" />
-				<input class="btn" style="width: 150px;" type="submit" name="submit" value="Upload Image" />
-			</td>
+			<td><img style="max-width:260px; min-height:100px; max-height:150px; box-shadow:5px 5px 5px #999;" src="<?php echo $imageAddress; ?>"/></td>
 		</tr>
+		<tr>
+		<td></td>
+		<td>
+				<?php
+			if($_SESSION['account_type'] != INCOMPLETE)
+			{
+				echo('<a href="./profile-images.php" style="font-weight:bold; font-size:12pt; padding-top:30%;margin-bottom:10px; color:#73D45F;" class="w3-bar-item">Update your Images</a>');
+			}
+		?>
+		</td></tr>
 
 		<tr>
 			<td valign="top">Headline</td>

@@ -26,6 +26,16 @@ if(!isLoggedIn()) {
 
 
 <!-- HTML -->
+
+<p class="conetn" style="color:green;">
+ <?php
+	 if(isset($_SESSION["redirected"]))
+	  {
+		echo($_SESSION["redirected"]);
+		unset($_SESSION["redirected"]);
+	  }
+  ?>
+</p>
 <p class="content"><?php 
   if(isset($_SESSION["message"])) {
     echo("<p>" . $_SESSION["message"] . "</p>");

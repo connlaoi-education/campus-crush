@@ -37,7 +37,17 @@
 	
 	pg_prepare($connection, "update_password", 'UPDATE users SET password = $1 WHERE id = $2');
 	
-	pg_prepare($connection, "select_all_user_info", "SELECT * FROM users WHERE first_name = $1");
+	pg_prepare($connection, "update_email", 'UPDATE users SET email = $1 WHERE id = $2');
+	
+	pg_prepare($connection, "select_all_user_info", 'SELECT * FROM users WHERE first_name = $1');
+	
+	pg_prepare($connection, "select_user_image", 'SELECT * FROM images WHERE user_id = $1');
+	
+	pg_prepare($connection, "count_user_image", 'SELECT COUNT(*) FROM images WHERE user_id = $1');
+	
+	pg_prepare($connection, "insert_user_image", 'INSERT INTO images (user_id, image_address) VALUES ($1, $2)');
+	
+	pg_prepare($connection, "delete_user_image", 'DELETE FROM images WHERE image_id = $1');
 
 
 	//retrieves one piece of data from DB

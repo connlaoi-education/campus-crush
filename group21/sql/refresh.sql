@@ -48,19 +48,6 @@ INSERT INTO cities(city_id, power_id, city_name) VALUES('3','16','Courtice');
 INSERT INTO cities(city_id, power_id, city_name) VALUES('4','32','Bowmanville');
 INSERT INTO cities(city_id, power_id, city_name) VALUES('5','64','Out of Town');
 
-
--- IMAGES
-CREATE TABLE images(
-	image_id SMALLINT NOT NULL PRIMARY KEY,
-	image_address VARCHAR(40) NOT NULL
-);
-INSERT INTO images(image_id, image_address) VALUES('0','./images/default_user.png');
-INSERT INTO images(image_id, image_address) VALUES('1','./images/user-1-profile.png');
-INSERT INTO images(image_id, image_address) VALUES('2','./images/user-2-profile.png');
-INSERT INTO images(image_id, image_address) VALUES('3','./images/user-3-profile.png');
-INSERT INTO images(image_id, image_address) VALUES('4','./images/user-4-profile.png');
-
-
 -- RELATIONSHIPS
 CREATE TABLE relationships(
 	relationship_id INTEGER NOT NULL PRIMARY KEY,
@@ -210,9 +197,9 @@ INSERT INTO months(month_id, month_name) VALUES('11','December');
 CREATE TABLE users(
 	id VARCHAR(20) PRIMARY KEY,
 	password CHAR(32) NOT NULL,
-	first_name CHAR(20) NOT NULL,
-	last_name CHAR(30) NOT NULL,
-	email_address CHAR(255) NOT NULL,
+	first_name VARCHAR(20) NOT NULL,
+	last_name VARCHAR(30) NOT NULL,
+	email_address VARCHAR(255) NOT NULL,
 	account_type CHAR(1) NOT NULL,
 	birthday DATE NOT NULL,
 	enroll_date DATE NOT NULL,
@@ -268,7 +255,16 @@ INSERT INTO users(id, password, first_name, last_name, email_address, account_ty
 	'2017-09-02 11:00'
 );
 
-
+-- IMAGES
+CREATE TABLE images(
+	image_id SMALLINT NOT NULL PRIMARY KEY,
+	user_id VARCHAR(40) NOT NULL REFERENCES users(id),
+	image_address VARCHAR(40) NOT NULL
+);
+INSERT INTO images(image_id, user_id, image_address) VALUES('0','admin','./images/users/default_user.jpg');
+INSERT INTO images(image_id, user_id, image_address) VALUES('1','csmith','./images/users/csmith/csmith_1.jpg');
+INSERT INTO images(image_id, user_id, image_address) VALUES('2','tminhly','./images/users/tminhly/tminhly_1.jpg');
+INSERT INTO images(image_id, user_id, image_address) VALUES('3','jpower','./images/users/jpower/jpower_1.jpg');
 -- CREATE secondary table
 
 -- PROFILES

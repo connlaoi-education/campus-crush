@@ -28,18 +28,29 @@ if(isLoggedIn()) {
 <h3>No Need for Nonsense...</h3>
 <p class="content"><?php echo $description; ?></p>
 
-<p class="content">
+<p class="content" style="color:green;">
 	<?php 
-		  if(isset($_SESSION["message"])) {
-			echo("<p style=\"color: red\">" . $_SESSION["message"] . "</p>");
-			unset($_SESSION["message"]);
-		  }
-		   if(isset($_SESSION["register"])) {
-			 echo("<p style=\"color: red\">" . $_SESSION['register'] . "</p>");
+			if(isset($_SESSION["register"]))
+		   {
+			 echo($_SESSION['register']);
 			 unset($_SESSION["register"]);
 		   }
+		  ?>
+</p>
+<p class="content" style="color:red;">
+		  <?php
+		  if(isset($_SESSION["message"]))
+		  {
+			echo($_SESSION["message"]);
+			unset($_SESSION["message"]);
+		  }
+		 if(isset($_SESSION["redirected"]))
+		  {
+			echo($_SESSION["redirected"]);
+			unset($_SESSION["redirected"]);
+		  }
 	  ?>
-  </p>
+</p>
 
 <?php
 
