@@ -88,11 +88,13 @@ if(isLoggedIn()) {
         $error = "No account with the username " . $username . " exists.";
         $username = "";
       }
+      elseif($dataArray["account_type" == ADMIN])
+      {
+        $error = "No account with the username " . $username . " exists.";
+        $username = "";
+      }
       elseif($dataArray["email_address"] != $email)
       {
-        var_dump($dataArray);
-        echo($dataArray["email_address"]);
-        echo($email);
         $error = "Email does not match username.";
         $email = "";
       }
