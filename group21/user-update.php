@@ -28,7 +28,10 @@
 	$results = "";
 	$results2 = "";
 	$completed = "";
-	
+	$years = array();
+    for ($i=date("Y"); $i >= 1935; $i--) { 
+         array_push($years, $i);
+       }
 	if($_SERVER["REQUEST_METHOD"] == "GET")
 	{
 		$sql = "SELECT * FROM users WHERE id = '" . $_SESSION['username'] . "'";
@@ -42,26 +45,32 @@
 
 		$lastName = ucwords($userInfoArray['last_name']);
 
-		$email = $userInfoArray['email_address'];
+		$email = ucwords($userInfoArray['email_address']);
+		$day = "";
+		$month = "";
+		$year = "";
 	}
 	elseif($_SERVER["REQUEST_METHOD"] == "POST")
 	{
 		$sql = "SELECT * FROM users WHERE id = '" . $_SESSION['username'] . "'";
 		$results = pg_query($connection, $sql);
 		$userInfoArray = pg_fetch_array($results);
-		
+		/*
 		$checkPass = $userInfoArray["password"];
-		$username = $userInfoArray["id"];
+
 		
 		$password = trim($_POST["pass"]); // old password
 		$password1 = trim($_POST["pass1"]); // new password
 		$password2 = trim($_POST["pass2"]); // confirm new password
-		
-/* 	$firstName = trim($_POST["newFirst"]);
+		*/	
+				$username = $userInfoArray["id"];
+	$firstName = trim($_POST["newFirst"]);
 		$lastName = trim($_POST["newLast"]);
 		$email = trim($_POST["newEmail"]); 
-*/
-
+		$day = trim($_POST["newDay"]);
+		$month = trim($_POST["newMonth"]);
+		$year = trim($_POST["newYear"]);
+/*
 		if(!isset($password) || $password == "" || !isset($password1) || $password1 == "" || !isset($password2) || $password2 == "" )
 				{
 					$error .= "You forgot to enter a password. <br/>";
@@ -94,8 +103,8 @@
 					$password1 = "";
 					$password2 = "";
 				}
-				
-/* 				if (!isset($firstName) || $firstName == "")
+*/				
+				if (!isset($firstName) || $firstName == "")
 				{
 					$error .= "You did not enter your first name!<br/>";
 					$firstName = "";
@@ -137,14 +146,35 @@
 					$error .= "The email address you entered is not valid! <br/>";
 					$email = "";
 				}
-*/
-				
+
+			    if(!is_numeric($day) || !is_numeric($year))
+				{
+					$error .= "Invalid Birthdate. <br/>";
+					$day = "";
+					$year = "";
+					$month = "";
+				} else if(!checkdate(($month+1), $day, $year)) {
+					$error .= "Invalid Birthdate. <br/>";
+					$day = "";
+					$year = "";
+					$month = "";
+				} else if(calculate_Age($year . "-" . $month . "-" . $day) < 18) {
+					$error .= "Must be over 18 to use the site. <br/>";
+					$day = "";
+					$year = "";
+					$month = "";
+				}
+						
 		// If there are no errors, update user
 		if($error == "")
 		{	
 			$connection = db_connect();
-			$results1 = pg_execute($connection, "update_password", array(md5($password2), $_SESSION['username']));
+			$birthdate = date("Y-m-d", ($year . "-" . $month . "-" . $day));
+			$results1 = pg_execute($connection, "user_update", array($firstName, $lastName, $email, $birthdate, $_SESSION['username']));
 			$_SESSION['password_change'] = "Password changed successfully!";
+
+			$_SESSION['first_name'] = trim($_POST["newFirst"]);
+			$_SESSION['last_name'] = trim($_POST["newLast"]);
 			header("Location: dashboard.php");
 			ob_flush();		
 		}
@@ -187,33 +217,39 @@
 		</tr>
 		<tr>
 			<td>First Name</td>
-			<td><input type="text" name="newFirst" maxlength="20" placeholder="<?php echo htmlspecialchars($firstName);  ?>" size="30" /readonly></td>
+			<td><input type="text" name="newFirst" maxlength="20" placeholder="<?php echo htmlspecialchars($firstName);  ?>" size="30"></td>
 		</tr>
 		<tr>
 			<td>Last Name</td>
-			<td><input type="text" name="newLast" maxlength="30" placeholder="<?php echo htmlspecialchars($lastName);  ?>" size="30" /readonly></td>
+			<td><input type="text" name="newLast" maxlength="30" placeholder="<?php echo htmlspecialchars($lastName);  ?>" size="30"></td>
 		</tr>
 		<tr>
 			<td>Email Address</td>
-			<td><input type="text" name="newEmail" maxlength="255" placeholder="<?php echo htmlspecialchars($email);  ?>" size="30" /readonly></td>
+			<td><input type="text" name="newEmail" maxlength="255" placeholder="<?php echo htmlspecialchars($email);  ?>" size="30"></td>
 		</tr>
+        <tr><td><br/></td></tr>
 		<tr>
-			<td><br /></td>
+			<td>Birthday</td>
+			<td style="text-align:left;">
+				Day<br /> 
+				<input type="text" name="newDay" value="<?php echo $day ?>" size="5"/>
+				<br />
+				Month<br />
+				  <?php buildDropDown("newMonth", "months", "month_name", $month); ?>
+				<br />
+				Year<br />
+				<select name="newYear">
+					<?php
+					for ($i=0; $i < count($years); $i++) {
+						echo "<option>" . $years[$i] . "</option>";
+					}
+					?>
+				</select>
+			</td>
 		</tr>
+		<tr><td><br/></td></tr>
 		<tr>
-			<td>Old Password</td>
-			<td><input type="password" name="pass" maxlength="32" placeholder="Enter old password..." size="30" /></td>
-		</tr>
-		<tr>
-			<td>New Password  </td>
-			<td><input type="password" name="pass1" maxlength="32" placeholder="Enter new password..." size="30" /></td>
-		</tr>
-		<tr>
-			<td>Confirm Password  </td>
-			<td><input type="password" name="pass2" maxlength="32" placeholder="Confirm new password..." size="30" /></td>
-		</tr>
-		<tr>
-			<td></td>
+		<td></td>
 			<td><input style="display:inline;" class="btn" type="submit" value="Update" />
 					<input style="display:inline;" class="btn" type="reset" value="Reset" /></td>
 		</tr>
