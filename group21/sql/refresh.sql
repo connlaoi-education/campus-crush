@@ -210,9 +210,9 @@ INSERT INTO months(month_id, month_name) VALUES('11','December');
 CREATE TABLE users(
 	id VARCHAR(20) PRIMARY KEY,
 	password CHAR(32) NOT NULL,
-	first_name CHAR(20) NOT NULL,
-	last_name CHAR(30) NOT NULL,
-	email_address CHAR(255) NOT NULL,
+	first_name VARCHAR(20) NOT NULL,
+	last_name VARCHAR(30) NOT NULL,
+	email_address VARCHAR(255) NOT NULL,
 	account_type CHAR(1) NOT NULL,
 	birthday DATE NOT NULL,
 	enroll_date DATE NOT NULL,
