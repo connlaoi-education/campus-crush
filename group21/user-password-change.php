@@ -27,58 +27,72 @@
 	$results = "";
 	$results2 = "";
 	$completed = "";
+	
 	if($_SERVER["REQUEST_METHOD"] == "GET")
 	{
-$sql = "SELECT * FROM users WHERE id = '" . $_SESSION['username'] . "'";
-$results = pg_query($connection, $sql);
-$userInfoArray = pg_fetch_array($results);
+		$sql = "SELECT * FROM users WHERE id = '" . $_SESSION['username'] . "'";
+		$results = pg_query($connection, $sql);
+		$userInfoArray = pg_fetch_array($results);
 
-// user data
-$username = $userInfoArray["id"];
-
+		// user data
+		$username = $userInfoArray["id"];
 	}
 	elseif($_SERVER["REQUEST_METHOD"] == "POST")
 	{
-$sql = "SELECT * FROM users WHERE id = '" . $_SESSION['username'] . "'";
-$results = pg_query($connection, $sql);
-$userInfoArray = pg_fetch_array($results);
-$checkPass = $userInfoArray["password"];
-$username = $userInfoArray["id"];
+		$sql = "SELECT * FROM users WHERE id = '" . $_SESSION['username'] . "'";
+		$results = pg_query($connection, $sql);
+		$userInfoArray = pg_fetch_array($results);
+		
+		$checkPass = $userInfoArray["password"];
+		$username = $userInfoArray["id"];
 
-$password = trim($_POST["pass"]);
+		
+		$password = trim($_POST["pass"]); // old password
+		$password1 = trim($_POST["pass1"]); // new password
+		$password2 = trim($_POST["pass2"]); // confirm new password
+		
+/* 	$firstName = trim($_POST["newFirst"]);
+		$lastName = trim($_POST["newLast"]);
+		$email = trim($_POST["newEmail"]); 
+*/
 
-$password2 = trim($_POST["pass2"]);
-
-
-if(!isset($password) || $password == "")
-		{
-			$error .= "You did not enter a password. <br/>";
-			$password = "";
-			$password2 = "";
-		}
-		else if (strlen($password) < MINIMUM_PASSWORD_LENGTH)
-		{
-			$error .= "Your password must be at least 6 characters. <br/>";
-			$password = "";
-			$password2 = "";
-		}
-		else if (strlen($password) > MAXIMUM_PASSWORD_LENGTH)
-		{
-			$error .= "Your password must be less than 20 characters. <br/>";
-			$password = "";
-			$password2 = "";
-		}
-		else if (strcmp(md5($password), $checkPass) !== 0) 
-		{
-			$error .= "Your old passwords do not match <br/>";
-			$password = "";
-			$password2 = "";
-		}
+		if(!isset($password) || $password == "" || !isset($password1) || $password1 == "" || !isset($password2) || $password2 == "" )
+				{
+					$error .= "You forgot to enter a password. <br/>";
+					$password = "";
+					$password1 = "";
+					$password2 = "";
+				}
+				else if (strlen($password1) < MINIMUM_PASSWORD_LENGTH || strlen($password2) < MINIMUM_PASSWORD_LENGTH)
+				{
+					$error .= "Your new password must be at least 6 characters. <br/>";
+					$password1 = "";
+					$password2 = "";
+				}
+				else if (strlen($password1) > MAXIMUM_PASSWORD_LENGTH || strlen($password2) > MAXIMUM_PASSWORD_LENGTH)
+				{
+					$error .= "Your new password must be less than 20 characters. <br/>";
+					$password1 = "";
+					$password2 = "";
+				}
+				else if (strcmp($password1, $password2) !== 0)
+				{
+					$error .= "Your new password's do not match!<br/>";
+					$password1 = "";
+					$password2 = "";
+				}
+				else if (strcmp(md5($password), $checkPass) !== 0)
+				{
+					$error .= "Your old password does not match your account!<br/>";
+					$password = "";
+					$password1 = "";
+					$password2 = "";
+				}
 
 if($error == "")
 		{	
 $connection = db_connect();
-$results1 = pg_execute($connection, "update_password", array(md5($password2), $firstName, $lastName, $email, $_SESSION['username']));
+$results1 = pg_execute($connection, "update_password", array(md5($password2), $_SESSION['username']));
 $_SESSION['password_change'] = "Password is changed successful";
 header("Location: dashboard.php");
 ob_flush();
@@ -127,9 +141,12 @@ ob_flush();
 		</tr>
 		<tr>
 			<td>New Password  </td>
-			<td><input type="password" name="pass2" maxlength="32" placeholder="Confirm new password..." size="20" /></td>
+			<td><input type="password" name="pass1" maxlength="32" placeholder="Confirm new password..." size="20" /></td>
 		</tr>
-
+		<tr>
+			<td>Confirm Password  </td>
+			<td><input type="password" name="pass2" maxlength="32" placeholder="Confirm new password..." size="30" /></td>
+		</tr>
 		<tr>
 			<td></td>
 			<td><input style="display:inline;" class="btn" type="submit" value="Update" />
