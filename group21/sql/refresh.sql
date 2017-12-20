@@ -5,8 +5,8 @@
 
 -- DROP existing tables if necessary
 DROP TABLE IF EXISTS profiles;
-DROP TABLE IF EXISTS genders;
 DROP TABLE IF EXISTS images;
+DROP TABLE IF EXISTS genders;
 DROP TABLE IF EXISTS cities;
 DROP TABLE IF EXISTS relationships;
 DROP TABLE IF EXISTS statuses;
@@ -257,14 +257,14 @@ INSERT INTO users(id, password, first_name, last_name, email_address, account_ty
 
 -- IMAGES
 CREATE TABLE images(
-	image_id SMALLINT NOT NULL PRIMARY KEY,
-	user_id VARCHAR(40) NOT NULL REFERENCES users(id),
+	image_id SERIAL NOT NULL PRIMARY KEY,
+	user_id VARCHAR(20) REFERENCES users(id),
 	image_address VARCHAR(40) NOT NULL
 );
-INSERT INTO images(image_id, user_id, image_address) VALUES('0','admin','./images/users/default_user.jpg');
-INSERT INTO images(image_id, user_id, image_address) VALUES('1','csmith','./images/users/csmith/csmith_1.jpg');
-INSERT INTO images(image_id, user_id, image_address) VALUES('2','tminhly','./images/users/tminhly/tminhly_1.jpg');
-INSERT INTO images(image_id, user_id, image_address) VALUES('3','jpower','./images/users/jpower/jpower_1.jpg');
+INSERT INTO images(user_id, image_address) VALUES('admin','./images/users/default_user.jpg');
+INSERT INTO images(user_id, image_address) VALUES('csmith','./images/users/csmith/csmith_1.jpg');
+INSERT INTO images(user_id, image_address) VALUES('tminhly','./images/users/tminhly/tminhly_1.jpg');
+INSERT INTO images(user_id, image_address) VALUES('jpower','./images/users/jpower/jpower_1.jpg');
 -- CREATE secondary table
 
 -- PROFILES
@@ -273,7 +273,7 @@ CREATE TABLE profiles(
 	gender SMALLINT NOT NULL REFERENCES genders(gender_id),
 	gender_sought SMALLINT NOT NULL REFERENCES genders(gender_id),
 	city INTEGER NOT NULL REFERENCES cities(city_id),
-	image SMALLINT NOT NULL REFERENCES images(image_id),
+	image SERIAL NOT NULL REFERENCES images(image_id),
 	headline VARCHAR(100) NOT NULL,
 	self_description VARCHAR(1000) NOT NULL,
 	match_description VARCHAR(1000) NOT NULL,
@@ -292,4 +292,4 @@ CREATE TABLE profiles(
 
 -- ADMIN PROFILE
 INSERT INTO profiles(user_id, gender, gender_sought, city, image, headline, self_description, match_description, relationship_sought, relationship_status, preferred_age_minimum, preferred_age_maximum, religion_sought, education_experience, race, habit, exercise, residence_type, campus) 
-VALUES ('admin','0','0','0','0','Campus Crush Administrator','NA','NA','0','0','0','0','0','0','0','0','0','0','0');
+VALUES ('admin','0','0','0','1','Campus Crush Administrator','NA','NA','0','0','0','0','0','0','0','0','0','0','0');

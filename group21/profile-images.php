@@ -3,7 +3,7 @@
 		$title = "CC - Profile";
 		$createddate = "September 19 2017";
 		$updateddate = "xxxx xx 2017";
-		$filename = "profile-create.php";
+		$filename = "profile-images.php";
 		$banner = "Campus Crush";
 		$description = "What makes you stand out? What are you looking for?";
 ?>
@@ -37,6 +37,8 @@ if(!isLoggedIn())
 	$results = "";
 	$results2 = "";
 	$completed = "";
+	$count = "";
+	$truecount= "";
 	
 	if($_SERVER["REQUEST_METHOD"] == "GET")
 	{
@@ -61,6 +63,8 @@ if(!isLoggedIn())
 	elseif($_SERVER["REQUEST_METHOD"] == "POST")
 	{
 		$error="";
+		$count = "";
+		$truecount= "";
 		
 		if($_FILES['fileToUpload']['error'] !=0)
 		{
@@ -114,21 +118,23 @@ if(!isLoggedIn())
 				$results1 = pg_execute($connection, "count_user_image", array($_SESSION['username']));
 				$count = pg_fetch_object($results1);
 				$truecount = $count + 1;
+				
 				// if user has more than the max images already
 				if($count < 4)
 				{
 					$uploadFile = $userDirectory . "/" . $_SESSION['username'] . "_" . $truecount . ".jpg";
-					if(!file_exists($upFile))
+					if(!file_exists($uploadFile))
 					{
 						if(move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $uploadFile))
 						{
 							$completed = "File Uploaded Successfully!";
-
+							header("Location:profile-images.php");
+							ob_flush;
 						}
 					}
 					else
 					{
-						$error = "That file already exists, please try another!";
+						$error = $truecount . "That file already exists, please try another!";
 					}
 				}
 				else
