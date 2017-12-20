@@ -38,6 +38,10 @@
 			<td><input type="text" name="cemail" size="50" /></td>
 		</tr>
 		<tr>
+			<td class="tt1">Confirm Username</td>
+			<td><input type="text" name="cemail" size="50" /></td>
+		</tr>
+		<tr>
 			<td></td>
 			<td><input  style="display:inline; width:180px;" class="btn" type="submit" value="Send My Password" /></td>
 		</tr>
