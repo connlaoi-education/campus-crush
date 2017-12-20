@@ -35,6 +35,8 @@
 	
 	pg_prepare($connection, "update_account", 'UPDATE users SET account_type = $1 WHERE id = $2');
 	
+	pg_prepare($connection, "user_update", 'UPDATE users SET first_name = $1, last_name = $2, email_address = $3, birthday = $4  WHERE id = $5');
+	
 	pg_prepare($connection, "update_password", 'UPDATE users SET password = $1 WHERE id = $2');
 	
 	pg_prepare($connection, "update_email", 'UPDATE users SET email = $1 WHERE id = $2');
