@@ -10,12 +10,15 @@
 	// define the lengths of values for validation
 	define("MINIMUM_ID_LENGTH", 5, false);
 	define("MAXIMUM_ID_LENGTH", 20, false);
+	define("MINIMUM_AGE", 18, false);
+	define("MAXIMUM_AGE", 100, false);
 	define("MINIMUM_PASSWORD_LENGTH", 6, false);
 	define("MAXIMUM_PASSWORD_LENGTH", 15, false);
 	define("MAXIMUM_FIRST_NAME_LENGTH", 20, false);
 	define("MAXIMUM_LAST_NAME_LENGTH", 30, true);
 	define("MAXIMUM_EMAIL_LENGTH", 255, true);
 	define("DEFAULT_IMAGEID", 1, true);
+	define("MAXIMUM_LONG_TEXT", 1000, false);
 
 	define("COOKIE_DURATION", 60*60*24*30, true);
 	define("SEARCH_LIMIT", 200, true);

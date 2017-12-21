@@ -50,6 +50,9 @@
 	pg_prepare($connection, "insert_user_image", 'INSERT INTO images (user_id, image_address) VALUES ($1, $2)');
 	
 	pg_prepare($connection, "delete_user_image", 'DELETE FROM images WHERE image_id = $1');
+	pg_prepare($connection, "get_main_image", 'SELECT image FROM profiles WHERE user_id = $1');
+
+	pg_prepare($connection, "update_user_default_image", 'UPDATE profiles SET image = $1 WHERE user_id = $2');
 
 
 	//retrieves one piece of data from DB
@@ -304,7 +307,7 @@
 				$results1 = pg_query($connection, $sql);
 				$userProfiles = pg_fetch_all($results1);
 				
-				$name = ucwords($userInfo[$i]["first_name"]) . ucwords($userInfo[$i]["last_name"]);
+				$name = ucwords($userInfo[$i]["first_name"]) ." ". ucwords($userInfo[$i]["last_name"]);
 				$image = getProperty('images', 'image_address', $userProfiles[0]['image'], 'image_id');
 				$gender = ucwords(getProperty('genders', 'gender_type', $userProfiles[0]['gender'], 'gender_id'));
 				$city = ucwords(getProperty('cities', 'city_name', $userProfiles[0]['city'], 'city_id'));
@@ -367,7 +370,7 @@
 		return $output;
 	}
 	
-	function buildPictureSelect($username)
+	function buildPictureSelect($username, $mainImageID)
 	{
 		$connection = db_connect();
 		$resImages = pg_execute($connection, "select_user_image", array($username));
@@ -376,11 +379,28 @@
 		echo("<table>\n");
 		//create radio button for each picture
 		echo("<tr>\n");
+		?>
+		<form action="setMain.php" method="get">
+		<?php
 		for ($i=0; $i < pg_num_rows($resImages); $i++) {
-			echo("<td align='center'>\n");
-			echo("<input type='radio' name='mainImage' value=" . $i . ">\n");
-			echo("</td>\n");
+			if($dataArray[$i]["image_id"] == $mainImageID)
+			{
+				echo("<td align='center'>\n");
+				echo("<input type='radio' name='mainImage' value='" . $dataArray[$i]["image_id"] . "' checked>\n");
+				echo("</td>\n");
+			}
+			else
+			{
+				echo("<td align='center'>\n");
+				echo("<input type='radio' name='mainImage' value='" . $dataArray[$i]["image_id"] . "'>\n");
+				echo("</td>\n");
+			}
 		}
+		?>
+		<input type="hidden" name="main" value="main">
+		<input class="btn" type="submit" style="width:200px;" value="Set Main Image" />
+	</form>
+		<?php
 		echo("</tr>\n");
 
 		//create image for each picture
@@ -394,14 +414,49 @@
 
 		
 		
+		?>
+		<form action="deleteImages.php" method="get">
+		<?php
 		//create checkbox for each picture
 		echo("<tr>\n");
 		for ($i=0; $i < pg_num_rows($resImages); $i++) {
 			echo("<td align='center'>\n");
-			echo("<input type='checkbox' name='delImage[]' value='" . pow(2, $i) . "'>\n");
+			echo("<input type='checkbox' name='delImage[]' value='" . pow(2, $dataArray[$i]["image_id"]) . "'>\n");
 			echo("</td>\n");
 		}
+		?>
+		<input type="hidden" name="delete" value="delete" />
+		<input class="btn" type="submit" style="width:200px;" value="Delete Checked Images" />
+	</form>
+		<?php
 		echo("</tr>\n");
 		echo("</table>\n");
 	}
+
+function buildUserImages($username)
+    {
+        $connection = db_connect();
+        $resImages = pg_execute($connection, "select_user_image", array($username));
+        $dataArray = pg_fetch_all($resImages);
+
+        echo('<div class="w3-content w3-display-container" style="min-width: 300px;min-height: 150px;max-height: 200px;max-width: 500px;float: left;">');
+
+        for ($i=0; $i < pg_num_rows($resImages); $i++)
+        {
+			$picnum = $i + 1;
+			$imgAddress = $dataArray[$i]["image_address"];
+            echo('<img class="mySlides" src="'.$imgAddress.'" style="max-width:400px;max-height:200px;" />');
+        }
+
+          echo('<div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
+                <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
+                <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>');
+
+        for ($i=0; $i < pg_num_rows($resImages); $i++)
+        {
+                echo('<span class="w3-badge togs w3-border w3-transparent w3-hover-green" onclick="currentDiv('.$i.')"></span>');
+        }
+            echo('</div>
+        </div>');
+    }
 ?>

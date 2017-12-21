@@ -106,9 +106,6 @@ if(!isLoggedIn()) {
 		$defaultImage = DEFAULT_IMAGEID;
 		$imageUpdate = getProperty('images', 'image_id', $_FILES["fileToUpload"]["tmp_name"], 'image_address');
 		$imageAddress = getProperty('images', 'image_address', $userArray["image"], 'image_id');
-		$headline = trim(htmlspecialchars($_POST["headline"]));
-		$self_description = trim(htmlspecialchars($_POST["self_description"]));
-		$match_description = trim(htmlspecialchars($_POST["match_description"]));
 		$relationship_sought = trim($_POST["relationship_sought"]);
 		$relationship_status = trim($_POST["relationship_status"]);
 		$preferred_age_minimum = trim($_POST["preferred_age_minimum"]);
@@ -121,27 +118,88 @@ if(!isLoggedIn()) {
 		$residence_type = trim($_POST["residence_type"]);
 		$campus = trim($_POST["campuses"]);
 		
+		// verify headline is not blank/null
+		if(trim(htmlspecialchars($_POST["headline"])) == "")
+		{
+			$error .= "You must enter a Headline to continue."; //appropriate error message
+		}
+		// verify headline is less than database max - 100
+		elseif(strlen(htmlspecialchars($_POST["headline"])) > MAXIMUM_AGE)
+		{
+			$error .= "Your headline was too long! 100 character max."; //appropriate error message
+		}
+		else //set to var for upload
+		{
+			$headline = trim(htmlspecialchars($_POST["headline"]));
+		}
+		// verify self description is not blank/null
+		if(trim(htmlspecialchars($_POST["self_description"])) == "")
+		{
+			$error .= "You must enter a Self Description to continue."; //appropriate error message
+		}
+		// verify match description is less than database max - 1000
+		elseif(strlen(trim(htmlspecialchars($_POST["self_description"]))) > MAXIMUM_LONG_TEXT)
+		{
+			$error .= "Your Self Description was too long! 1000 character max."; //appropriate error message
+		}
+		else //set to var for upload
+		{
+			$self_description = trim(htmlspecialchars($_POST["self_description"]));
+		}
+		// verify match description is not blank/null
+		if(trim(htmlspecialchars($_POST["match_description"])) == "")
+		{
+			$error .= "You must enter a Match Description to continue."; //appropriate error message
+		}
+		// verify match description is less than database max - 1000
+		elseif(strlen(trim(htmlspecialchars($_POST["match_description"]))) > MAXIMUM_LONG_TEXT)
+		{
+			$error .= "Your Match Description was too long! 1000 character max."; //appropriate error message
+		}
+		else //set to var for upload
+		{
+			$match_description = trim(htmlspecialchars($_POST["match_description"]));
+		}
+		// verify age min is less than the minimum age allowed
+		if($preferred_age_minimum < MINIMUM_AGE)
+		{
+			$error .= "You must be at least 18 years old to use this site - Try someone older?"; //appropriate error message
+		}
+		// verify age max is greater than the maximum age allowed
+		if($preferred_age_minimum > MAXIMUM_AGE)
+		{
+			$error .= "You're looking for Centurions? Try assisted living..."; //appropriate error message
+		}
+		// verify age max is greater than the age min
+		if($preferred_age_maximum < $preferred_age_minimum)
+		{
+			$error .= "I think you've got your preferred ages backwards, pal!"; //appropriate error message
+		}
+		
+		
 		if($error == "")
 		{	
 			$connection = db_connect();
 
-			//if user is creating profile, insert
+			//if account type is incomplete
 			if($_SESSION['account_type'] == INCOMPLETE)
-			{
+			{	
+				//insert their profile information
 				$results1 = pg_execute($connection, "insert_profile", array($_SESSION['username'], $gender, $gender_sought, $city, $defaultImage, $headline, $self_description, $match_description, $relationship_sought, $relationship_status, $preferred_age_minimum, $preferred_age_maximum, $religion_sought, $education_experience, $race, $habits, $exercise, $residence_type, $campus));
-
-				//complete their profile
+				//update their account to complete
 				$results2 = pg_execute($connection, "update_account", array(CLIENT, $_SESSION['username']));
-				//update their session/cookie
+				//update their session to client
 				$_SESSION['account_type'] = CLIENT;
 			}
 			//otherwise, update their profile
 			else
 			{
+				//update profile information
 				$results3 = pg_execute($connection, "update_profile", array($gender, $gender_sought, $city, $imageID, $headline, $self_description, $match_description, $relationship_sought, $relationship_status, $preferred_age_minimum, $preferred_age_maximum, $religion_sought, $education_experience, $race, $habits, $exercise, $residence_type, $campus, $_SESSION['username']));
 			}
-
+		//redirect to profile-create
 		header("Location: profile-create.php");
+		//flush the object
 		ob_flush();
 		}
 	}
@@ -170,20 +228,22 @@ if(!isLoggedIn()) {
 		<tr>
 			<td>Image</td>
 			<td>
-				<div class="w3-content w3-display-container" style="width:600px; height:300px;">
-					  <img class="mySlides" src="./images/users/<?php echo($_SESSION['username']); ?>/<?php echo($_SESSION['username']); ?>_1.jpg" style="max-width:600px;max-height:300px;" />
-					  <img class="mySlides" src="./images/users/<?php echo($_SESSION['username']); ?>/<?php echo($_SESSION['username']); ?>_2.jpg" style="max-width:600px;max-height:300px;" />
-					  <img class="mySlides" src="./images/users/<?php echo($_SESSION['username']); ?>/<?php echo($_SESSION['username']); ?>_3.jpg" style="max-width:600px;max-height:300px;" />
-					  <img class="mySlides" src="./images/users/<?php echo($_SESSION['username']); ?>/<?php echo($_SESSION['username']); ?>_4.jpg" style="max-width:600px;max-height:300px;" />
+<?php if($_SESSION['account_type'] != INCOMPLETE)
+			{
+				buildUserImages($_SESSION['username']);
+			}
+			else
+			{
+				echo('
+				<div class="w3-content w3-display-container" style="min-width: 200px;min-height: 150px;max-height: 200px;max-width: 500px;float: left;">
+					  <img class="mySlides" src="./images/users/default_user.jpg" style="max-width:400px;max-height:200px;" />
 					  <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
-						<div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
-						<div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
 						<span class="w3-badge togs w3-border w3-transparent w3-hover-green" onclick="currentDiv(0)"></span>
-						<span class="w3-badge togs w3-border w3-transparent w3-hover-green" onclick="currentDiv(1)"></span>
-						<span class="w3-badge togs w3-border w3-transparent w3-hover-green" onclick="currentDiv(2)"></span>
-						<span class="w3-badge togs w3-border w3-transparent w3-hover-green" onclick="currentDiv(3)"></span>
 					</div>
 				</div>
+				');
+			}
+				?>
 			</td>
 		</tr>
 		<tr>
