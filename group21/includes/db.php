@@ -375,7 +375,6 @@
 		$connection = db_connect();
 		$resImages = pg_execute($connection, "select_user_image", array($username));
 		$dataArray = pg_fetch_all($resImages);
-		
 		echo("<table>\n");
 		//create radio button for each picture
 		echo("<tr>\n");
