@@ -431,4 +431,29 @@
 		echo("</tr>\n");
 		echo("</table>\n");
 	}
+
+	function buildUserImages($username)
+    {
+        $connection = db_connect();
+        $resImages = pg_execute($connection, "select_user_image", array($username));
+        $dataArray = pg_fetch_all($resImages);
+
+        echo('<div class="w3-content w3-display-container" style="min-width: 200px;min-height: 150px;max-height: 200px;max-width: 500px;float: left;">');
+
+        for ($i=0; $i < pg_num_rows($resImages); $i++)
+        {
+            echo('<img class="mySlides" src="./images/users/'.$_SESSION["username"].'/'.$SESSION["username"].''.$i.'.jpg" style="max-width:400px;max-height:200px;" />');
+        }
+
+          echo('<div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
+                <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
+                <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>');
+
+        for ($i=0; $i < pg_num_rows($resImages); $i++)
+        {
+                echo('<span class="w3-badge togs w3-border w3-transparent w3-hover-green" onclick="currentDiv('.$i.')"></span>');
+        }
+            echo('</div>
+        </div>');
+    }
 ?>
