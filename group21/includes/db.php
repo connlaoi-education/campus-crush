@@ -432,7 +432,7 @@
 		echo("</table>\n");
 	}
 
-	function buildUserImages($username)
+function buildUserImages($username)
     {
         $connection = db_connect();
         $resImages = pg_execute($connection, "select_user_image", array($username));
@@ -442,7 +442,7 @@
 
         for ($i=0; $i < pg_num_rows($resImages); $i++)
         {
-            echo('<img class="mySlides" src="./images/users/'.$_SESSION["username"].'/'.$SESSION["username"].''.$i.'.jpg" style="max-width:400px;max-height:200px;" />');
+            echo('<img class="mySlides" src="./images/users/'.$_SESSION["username"].'/'.$SESSION["username"].''.$i + 1.'.jpg" style="max-width:400px;max-height:200px;" />');
         }
 
           echo('<div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
