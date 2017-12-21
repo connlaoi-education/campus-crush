@@ -50,6 +50,9 @@
 	pg_prepare($connection, "insert_user_image", 'INSERT INTO images (user_id, image_address) VALUES ($1, $2)');
 	
 	pg_prepare($connection, "delete_user_image", 'DELETE FROM images WHERE image_id = $1');
+	pg_prepare($connection, "get_main_image", 'SELECT image FROM profiles WHERE user_id = $1');
+
+	pg_prepare($connection, "update_user_default_image", 'UPDATE profiles SET image = $1 WHERE user_id = $2');
 
 
 	//retrieves one piece of data from DB
@@ -367,20 +370,36 @@
 		return $output;
 	}
 	
-	function buildPictureSelect($username)
+	function buildPictureSelect($username, $mainImageID)
 	{
 		$connection = db_connect();
 		$resImages = pg_execute($connection, "select_user_image", array($username));
 		$dataArray = pg_fetch_all($resImages);
-		
 		echo("<table>\n");
 		//create radio button for each picture
 		echo("<tr>\n");
+		?>
+		<form action="setMain.php" method="get">
+		<?php
 		for ($i=0; $i < pg_num_rows($resImages); $i++) {
-			echo("<td align='center'>\n");
-			echo("<input type='radio' name='mainImage' value=" . $i . ">\n");
-			echo("</td>\n");
+			if($dataArray[$i]["image_id"] == $mainImageID)
+			{
+				echo("<td align='center'>\n");
+				echo("<input type='radio' name='mainImage' value='" . $dataArray[$i]["image_id"] . "' checked>\n");
+				echo("</td>\n");
+			}
+			else
+			{
+				echo("<td align='center'>\n");
+				echo("<input type='radio' name='mainImage' value='" . $dataArray[$i]["image_id"] . "'>\n");
+				echo("</td>\n");
+			}
 		}
+		?>
+		<input type="hidden" name="main" value="main">
+		<input class="btn" type="submit" style="width:200px;" value="Set Main Image" />
+	</form>
+		<?php
 		echo("</tr>\n");
 
 		//create image for each picture
@@ -394,13 +413,21 @@
 
 		
 		
+		?>
+		<form action="deleteImages.php" method="get">
+		<?php
 		//create checkbox for each picture
 		echo("<tr>\n");
 		for ($i=0; $i < pg_num_rows($resImages); $i++) {
 			echo("<td align='center'>\n");
-			echo("<input type='checkbox' name='delImage[]' value='" . pow(2, $i) . "'>\n");
+			echo("<input type='checkbox' name='delImage[]' value='" . pow(2, $dataArray[$i]["image_id"]) . "'>\n");
 			echo("</td>\n");
 		}
+		?>
+		<input type="hidden" name="delete" value="delete" />
+		<input class="btn" type="submit" style="width:200px;" value="Delete Checked Images" />
+	</form>
+		<?php
 		echo("</tr>\n");
 		echo("</table>\n");
 	}

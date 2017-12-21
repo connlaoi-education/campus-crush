@@ -262,9 +262,6 @@ CREATE TABLE images(
 	image_address VARCHAR(40) NOT NULL
 );
 INSERT INTO images(user_id, image_address) VALUES('admin','./images/users/default_user.jpg');
-INSERT INTO images(user_id, image_address) VALUES('csmith','./images/users/csmith/csmith_1.jpg');
-INSERT INTO images(user_id, image_address) VALUES('tminhly','./images/users/tminhly/tminhly_1.jpg');
-INSERT INTO images(user_id, image_address) VALUES('jpower','./images/users/jpower/jpower_1.jpg');
 -- CREATE secondary table
 
 -- PROFILES

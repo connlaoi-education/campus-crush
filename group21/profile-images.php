@@ -54,10 +54,8 @@ if(!isLoggedIn())
 			$connection = db_connect();
 			$results = pg_execute($connection, "select_user_image", array($_SESSION['username']));
 			$imageArray = pg_fetch_array($results);
-
 			//store them in variables to echo
 			//$imageID = $imageAddressArray["image"][0];
-			$imageAddress = getProperty('images', 'image_address', $imageArray["image"], 'image_id');
 		}
 	}
 	elseif($_SERVER["REQUEST_METHOD"] == "POST")
@@ -171,24 +169,33 @@ if(!isLoggedIn())
 
 <br />
 
-<form id="uploadform" enctype="multipart/form-data" name="input" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+
+
 	<table>
 		<tr>
 			<td>Select Images</td>
 			<td>
-					<?php buildPictureSelect($_SESSION['username']);?>
+					<?php
+						$connection = db_connect();
+						$results = pg_execute($connection, "select_all_profile", array($_SESSION['username']));
+						$profArray = pg_fetch_assoc($results);
+						buildPictureSelect($_SESSION['username'], $profArray['image']);
+					?>
 			</td>
 		</tr>
-					<br />
+					<br/>
 		<tr>
 			<td></td>
 			<td>
+				
+				<form id="uploadform" enctype="multipart/form-data" name="input" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 				<input class="btn" style="height:25px; width:260px; background-color:#b6b6b6;" type="file" name="fileToUpload" id="fileToUpload" multiple />
 				<input class="btn" style="width: 220px;" type="submit" value="Upload a New Image" />
+
+				</form>
 			</td>
 		</tr>	
 	</table>
-</form>
 <br />
 
 <!-- Include Footer PHP -->
