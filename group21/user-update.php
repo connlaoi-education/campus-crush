@@ -28,7 +28,9 @@
 	$results = "";
 	$results2 = "";
 	$completed = "";
-	$ready = 1;
+	$change_name = 0;
+	$change_mail = 0;
+	$change_pass = 0;
 	
 	$sql = "SELECT * FROM users WHERE id = '" . $_SESSION['username'] . "'";
 	$results = pg_query($connection, $sql);
@@ -72,8 +74,9 @@
  
                 if (!isset($firstName) || $firstName == "")
 				{
-					$error .= "You did not enter your first name!<br/>";
+
 					$firstName = "";
+					$change_name = 0;
 				}
 				else if (is_numeric($firstName))
 				{
@@ -85,11 +88,15 @@
 					$error .= "Your first name must be less than 20 characters. <br/>";
 					$firstName = "";
 				}
+				else
+				{
+					$change_name = 1;
+				}
 				
 				if (!isset($lastName) || $lastName == "")
 				{
-					$error .= "You did not enter your last name! <br/>";
 					$lastName = "";
+					$change_name = 0;
 				}
 				else if (is_numeric($lastName))
 				{
@@ -101,15 +108,49 @@
 					$error .= "Your last name must be less than 30 characters. <br/>";
 					$lastName = "";
 				}
+				else
+				{
+					$change_name = 1;
+				}
+				
+		if(isset($_POST['email']) || isset($_POST['email1']))
+		{
+			if(!isset($email) || $email == "" || !isset($email1) || $email1 == "")
+			{  
+         		$change_mail = 0;
+				$email = "";
+			}
+			else if(filter_var($email, FILTER_VALIDATE_EMAIL) == false)
+			{
+				$error .= "The old email address you entered is not valid! <br/>";
+				$email = "";
+			}
+			else if(filter_var($email1, FILTER_VALIDATE_EMAIL) == false)
+			{
+				$error .= "The new email address you entered is not a valid address! <br/>";
+				$email1 = "";
+			}
+			else if(strcmp($email, $checkEmail) !== 0)
+			{
+				$error .= "Your old email does not match your account!<br/>";
+				$email = "";
+				$email1 = "";
+
+			}
+			else
+			{
+				$change_mail = 1;
+			}
+		}
 		
 		if(isset($_POST['pass']) || isset($_POST['pass1']) || isset($_POST['pass2']))
 		{
 			if(!isset($password) || $password == "" || !isset($password1) || $password1 == "" || !isset($password2) || $password2 == "" )
 			{
-				$error .= "You forgot to enter a password. <br/>";
 				$password = "";
 				$password1 = "";
 				$password2 = "";
+				$change_pass = 0;
 			}
 			else if(strlen($password1) < MINIMUM_PASSWORD_LENGTH || strlen($password2) < MINIMUM_PASSWORD_LENGTH)
 			{
@@ -136,46 +177,40 @@
 				$password1 = "";
 				$password2 = "";
 			}
-
+            else
+			{
+				$change_pass = 1;
+			}
 		}
 			
-		if(isset($_POST['email']) || isset($_POST['email1']))
-		{
-			if(!isset($email) || $email == "" || !isset($email1) || $email1 == "")
-			{
-				$error .= "You forgot to enter an email address! <br/>";
-				$email = "";
+        if($firstName == "" && $lastName == "" && $email == "" && $email1 == "" && $password == "" && $password1 == "" && $password2 == "" )
+		    {
+				$error .= "All textbox blank, no update<br/>";
 			}
-			else if(filter_var($email, FILTER_VALIDATE_EMAIL) == false)
-			{
-				$error .= "The old email address you entered is not valid! <br/>";
-				$email = "";
-			}
-			else if(filter_var($email1, FILTER_VALIDATE_EMAIL) == false)
-			{
-				$error .= "The new email address you entered is not a valid address! <br/>";
-				$email = "";
-			}
-			else if(strcmp($email, $checkEmail) !== 0)
-			{
-				$error .= "Your old email does not match your account!<br/>";
-				$email = "";
-				$email1 = "";
-				$email2 = "";
-			}
-
-		}
-		
 		// If there are no errors, update user email
 		if($error == "")
 		{	
 				$connection = db_connect();
-			        $results1 = pg_execute($connection, "user_update", array(md5($password2), $firstName, $lastName, $email1, $_SESSION['username']));
+				
+				if($change_name == 1)
+				{
+			    $results1 = pg_execute($connection, "update_name", array($firstName, $lastName, $_SESSION['username']));
 				$_SESSION['redirected'] .= "\nFirst name and Last name changed!";
-				$_SESSION['redirected'] .= "\nEmail changed successfully!";
+                $_SESSION['first_name'] = trim($_POST["newFirst"]);
+			    $_SESSION['last_name'] = trim($_POST["newLast"]);
+				}
+				
+				if($change_mail == 1)
+				{
+                $results1 = pg_execute($connection, "update_email", array($email1, $_SESSION['username']));
+			    $_SESSION['redirected'] .= "\nEmail changed successfully!";
+			    }
+
+				if($change_pass == 1)
+				{
+	            $results1 = pg_execute($connection, "update_password", array(md5($password2), $_SESSION['username']));
 				$_SESSION['redirected'] .= "\nPassword changed successfully!";
-			        $_SESSION['first_name'] = trim($_POST["newFirst"]);
-			        $_SESSION['last_name'] = trim($_POST["newLast"]);
+                }
 				header("Location: dashboard.php");
 				ob_flush();
 
