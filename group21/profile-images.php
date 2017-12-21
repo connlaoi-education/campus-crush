@@ -63,7 +63,7 @@ if(!isLoggedIn())
 	elseif($_SERVER["REQUEST_METHOD"] == "POST")
 	{
 		$error="";
-		$count = "";
+		$count = 0;
 		$truecount= "";
 		
 		if($_FILES['fileToUpload']['error'] !=0)
@@ -84,7 +84,6 @@ if(!isLoggedIn())
 			$connection = db_connect();
 			$results = pg_execute($connection, "select_user_image", array($_SESSION['username']));
 			$catch = pg_fetch_array($results);
-
 			
 			$userDirectory = "./images/users/" . $_SESSION['username'];
 			
@@ -102,6 +101,10 @@ if(!isLoggedIn())
 							{
 								$completed = "File Uploaded Successfully!";
 							}
+							else
+							{
+								$error = "An error occurred while uploading your file!";	
+							}
 						}
 						else
 						{
@@ -115,21 +118,21 @@ if(!isLoggedIn())
 			}
 			else
 			{
+				$connection = db_connect();
 				$results1 = pg_execute($connection, "count_user_image", array($_SESSION['username']));
-				$count = pg_fetch_object($results1);
+				$count = (count(scandir($userDirectory)) - 1);
 				$truecount = $count + 1;
 				
 				// if user has more than the max images already
-				if($count < 4)
+				if($count < 5)
 				{
-					$uploadFile = $userDirectory . "/" . $_SESSION['username'] . "_" . $truecount . ".jpg";
+					$uploadFile = $userDirectory . "/" . $_SESSION['username'] . "_" . $count . ".jpg";
 					if(!file_exists($uploadFile))
 					{
 						if(move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $uploadFile))
 						{
 							$completed = "File Uploaded Successfully!";
 							header("Location:profile-images.php");
-							ob_flush;
 						}
 					}
 					else
@@ -139,7 +142,10 @@ if(!isLoggedIn())
 				}
 				else
 				{
-					$error = "You must remove an image before uploading another!";
+					$error = "You must remove an image before uploading another! ";
+					$error .= (count(scandir($userDirectory)) - 2);
+					$error .= "/4 Image Limit";
+
 				}
 			}
 		}
@@ -155,6 +161,7 @@ if(!isLoggedIn())
 
 <p class="highlight" style="color:red;">
 	<?php echo($error); ?>
+
 	<?php echo($error_2); ?>
 </p>
 <p class="highlight" style="color:green;">
@@ -169,21 +176,13 @@ if(!isLoggedIn())
 		<tr>
 			<td>Select Images</td>
 			<td>
-				<div class="w3-content w3-display-container" style="width:600px; height:300px;">
-				  <img class="mySlides" src="./images/users/<?php echo($_SESSION['username']); ?>/<?php echo($_SESSION['username']); ?>_1.jpg" style="max-width:600px;max-height:300px;" />
-				  <img class="mySlides" src="./images/users/<?php echo($_SESSION['username']); ?>/<?php echo($_SESSION['username']); ?>_2.jpg" style="max-width:600px;max-height:300px;" />
-				  <img class="mySlides" src="./images/users/<?php echo($_SESSION['username']); ?>/<?php echo($_SESSION['username']); ?>_3.jpg" style="max-width:600px;max-height:300px;" />
-				  <img class="mySlides" src="./images/users/<?php echo($_SESSION['username']); ?>/<?php echo($_SESSION['username']); ?>_4.jpg" style="max-width:600px;max-height:300px;" />
-				  <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
-					<div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
-					<div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
-					<span class="w3-badge togs w3-border w3-transparent w3-hover-green" onclick="currentDiv(0)"></span>
-					<span class="w3-badge togs w3-border w3-transparent w3-hover-green" onclick="currentDiv(1)"></span>
-					<span class="w3-badge togs w3-border w3-transparent w3-hover-green" onclick="currentDiv(2)"></span>
-					<span class="w3-badge togs w3-border w3-transparent w3-hover-green" onclick="currentDiv(3)"></span>
-				</div>
-				</div>
+					<?php buildPictureSelect($_SESSION['username']);?>
+			</td>
+		</tr>
 					<br />
+		<tr>
+			<td></td>
+			<td>
 				<input class="btn" style="height:25px; width:260px; background-color:#b6b6b6;" type="file" name="fileToUpload" id="fileToUpload" multiple />
 				<input class="btn" style="width: 220px;" type="submit" value="Upload a New Image" />
 			</td>
@@ -191,41 +190,6 @@ if(!isLoggedIn())
 	</table>
 </form>
 <br />
-<br />
-<br />
-<style>
-.mySlides {display:none}
-.w3-left, .w3-right, .w3-badge {cursor:pointer}
-.w3-badge {height:13px;width:13px;padding:0}
-</style>
-<script type="text/javascript">
-var slideIndex = 1;
-showDivs(slideIndex);
-
-function plusDivs(n) {
-  showDivs(slideIndex += n);
-}
-
-function currentDiv(n) {
-  showDivs(slideIndex = n);
-}
-
-function showDivs(n) {
-  var i;
-  var x = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("togs");
-  if (n > x.length) {slideIndex = 1}    
-  if (n < 1) {slideIndex = x.length}
-  for (i = 0; i < x.length; i++) {
-     x[i].style.display = "none";  
-  }
-  for (i = 0; i < dots.length; i++) {
-     dots[i].className = dots[i].className.replace(" w3-white", "");
-  }
-  x[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " w3-white";
-}
-</script>
 
 <!-- Include Footer PHP -->
  <?php include 'footer.php'; ?>

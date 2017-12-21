@@ -35,7 +35,7 @@
 	
 	pg_prepare($connection, "update_account", 'UPDATE users SET account_type = $1 WHERE id = $2');
 	
-	pg_prepare($connection, "user_update", 'UPDATE users SET first_name = $1, last_name = $2, email_address = $3, birthday = $4  WHERE id = $5');
+	pg_prepare($connection, "user_update", 'UPDATE users SET password = $1, first_name = $2, last_name = $3, email_address = $4  WHERE id = $5');
 	
 	pg_prepare($connection, "update_password", 'UPDATE users SET password = $1 WHERE id = $2');
 	
@@ -365,5 +365,43 @@
 		// do validation on input here eventually
 		$output = "header('Location:profile-display.php?user=$user');";
 		return $output;
+	}
+	
+	function buildPictureSelect($username)
+	{
+		$connection = db_connect();
+		$resImages = pg_execute($connection, "select_user_image", array($username));
+		$dataArray = pg_fetch_all($resImages);
+		
+		echo("<table>\n");
+		//create radio button for each picture
+		echo("<tr>\n");
+		for ($i=0; $i < pg_num_rows($resImages); $i++) {
+			echo("<td align='center'>\n");
+			echo("<input type='radio' name='mainImage' value=" . $i . ">\n");
+			echo("</td>\n");
+		}
+		echo("</tr>\n");
+
+		//create image for each picture
+		echo("<tr>\n");
+		for ($i=0; $i < pg_num_rows($resImages); $i++) {
+			echo("<td align='center'>\n");
+			echo("<img style='max-width:260px; min-height:100px; max-height:150px; box-shadow:5px 5px 5px #999;' src='" . $dataArray[$i]["image_address"] . "'/>\n");
+			echo("</td>\n");
+		}
+		echo("</tr>\n");
+
+		
+		
+		//create checkbox for each picture
+		echo("<tr>\n");
+		for ($i=0; $i < pg_num_rows($resImages); $i++) {
+			echo("<td align='center'>\n");
+			echo("<input type='checkbox' name='delImage[]' value='" . pow(2, $i) . "'>\n");
+			echo("</td>\n");
+		}
+		echo("</tr>\n");
+		echo("</table>\n");
 	}
 ?>

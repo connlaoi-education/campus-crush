@@ -5,7 +5,7 @@
 	$updateddate = "xxxx xx 2017";
 	$filename = "user-update.php";
 	$banner = "Campus Crush";
-	$description = "Change your Password, First or Last Name, and Email";
+	$description = "Change your First Name, Last Name, Email and Password";
 ?>
 <!--
 	Creator:      Connlaoi Smith
@@ -68,7 +68,39 @@
 		
 		$email = trim($_POST["email"]);
 		$email1 = trim($_POST["email1"]);
-		$email2 = trim($_POST["email2"]);
+
+ 
+                if (!isset($firstName) || $firstName == "")
+				{
+					$error .= "You did not enter your first name!<br/>";
+					$firstName = "";
+				}
+				else if (is_numeric($firstName))
+				{
+					$error .= "Your first name can not contain any numeric values. <br/>";
+					$firstName = "";
+				}
+				else if (strlen($firstName) > MAXIMUM_FIRST_NAME_LENGTH)
+				{
+					$error .= "Your first name must be less than 20 characters. <br/>";
+					$firstName = "";
+				}
+				
+				if (!isset($lastName) || $lastName == "")
+				{
+					$error .= "You did not enter your last name! <br/>";
+					$lastName = "";
+				}
+				else if (is_numeric($lastName))
+				{
+					$error .= "Your last name may not contain any numeric values. <br/>";
+					$last_name = "";
+				}
+				else if (strlen($lastName) > MAXIMUM_LAST_NAME_LENGTH)
+				{
+					$error .= "Your last name must be less than 30 characters. <br/>";
+					$lastName = "";
+				}
 		
 		if(isset($_POST['pass']) || isset($_POST['pass1']) || isset($_POST['pass2']))
 		{
@@ -104,15 +136,12 @@
 				$password1 = "";
 				$password2 = "";
 			}
-			else
-			{
-				$ready = $ready + 1;
-			}
+
 		}
 			
-		if(isset($_POST['email']) || isset($_POST['email1']) || isset($_POST['email2']))
+		if(isset($_POST['email']) || isset($_POST['email1']))
 		{
-			if(!isset($email) || $email == "" || !isset($email1) || $email1 == "" || !isset($email2) || $email2 == "")
+			if(!isset($email) || $email == "" || !isset($email1) || $email1 == "")
 			{
 				$error .= "You forgot to enter an email address! <br/>";
 				$email = "";
@@ -122,16 +151,10 @@
 				$error .= "The old email address you entered is not valid! <br/>";
 				$email = "";
 			}
-			else if(filter_var($email1, FILTER_VALIDATE_EMAIL) == false || filter_var($email2, FILTER_VALIDATE_EMAIL) == false)
+			else if(filter_var($email1, FILTER_VALIDATE_EMAIL) == false)
 			{
 				$error .= "The new email address you entered is not a valid address! <br/>";
 				$email = "";
-			}
-			else if(strcmp($email1, $email2) !== 0)
-			{
-				$error .= "Your new email's do not match!<br/>";
-				$email1 = "";
-				$email2 = "";
 			}
 			else if(strcmp($email, $checkEmail) !== 0)
 			{
@@ -140,41 +163,22 @@
 				$email1 = "";
 				$email2 = "";
 			}
-			else
-			{
-				$ready = $ready + 2;
-			}
+
 		}
 		
 		// If there are no errors, update user email
 		if($error == "")
 		{	
-			if($ready == 3)
-			{
 				$connection = db_connect();
-				$completed = pg_execute($connection, "update_email", array($email2, $_SESSION['username']));
+			        $results1 = pg_execute($connection, "user_update", array(md5($password2), $firstName, $lastName, $email1, $_SESSION['username']));
+				$_SESSION['redirected'] .= "\nFirst name and Last name changed!";
 				$_SESSION['redirected'] .= "\nEmail changed successfully!";
-				header("Location: dashboard.php");
-				ob_flush();
-			}
-			elseif($ready == 2)
-			{
-				$connection = db_connect();
-				$completed = pg_execute($connection, "update_password", array(md5($password2), $_SESSION['username']));
 				$_SESSION['redirected'] .= "\nPassword changed successfully!";
+			        $_SESSION['first_name'] = trim($_POST["newFirst"]);
+			        $_SESSION['last_name'] = trim($_POST["newLast"]);
 				header("Location: dashboard.php");
 				ob_flush();
-			}
-			elseif($ready == 4)
-			{
-				$connection = db_connect();
-				$completed = pg_execute($connection, "update_email", array($email2, $_SESSION['username']));
-				$_SESSION['redirected'] .= "\nEmail changed successfully!";
-				$completed .= pg_execute($connection, "update_password", array(md5($password2), $_SESSION['username']));
-				$_SESSION['redirected'] .= "\nPassword changed successfully!";
-				header("Location: dashboard.php");
-				ob_flush();
-			}
+
 		}
 	}
 ?>
@@ -213,31 +217,33 @@
 			<td><input type="text" name="newUsername" maxlength="20" placeholder="<?php echo $username;  ?>" size="30" /readonly></td>
 		</tr>
 		<tr>
+			<td><hr /></td>
+			<td><hr /></td>
+		</tr>
+		<tr>
 			<td>First Name</td>
-			<td><input type="text" name="newFirst" maxlength="20" placeholder="<?php echo $firstName;  ?>" size="30" /readonly></td>
+			<td><input type="text" name="newFirst" maxlength="20" placeholder="<?php echo $firstName;  ?>" size="30"></td>
 		</tr>
 		<tr>
 			<td>Last Name</td>
-			<td><input type="text" name="newLast" maxlength="30" placeholder="<?php echo $lastName;  ?>" size="30" /readonly></td>
+			<td><input type="text" name="newLast" maxlength="30" placeholder="<?php echo $lastName;  ?>" size="30"></td>
 		</tr>
 		<tr>
-			<td><br /></td>
+			<td><hr /></td>
+			<td><hr /></td>
 		</tr>
 		<tr>
 			<td>Old Email</td>
-			<td><input type="text" name="email" maxlength="255" placeholder="<?php echo htmlspecialchars($checkEmail);  ?> Enter old Email..." size="30" /></td>
+			<td><input type="text" name="email" maxlength="255" placeholder="<?php echo htmlspecialchars($checkEmail);  ?>" size="30" /></td>
 		</tr>
 		<tr>
 			<td>New Email</td>
 			<td><input type="text" name="email1" maxlength="32" placeholder="Enter new Email..." size="30" /></td>
 		</tr>
 		<tr>
-			<td>Confirm Email</td>
-			<td><input type="text" name="email2" maxlength="32" placeholder="Confirm new Email..." size="30" /></td>
+			<td><hr /></td>
+			<td><hr /></td>
 		</tr>
-		
-		</br >
-		
 		<tr>
 			<td>Old Password</td>
 			<td><input type="password" name="pass" maxlength="32" placeholder="Enter old password..." size="30" /></td>
