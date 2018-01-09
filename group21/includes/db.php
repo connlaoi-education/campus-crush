@@ -6,7 +6,7 @@
 	$updateddate = "December 11 2017";
 
 	// open a database connection
-	function db_connect()
+function db_connect()
 	{	
 		// set the connection values
 		// to change the host switch between DATABASE_HOST_SERVER and DATABASE_HOST_LOCAL
@@ -60,13 +60,16 @@
 	pg_prepare($connection, "insert_user_image", 'INSERT INTO images (user_id, image_address) VALUES ($1, $2)');
 	
 	pg_prepare($connection, "delete_user_image", 'DELETE FROM images WHERE image_id = $1');
+
 	pg_prepare($connection, "get_main_image", 'SELECT image FROM profiles WHERE user_id = $1');
 
 	pg_prepare($connection, "update_user_default_image", 'UPDATE profiles SET image = $1 WHERE user_id = $2');
 
+	pg_prepare($connection, "log_changes", 'INSERT INTO logs (admin_id, date, id_affected, changes) VALUES ($1, $2, $3, $4)');
+
 
 	//retrieves one piece of data from DB
-	function getProperty($table, $property, $id, $idName)
+function getProperty($table, $property, $id, $idName)
 	{
 		$connection = db_connect();
 		$sql = "SELECT " . $property . " FROM " . $table . " WHERE " . $idName . " = '" . $id . "'";
@@ -75,7 +78,7 @@
 	}
 
 	//retrieves a column of data as an array given the table and column name
-	function getAllProperty($table, $property)
+function getAllProperty($table, $property)
 	{
 		$connection = db_connect();
 		$sql = "SELECT " . $property . " FROM " . $table;
@@ -88,7 +91,7 @@
 	//$table - the table to retrieve data objects from
 	//$property - the column to retrieve the values shown
 	//$selected - the default option when created
-    function buildDropDown($name, $table, $property, $selected)
+function buildDropDown($name, $table, $property, $selected)
 	{
 		
         $array = getAllProperty($table, $property);
@@ -116,7 +119,7 @@
 	//$table - the table to retrieve data objects from
 	//$property - the column to retrieve the values shown
 	//$selected - the default option when created
-	function buildRadioButton($name, $table, $property, $selected)
+function buildRadioButton($name, $table, $property, $selected)
 	{
 		
 		$array = getAllProperty($table, $property);
@@ -133,7 +136,7 @@
 		}
 	}
 
-	function buildCheckBox($name, $table, $property, $selected, $label)
+function buildCheckBox($name, $table, $property, $selected, $label)
 	{
 		$array = getAllProperty($table, $property);
 		
@@ -157,7 +160,7 @@
 		}
 	}
 	
-	function buildMapCheckBox($name, $table, $property, $selected, $enabled)
+function buildMapCheckBox($name, $table, $property, $selected, $enabled)
 	{
 		$array = getAllProperty($table, $property);
 		
@@ -208,15 +211,19 @@
 		}
 	}
 
-	function buildSearchResults($genders, $relationships, $religions, $cities, $page)
+function buildSearchResults($genders, $relationships, $religions, $cities, $page)
 	{
 		// do validation on input here eventually
 		$connection = db_connect();
-		/*$sql = "SELECT * FROM profiles, users WHERE profiles.gender = '" . $genders . "', profiles.religion_sought = '" . $religions . "', profiles.relationship_sought = '" . $relationships . "' ORDER BY users.last_access DESC LIMIT 200";*/
+		/*$sql = "SELECT * FROM profiles, users 
+				  WHERE profiles.gender = '" . $genders . "', profiles.religion_sought = '" . $religions . "',
+				  profiles.relationship_sought = '" . $relationships . "' 
+				  ORDER BY users.last_access 
+				  DESC LIMIT 200";*/
 
 		$sql = "SELECT *
 		FROM profiles, users 
-		WHERE (profiles.user_id = users.id) AND users.account_type <> 'i' AND";
+		WHERE (profiles.user_id = users.id) AND users.account_type <> 'i' AND users.account_type <> 'a' AND";
 
 		if(sizeof($genders) > 0)
 		{
@@ -259,7 +266,7 @@
 
 		if(isset($_COOKIE["CityCookie"]))
 		{
-			$sql .= "(";
+			$sql .= " (";
 			$sumOfCities = sumCheckBox(unserialize($_COOKIE["CityCookie"]));
 			for ($i=1; $i <= 6; $i++) { 
 				if (isBitSet($i, $sumOfCities)) {
@@ -283,14 +290,14 @@
 		$number_of_pages = ceil($count/results_per_page);
 		if(isset($_SESSION["Searched"]))
 		{
-				$sql3 = substr($sql, 0, -4) . ") LIMIT " . results_per_page . " OFFSET " . 		results_per_page*($page-1);
+				$sql3 = substr($sql, 0, -4) . ") LIMIT " . results_per_page . " OFFSET " . results_per_page*($page-1);
 				$results = pg_query($connection, $sql3);
 				$userInfo = pg_fetch_all($results);
 		}
 
 		if($count == 1)
 		{
-			buildUserProfile($userinfo[0]["id"]);
+			buildUserProfile($userInfo[0]["id"]);
 		}
 
 		elseif($count > 0)
@@ -373,14 +380,14 @@
 		}
     }
 	
-	function buildUserProfile($user)
+function buildUserProfile($user)
 	{
 		// do validation on input here eventually
 		$output = "header('Location:profile-display.php?user=$user');";
 		return $output;
 	}
 	
-	function buildPictureSelect($username, $mainImageID)
+function buildPictureSelect($username, $mainImageID)
 	{
 		$connection = db_connect();
 		$resImages = pg_execute($connection, "select_user_image", array($username));
@@ -388,9 +395,7 @@
 		echo("<table>\n");
 		//create radio button for each picture
 		echo("<tr>\n");
-		?>
-		<form action="setMain.php" method="get">
-		<?php
+		echo("<form action=\"setMain.php\" method=\"get\">");
 		for ($i=0; $i < pg_num_rows($resImages); $i++) {
 			if($dataArray[$i]["image_id"] == $mainImageID)
 			{
@@ -405,12 +410,11 @@
 				echo("</td>\n");
 			}
 		}
-		?>
-		<input type="hidden" name="main" value="main">
-		<input class="btn" type="submit" style="width:200px;" value="Set Main Image" />
-	</form>
-		<?php
-		echo("</tr>\n");
+
+		echo("<input type=\"hidden\" name=\"main\" value=\"main\">");
+		echo("<input class=\"btn\" type=\"submit\" style=\"width:200px;\" value=\"Set Main Image\" />
+		</form>
+		</tr>\n");
 
 		//create image for each picture
 		echo("<tr>\n");
@@ -420,12 +424,7 @@
 			echo("</td>\n");
 		}
 		echo("</tr>\n");
-
-		
-		
-		?>
-		<form action="deleteImages.php" method="get">
-		<?php
+		echo("<form action=\"deleteImages.php\" method=\"get\">");
 		//create checkbox for each picture
 		echo("<tr>\n");
 		for ($i=0; $i < pg_num_rows($resImages); $i++) {
@@ -433,13 +432,12 @@
 			echo("<input type='checkbox' name='delImage[]' value='" . pow(2, $dataArray[$i]["image_id"]) . "'>\n");
 			echo("</td>\n");
 		}
-		?>
-		<input type="hidden" name="delete" value="delete" />
-		<input class="btn" type="submit" style="width:200px;" value="Delete Checked Images" />
-	</form>
-		<?php
-		echo("</tr>\n");
-		echo("</table>\n");
+
+		echo("<input type=\"hidden\" name=\"delete\" value=\"delete\" />
+			<input class=\"btn\" type=\"submit\" style=\"width:200px;\" value=\"Delete Checked Images\" />");
+	echo("</form>");
+	echo("</tr>\n");
+	echo("</table>\n");
 	}
 
 function buildUserImages($username)

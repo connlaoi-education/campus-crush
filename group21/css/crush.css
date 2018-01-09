@@ -70,7 +70,7 @@ body {
     
   border-radius: 100%;
   
-  background-color: rgba(21, 40, 105, 0.774);
+  background-color: rgba(3, 148, 245, 0.774);
   
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
@@ -82,7 +82,7 @@ body {
 .btn:active:before {
   width: 120%;
   padding-top: 120%;
-  
+
   transition: width .2s ease-out, padding-top .2s ease-out;
 }
 

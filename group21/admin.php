@@ -17,17 +17,20 @@
 
 <!-- Include Header PHP -->
 <?php include 'header.php';
- // Display and Manage Errors/Redirects/Success
 
-	if(isset($error))
+	// If the current session is NOT an admin
+	if($_SESSION['account_type'] != ADMIN)
 	{
-		echo('<p class="highlight" style="color:red; font-weight:bold;">$error</p>');
-		unset($error);
+		//Redirect to the home page w/ error message
+		$_SESSION['redirected'] = 'Restricted Access - If you should have access please contact your system admin!';
+		header("Location:index.php");
 	}
-	if(isset($error_2))
+
+	// Display and Manage Errors/Redirects/Success
+	if(isset($_SESSION["error"]))
 	{
-		echo('<p class="highlight" style="color:red; font-weight:bold;">$error_2</p>');
-		unset($error_2);
+		echo('<p class="highlight" style="color:red; font-weight:bold;">$_SESSION["error"]</p>');
+		unset($_SESSION["error"]);
 	}
 	if(isset($_SESSION["redirected"]))
 	{
@@ -40,30 +43,22 @@
 		unset($completed);
 	}
 
-	// If the current session is NOT an admin
-	if($_SESSION['account_type'] != ADMIN)
-	{
-		//Redirect to the home page w/ error message
-		$_SESSION['redirected'] = 'Restricted Access - If you should have access to this page contact your system admin!';
-		header("Location:index.php");
-	}
-
 	// Database Moderation (Delete Account, Send Password Reset Email,etc)
 	// User Summaries (Graphs, Charts, etc)
 ?>
 
 <!-- Offensive User Management -->
 
-<div class="w3-card">
+<div class="w3-card" style="width:80%;margin:0 10% 0 10%;">
 
 	<header class="w3-container" style="background-color: #4A7C59;">
 		<h2 class="profileCardHeader" style="color:#73D45F;text-shadow:1px 1px 0 #444;"><?php echo($_SESSION["admin_message"]); ?></h2>
 	</header>
 
-	<div class="tab">
-		<button class="tablinks w3-button w3-hover-blue" style="background-color:#285C9B; color:snow;" onclick="openTool(event, 'offensive')">Offensive</button>
-		<button class="tablinks w3-button w3-hover-blue" style="background-color:#285C9B; color:snow;" onclick="openTool(event, 'disabled')">Disabled</button>
-		<button class="tablinks w3-button w3-hover-blue" style="background-color:#285C9B; color:snow;" onclick="openTool(event, 'log')" id="defaultTab" >Change Log</button>
+	<div class="tab" style="width:100%; padding:0 5% 0 5%;">
+		<button class="tablinks w3-button w3-blue-gray w3-hover-blue" style="width:33.333%;" onclick="openTool(event, 'log')" id="defaultTab" >Change Log</button>
+		<button class="tablinks w3-button w3-blue-gray w3-hover-blue" style="width:33.333%;" onclick="openTool(event, 'offensive')">Offensive</button>
+		<button class="tablinks w3-button w3-blue-gray w3-hover-blue" style="width:33.333%;" onclick="openTool(event, 'disabled')">Disabled</button>
 	</div>
 
 	<div id="offensive" class="tabcontent">
@@ -71,6 +66,17 @@
 		<p>--- User Cards here ---</p>
 		<!-- load offensive users -->
 		<?php // buildOffensiveUsers(); ?>
+		
+		<?php
+		// Assign Execution Values for Change Log
+		$admin_id = $_SESSION['username'];
+		$date = $_SESSION['username'];
+		$id_affected = $_POST['user'];
+		$changes = $_SESSION['changes'];
+
+		$connection = db_connect();
+		$results = pg_execute($connection, "log_changes", array($admin_id, $date, $id_affected, $changes));
+		?>	
 	</div>
 
 	<div id="disabled" class="tabcontent">
@@ -78,14 +84,23 @@
 		<p>--- User Cards here ---</p>
 		<!-- load disabled users -->
 		<?php // buildDisabledUsers(); ?>
+
+		<?php
+		// Assign Execution Values for Change Log
+		$admin_id = $_SESSION['username'];
+		$date = $_SESSION['username'];
+		$id_affected = $_POST['user'];
+		$changes = $_SESSION['changes'];
+
+		$connection = db_connect();
+		$results = pg_execute($connection, "log_changes", array($admin_id, $date, $id_affected, $changes));
+		?>
 	</div>
 
 	<div id="log" class="tabcontent">
 		<h3>Change Log</h3>
 		<!-- Display the Last Login timestamp -->
-		<p style='display:inline-block; color:#285C9B;'>Last Login:</p>
-		&nbsp;
-		<p style='display:inline-block; color:green;'><?php echo($_SESSION['output']); ?></p>
+		<p style='display:inline-block; color:#285C9B;'>Last Login:</p>&nbsp;<p style='display:inline-block; color:green;'><?php echo($_SESSION['output']); ?></p>
 		<!-- Load admin change log -->
 		<?php // buildChangeLog(); ?>
 	</div>

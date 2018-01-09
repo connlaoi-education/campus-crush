@@ -185,7 +185,7 @@ if(!isLoggedIn()) {
 	?>
 	</div>
 	<div class="w3-row">
-		<input style="margin-left:45%; margin-right:45%;" type="submit" value="Continue" class="btn" />
+		<button style="margin-left:45%;" type="submit" value="Continue" class="btn">Continue</button>
 	</div>
 	
 <hr />

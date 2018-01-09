@@ -29,11 +29,17 @@ if(isLoggedIn()) {
 <p class="content"><?php echo $description; ?></p>
 
 <p class="content" style="color:green;">
-	<?php 
+	<?php
+
 		if(isset($_SESSION["register"]))
 		{
-			echo($_SESSION['register']);
+			echo($_SESSION["register"]);
 			unset($_SESSION["register"]);
+		}
+		if(isset($_SESSION["logout"]))
+		{
+			echo($_SESSION["logout"]);
+			unset($_SESSION["logout"]);
 		}
 	?>
 </p>
@@ -49,32 +55,24 @@ if(isLoggedIn()) {
 			echo($_SESSION["redirected"]);
 			unset($_SESSION["redirected"]);
 		}
-		if(isset($output))
+		if(isset($_SESSION["error"]))
 		{
-			echo($output);
-			unset($output);
-		}
-		if(isset($error))
-		{
-			echo($error);
-			unset($error);
+			echo($_SESSION["error"]);
+			unset($_SESSION["error"]);
 		}
 	?>
 </p>
 
 <?php
 
-	$error = "";
-	$output = "";
-	$results = "";
-	$connecting = "";
-
 	if($_SERVER["REQUEST_METHOD"] == "GET")
 	{
-		if(isset($_COOKIE["UserCookie"])) {
+		if(isset($_COOKIE["UserCookie"]))
+		{
 			$username = trim(htmlspecialchars($_COOKIE["UserCookie"]));
 		}
-		else {
+		else
+		{
 			$username = "";
 		}
 		$password = "";
@@ -84,18 +82,22 @@ if(isLoggedIn()) {
 	{
 		$username = trim(htmlspecialchars(strtolower($_POST["login"])));
 		$password = trim(htmlspecialchars($_POST["pass"]));
+		// Variables for
+		$connecting = "";
+		$_SESSION["error"] = "";
+		$output = "";
 		
 		if(!isset($username) || $username == "")
 		{
-			$error .= "You must enter a username to continue... <br/>";
+			$_SESSION["error"] .= "You must enter a username to continue... <br/>";
 		}
 		
 		if(!isset($password) || $password == "")
 		{
-			$error .= "You must enter a password to continue... <br/>";
+			$_SESSION["error"] .= "You must enter a password to continue... <br/>";
 		}
 		
-		if($error == "")
+		if($_SESSION["error"] == "")
 		{
 			$connecting = "Please be patient, we are retrieving your account. <br/> This may takes a few moments...";
 			$connection = db_connect();
@@ -124,15 +126,18 @@ if(isLoggedIn()) {
 				if($_SESSION['account_type'] == INCOMPLETE)
 				{
 					header("Location:profile-create.php");
+					unset($_SESSION["error"]);
 				} 
 				elseif($_SESSION['account_type'] == ADMIN)
 				{
 					$_SESSION["admin_message"] = "ADMINISTRATOR DASHBOARD";
 					header("Location:admin.php");
+					unset($_SESSION["error"]);
 				}
 				else
 				{
 					header("Location:dashboard.php");
+					unset($_SESSION["error"]);
 				}
     			ob_flush();
 			}
@@ -145,13 +150,13 @@ if(isLoggedIn()) {
 				if($records >=1)
 				{
 					$password = "";
-					$output = "Invalid Password - Please try again!";
+					$_SESSION["error"] = "Invalid Password - Please try again!";
 				}
 				elseif($records < 1)
 				{
 					$username = "";
 					$password = "";
-					$output = "Username Not Found - Please try again!";
+					$_SESSION["error"] = "Username Not Found - Please try again!";
 				}
 			}
 		}

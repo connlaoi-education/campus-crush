@@ -25,7 +25,7 @@ if (isset($_SESSION)) {
   session_start();
   $message = "Logout Successful - Have a Great Day!";
 
-  $_SESSION['message'] = $message;
+  $_SESSION['logout'] = $message;
   header("Location:user-login.php");
   ob_flush();
 } else {

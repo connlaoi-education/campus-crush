@@ -35,7 +35,7 @@
     <div id="container">
         <div id="header" >
 			<a href="./index.php" ><img class="grow" src="./images/cc_logo.png" alt="Campus Crush" /></a>
-			<h1 class="ccmain"><?php echo $banner; ?></h1>
+			<h1 class="ccmain" style="text-shadow:1px 1px 0 #455a64;"><?php echo $banner; ?></h1>
         </div>
 		
 		<?php
