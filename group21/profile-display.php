@@ -146,14 +146,14 @@ $interestResultCount = pg_num_rows($interestResult);
 
 
 if ($_GET['user'] != $_SESSION['username'] && $_SESSION['account_type'] == CLIENT && $interestResultCount == 0) {
-	echo('<form method="post" action="interested-add.php">');
+	echo('<form method="post" action="./scripts/interested-add.php">');
 	echo('<input type="hidden" name="interest_user" value="' . $_GET['user'] . '" />');
 	echo('<input class="btn" type="submit" name="interested_in" value="Show Interest" />');
 	echo('</form>');
 }
 elseif($interestResultCount > 0)
 {
-	echo('<form method="post" action="interested-remove.php">');
+	echo('<form method="post" action="./scripts/interested-remove.php">');
 	echo('<input type="hidden" name="interest_user" value="' . $_GET['user'] . '" />');
 	echo('<input class="btn" type="submit" name="interested_in" value="Unshow Interest" />');
 	echo('</form>');
@@ -165,21 +165,21 @@ $targetAccType = getProperty("users", "account_type", $_GET['user'], "id");
 
 if ($_SESSION['account_type'] == ADMIN && $targetAccType != DISABLED)
 {
-	echo('<form method="post" action="deactivate.php">');
+	echo('<form method="post" action="./scripts/deactivate.php">');
 	echo('<input type="hidden" name="deactivate" value="' . $_GET['user'] . '" />');
 	echo('<input class="btn" type="submit" name="deactivate_user" value="Deactivate User" />');
 	echo('</form>');
 }
 elseif($_SESSION['account_type'] == ADMIN)
 {
-	echo('<form method="post" action="reactivate.php">');
+	echo('<form method="post" action="./scripts/reactivate.php">');
 	echo('<input type="hidden" name="reactivate" value="' . $_GET['user'] . '" />');
 	echo('<input class="btn" type="submit" name="reactivate_user" value="Reactivate User" />');
 	echo('</form>');
 }
 elseif($_SESSION['account_type'] == CLIENT && $_GET['user'] != $_SESSION['username'] && $offensiveResultCount == 0)
 {
-	echo('<form method="post" action="report.php">');
+	echo('<form method="post" action="./scripts/report.php">');
 	echo('<input type="hidden" name="deactivate" value="' . $_GET['user'] . '" />');
 	echo('<input class="btn" type="submit" name="deactivate_user" value="Report Profile" />');
 	echo('</form>');

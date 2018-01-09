@@ -110,8 +110,13 @@ if(isLoggedIn()) {
 				$_SESSION['last_name'] = $dataArray['last_name'];
 
     		setcookie("UserCookie", $_SESSION['username'], time() + COOKIE_DURATION);
-
-				if($_SESSION['account_type'] == INCOMPLETE) {
+    		if($_SESSION['account_type'] == DISABLED)
+    		{
+  					session_unset();
+  					$_SESSION['redirect'] = "Your Account has been disabled.";
+  					header("Location:aup.php");
+    		}
+				elseif($_SESSION['account_type'] == INCOMPLETE) {
 					header("Location:profile-create.php");
 				} elseif($_SESSION['account_type'] == ADMIN){
 					$_SESSION["admin_message"] = "Hello Admin, let's assess today's network traffic, system performance and account issues!";

@@ -216,7 +216,7 @@
 
 		$sql = "SELECT *
 		FROM profiles, users 
-		WHERE (profiles.user_id = users.id) AND users.account_type <> 'i' AND";
+		WHERE (profiles.user_id = users.id) AND users.account_type <> 'd' AND users.account_type <> 'i' AND";
 
 		if(sizeof($genders) > 0)
 		{
