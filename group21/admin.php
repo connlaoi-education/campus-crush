@@ -65,17 +65,32 @@
 		<h3>Offensive Accounts</h3>
 		<p>--- User Cards here ---</p>
 		<!-- load offensive users -->
-		<?php // buildOffensiveUsers(); ?>
 		
 		<?php
 		// Assign Execution Values for Change Log
-		$admin_id = $_SESSION['username'];
-		$date = $_SESSION['username'];
-		$id_affected = $_POST['user'];
-		$changes = $_SESSION['changes'];
-
-		$connection = db_connect();
-		$results = pg_execute($connection, "log_changes", array($admin_id, $date, $id_affected, $changes));
+		if(isset($admin_id) && isset($timestamp)&& isset($id_affected) && isset($changes))
+		{
+			$admin_id = $_SESSION['username'];
+			$timestamp = $_SESSION['username'];
+			$id_affected = $_POST['user'];
+			$changes = $_SESSION['changes'];
+			// double check for null values
+			if($admin_id != "" && $timestamp != "" && $id_affected != "" && $changes != "")
+			{
+				// update DB change log
+				$connection = db_connect();
+				$results = pg_execute($connection, "log_changes", array($admin_id, $timestamp, $id_affected, $changes));
+			}
+			else // display error for missing data
+			{
+				$_SESSION['error'] = "There was an error logging your changes! This event may not be trackable in the future.";
+			}
+		}
+		else
+		{
+			// display the list of offensive users
+			// buildOffensiveUsers();
+		}
 		?>	
 	</div>
 
@@ -83,17 +98,31 @@
 		<h3>Disabled Accounts</h3>
 		<p>--- User Cards here ---</p>
 		<!-- load disabled users -->
-		<?php // buildDisabledUsers(); ?>
-
 		<?php
 		// Assign Execution Values for Change Log
-		$admin_id = $_SESSION['username'];
-		$date = $_SESSION['username'];
-		$id_affected = $_POST['user'];
-		$changes = $_SESSION['changes'];
-
-		$connection = db_connect();
-		$results = pg_execute($connection, "log_changes", array($admin_id, $date, $id_affected, $changes));
+		if(isset($admin_id) && isset($timestamp)&& isset($id_affected) && isset($changes))
+		{
+			$admin_id = $_SESSION['username'];
+			$timestamp = $_SESSION['username'];
+			$id_affected = $_POST['user'];
+			$changes = $_SESSION['changes'];
+			// double check for null values
+			if($admin_id != "" && $timestamp != "" && $id_affected != "" && $changes != "")
+			{
+				// update DB change log
+				$connection = db_connect();
+				$results = pg_execute($connection, "log_changes", array($admin_id, $timestamp, $id_affected, $changes));
+			}
+			else // display error for missing data
+			{
+				$_SESSION['error'] = "There was an error logging your changes! This event may not be trackable in the future.";
+			}
+		}
+		else
+		{
+			// display the list of disabled users
+			// buildDisabledUsers();
+		}
 		?>
 	</div>
 
@@ -101,7 +130,7 @@
 		<h3>Change Log</h3>
 		<!-- Display the Last Login timestamp -->
 		<p style='display:inline-block; color:#285C9B;'>Last Login:</p>&nbsp;<p style='display:inline-block; color:green;'><?php echo($_SESSION['output']); ?></p>
-		<!-- Load admin change log -->
+		<!-- Load admin change log from database (always up-to-date) -->
 		<?php // buildChangeLog(); ?>
 	</div>
 

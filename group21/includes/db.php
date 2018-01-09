@@ -65,7 +65,7 @@ function db_connect()
 
 	pg_prepare($connection, "update_user_default_image", 'UPDATE profiles SET image = $1 WHERE user_id = $2');
 
-	pg_prepare($connection, "log_changes", 'INSERT INTO logs (admin_id, date, id_affected, changes) VALUES ($1, $2, $3, $4)');
+	pg_prepare($connection, "log_changes", 'INSERT INTO logs (admin_id, time_sent, id_affected, changes) VALUES ($1, $2, $3, $4)');
 
 
 	//retrieves one piece of data from DB
