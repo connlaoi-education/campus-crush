@@ -121,12 +121,25 @@ else
 	$userName = strtoupper($userInfoArray['id']);
 
 	$age = calculate_Age($userInfoArray["birthday"]);
+
+	if(isset($_POST['deactivate']))
+	{
+
+	}
+	if(isset($_POST['interest_user']))
+	{
+		
+	}
 }
 
 ?>
 
 <!-- HTML -->
-
+<?php
+if ($_GET['user'] == $_SESSION['username']) {
+echo("<h3>This is what your profile will look to other users!</h3>");
+}
+?>
 <div class="w3-row">
   <div class="w3-third w3-container">
 	<div class="w3-card-4">
@@ -135,6 +148,20 @@ else
 		</header>
 		<img class="w3-image w3-animate-zoom hero-image" style="width:auto; max-height:400px;" src="<?php echo($image) ?>" alt="" />
 		<div class="w3-container w3-light-grey">
+			<div class="w3-row">
+<?php
+if ($_GET['user'] != $_SESSION['username']) {
+	echo('<form action="' . $_SERVER['PHP_SELF'] . '">');
+	echo('<input type="hidden" name="interest_user" value="' . $_GET['user'] . '" />');
+	echo('<input type="button" name="interested_in" value="Interested In" />');
+}
+if ($_SESSION['account_type'] == ADMIN) {
+	echo('<form action="' . $_SERVER['PHP_SELF'] . '">');
+	echo('<input type="hidden" name="deactivate" value="' . $_GET['user'] . '" />');
+	echo('<input type="button" name="deactivate_user" value="Deactivate User" />');
+}
+?>
+</div>
 			<h4><b><?php echo($age . " Year Old " . $race);?></b></h4>
 			<h4><b><?php echo($education_experience . " Educated");?></b></h4>
 			<p><?php echo($headline);?></p>
