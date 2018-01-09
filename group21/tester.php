@@ -4,7 +4,7 @@
 // Created On: Oct. 17, 2017
 
 include 'header.php';
-
+echo("</div>");
 define("LAST", array(
 "AABERG",
 "AADLAND",
@@ -76543,9 +76543,10 @@ function randomPassword($length) {
     return $password;
 }
 
-function generateUsers() {
+function generateUsers()
+{
 	// iterate through 1000 users
-	for ($user = 0; $user < 2500; $user++) 
+	for ($user = 0; $user < 1000; $user++) 
 	{
 
 	// GENERATE USER INFORMATION
@@ -76553,7 +76554,7 @@ function generateUsers() {
 		// RANDOM PASSWORD
 			// create a random password
 			$pass_length = mt_rand(10, 18);
-			$password = randomPassword($pass_length);
+			$passwd = randomPassword($pass_length);
 		
 		// RANDOM NAME (First and Last)
 			// get a random line from the arrays of first names
@@ -76601,8 +76602,8 @@ function generateUsers() {
 			
 		// ACCOUNT TYPE
 			// set to complete
-			$types = array("i", "c" ,"c", "c");
-			$z = mt_rand(0, 3); //4 options
+			$types = array("i", "c" ,"c", "c", "d");
+			$z = mt_rand(0, 4); //5 options
 			$accountType = $types[$z];
 		
 		// RANDOM BIRTHDAY
@@ -76636,13 +76637,12 @@ function generateUsers() {
 			$accessDate = date("Y-m-d h:m", $randomDate);
 			
 			
-				if($accountType == "i")
+				if($accountType == "i" || $accountType == "d" )
 				{
 					
 				// INSERT NEW USER DATA
 					$connection = db_connect();
-					$results = pg_prepare($connection, "insert_user", 'INSERT INTO users (id, password, first_name, last_name, email_address, account_type, birthday, enroll_date, last_access) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)');
-					$results = pg_execute($connection, "insert_user", array($userinfo, md5($password), $firstRanName, $lastRanName, $email, $accountType, $birthday, $enrollDate, $accessDate));
+					$results = pg_execute($connection, "insert_user", array($userinfo, md5($passwd), $firstRanName, $lastRanName, $email, $accountType, $birthday, $enrollDate, $accessDate));
 				}
 				else
 				{
@@ -76688,12 +76688,10 @@ function generateUsers() {
 
 					// INSERT NEW USER DATA
 					$connection = db_connect();
-					$results = pg_prepare($connection, "insert_user", 'INSERT INTO users (id, password, first_name, last_name, email_address, account_type, birthday, enroll_date, last_access) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)');
 					$results = pg_execute($connection, "insert_user", array($userinfo, md5($password), $firstRanName, $lastRanName, $email, $accountType, $birthday, $enrollDate, $accessDate));
 					
 					// INSERT NEW PROFILE DATA
 					$connection = db_connect();
-					$results = pg_prepare($connection, "insert_profile", 'INSERT INTO profiles (user_id, gender, gender_sought, city, image, headline, self_description, match_description, relationship_sought, relationship_status, preferred_age_minimum, preferred_age_maximum, religion_sought, education_experience, race, habit, exercise, residence_type, campus) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19)');
 					$results = pg_execute($connection, "insert_profile", array($userinfo, $gender, $genderSought, $city, $image, $headline, $selfDescription, $matchDescription, $relSought, $relStatus, $prefMin, $prefMax, $religionSought, $educationExperience, $race, $habit, $exercise, $residenceType, $campus));		
 				}
 		}
@@ -76702,5 +76700,5 @@ function generateUsers() {
 
 generateUsers();
 
-include footer.php;
+include 'footer.php';
 ?>

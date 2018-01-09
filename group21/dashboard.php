@@ -8,9 +8,9 @@
     $description = "Hello, Welcome!";
 ?>
 <!--
-  Creator:      Jeremy Power
+  Creator:     Connlaoi Smith
   Filename:    <?php echo $filename; ?>
-  Created:      <?php echo $createddate; ?>
+  Created:     <?php echo $createddate; ?>
   Updated:     <?php echo $updateddate; ?>
   Description: <?php echo $description; ?>
 -->
@@ -27,43 +27,50 @@ if(!isLoggedIn()) {
 
 <!-- HTML -->
 
-<p class="conetn" style="color:green;">
+<p class="content" style="color:green;">
  <?php
 	 if(isset($_SESSION["redirected"]))
 	  {
-		echo($_SESSION["redirected"]);
-		unset($_SESSION["redirected"]);
+      echo($_SESSION["redirected"]);
+      unset($_SESSION["redirected"]);
 	  }
   ?>
 </p>
-<p class="content"><?php 
-  if(isset($_SESSION["message"])) {
-    echo("<p>" . $_SESSION["message"] . "</p>");
-    unset($_SESSION["message"]);
-  }
-   echo($_SESSION['output']);
-   if(isset($_SESSION["output2"])) {
-   echo($_SESSION['output2']);
-   }
-   $_SESSION["first"] = 1;
-  if(isset($_SESSION["profile_insert"])) {
-    echo("<p style=\"color: red\">"  . $_SESSION["profile_insert"] . "</p>");
-    $_SESSION["first"] = 0;
-  }
-  if(isset($_SESSION["password_change"])) {
-    echo("<p style=\"color: red\">"  . $_SESSION["password_change"] . "</p>");
-  }
-  ?></p>
+<p class="content">
+  <?php 
+    if(isset($_SESSION["message"]))
+    {
+      echo($_SESSION["message"]);
+      unset($_SESSION["message"]);
+    }
+    if(isset($_SESSION["output2"])) 
+    {
+      echo($_SESSION['output2']);
+      unset($_SESSION['output2']);
+    }
+    $_SESSION["first"] = 1;
+    
+    if(isset($_SESSION["profile_insert"]))
+    {
+      echo($_SESSION["profile_insert"]);
+      $_SESSION["first"] = 0;
+    }
+    if(isset($_SESSION["password_change"]))
+    {
+      echo($_SESSION["password_change"]);
+    }
+  ?>
+  </p>
 
 <br />
 
 <?php
-$content = file_get_contents('http://loripsum.net/api'); // for testing
 	
 // if admin user
 if($_SESSION["account_type"] == ADMIN)
 {
-	// LOAD ADMIN TOOLS
+  // LOAD ADMIN TOOLS
+  $_SESSION['redirect'] = "What are you doing over here, silly?";
 	header("Location:admin.php");
   ob_flush();
 	
@@ -85,8 +92,10 @@ elseif($_SESSION["account_type"] == CLIENT)
 // if incomplete user
 elseif($_SESSION["account_type"] == INCOMPLETE)
 {
-	  // Redirect  incomplete profiles to profile creation
-	  header("Location:profile-create.php");
+    // Redirect  incomplete profiles to profile creation
+    $_SESSION['redirect'] = "You must complete your profile before continuing!";
+    header("Location:profile-create.php");
+    ob_flush();
 }
 ?>
 

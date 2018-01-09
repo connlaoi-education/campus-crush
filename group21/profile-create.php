@@ -206,7 +206,6 @@ if(!isLoggedIn()) {
 ?>
 
 <hr />
-
 <p class="highlight" style="color:red;">
 	<?php echo($error); ?>
 	<?php echo($error_2);
@@ -221,6 +220,7 @@ if(!isLoggedIn()) {
 	<?php
 		  echo($completed);
 	?>
+</p>
 <br />
 
 <form enctype="multipart/form-data" name="input" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">

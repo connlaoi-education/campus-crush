@@ -219,6 +219,13 @@ CREATE TABLE offensives(
 	target VARCHAR(20) REFERENCES users(id),
 	time_sent TIMESTAMP NOT NULL
 );
+
+CREATE TABLE logs(
+	admin_id VARCHAR(20) REFERENCES users(id),
+	time_sent TIMESTAMP NOT NULL,
+	id_affected VARCHAR(20) REFERENCES users(id),
+	changes VARCHAR(255) NOT NULL
+);
 	
 -- CREATE initial user data
 INSERT INTO users(id, password, first_name, last_name, email_address, account_type, birthday, enroll_date, last_access) VALUES (

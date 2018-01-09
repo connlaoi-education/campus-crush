@@ -1,8 +1,9 @@
 /*
-    Group 21
-	Author: Jeremy Power
-	Filename: crush.css
-    Date: September 20 2017
+	Group 21
+	Author: 		Connlaoi Smith
+	Filename: 		crush.css
+	Created:		April 2017
+    Last Modified: 	December 2017
     
 	This is the cascading stylesheet for the Group 21
     'Campus Crush' website for WEBD-3201.
@@ -69,7 +70,7 @@ body {
     
   border-radius: 100%;
   
-  background-color: rgba(236, 240, 241, .3);
+  background-color: rgba(3, 148, 245, 0.774);
   
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
@@ -81,8 +82,55 @@ body {
 .btn:active:before {
   width: 120%;
   padding-top: 120%;
-  
+
   transition: width .2s ease-out, padding-top .2s ease-out;
+}
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    background-color: #cfd8dc;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #cfd8dc;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #cfd8dc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    -webkit-animation: fadeEffect 1s;
+    animation: fadeEffect 1s;
+}
+
+/* Fade in tabs */
+@-webkit-keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
 }
 
 /* The container */
@@ -237,10 +285,10 @@ em {
 
 .grow
 {
-	min-height:74.5px;
-	max-height:150px;
-	min-width:74.5px;
-	max-width:150px;
+	min-height:45px;
+	max-height:90px;
+	min-width:45px;
+	max-width:90px;
 }
 
 .grow:hover

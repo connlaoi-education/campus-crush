@@ -111,7 +111,7 @@
 		</div>
 	</div>
 	<div class="w3-row">
-		<button style="margin-left:45%; margin-right:45%;" type="submit" class="btn">Search</button>
+		<button style="margin-left:45%;" type="submit" class="btn">Search</button>
 	</div>
 <?php
 
@@ -185,8 +185,6 @@
 		  
 	}
 ?>
-
-
 
 <!-- Include Footer PHP -->
  <?php include 'footer.php'; ?>

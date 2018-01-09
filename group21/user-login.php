@@ -29,42 +29,50 @@ if(isLoggedIn()) {
 <p class="content"><?php echo $description; ?></p>
 
 <p class="content" style="color:green;">
-	<?php 
-			if(isset($_SESSION["register"]))
-		   {
-			 echo($_SESSION['register']);
-			 unset($_SESSION["register"]);
-		   }
-		  ?>
+	<?php
+
+		if(isset($_SESSION["register"]))
+		{
+			echo($_SESSION["register"]);
+			unset($_SESSION["register"]);
+		}
+		if(isset($_SESSION["logout"]))
+		{
+			echo($_SESSION["logout"]);
+			unset($_SESSION["logout"]);
+		}
+	?>
 </p>
 <p class="content" style="color:red;">
-		  <?php
-		  if(isset($_SESSION["message"]))
-		  {
+	<?php
+		if(isset($_SESSION["message"]))
+		{
 			echo($_SESSION["message"]);
 			unset($_SESSION["message"]);
-		  }
-		 if(isset($_SESSION["redirected"]))
-		  {
+		}
+		if(isset($_SESSION["redirected"]))
+		{
 			echo($_SESSION["redirected"]);
 			unset($_SESSION["redirected"]);
-		  }
-	  ?>
+		}
+		if(isset($_SESSION["error"]))
+		{
+			echo($_SESSION["error"]);
+			unset($_SESSION["error"]);
+		}
+	?>
 </p>
 
 <?php
 
-	$error = "";
-	$output = "";
-	$results = "";
-	$connecting = "";
-
 	if($_SERVER["REQUEST_METHOD"] == "GET")
 	{
-		if(isset($_COOKIE["UserCookie"])) {
+		if(isset($_COOKIE["UserCookie"]))
+		{
 			$username = trim(htmlspecialchars($_COOKIE["UserCookie"]));
 		}
-		else {
+		else
+		{
 			$username = "";
 		}
 		$password = "";
@@ -74,18 +82,22 @@ if(isLoggedIn()) {
 	{
 		$username = trim(htmlspecialchars(strtolower($_POST["login"])));
 		$password = trim(htmlspecialchars($_POST["pass"]));
+		// Variables for
+		$connecting = "";
+		$_SESSION["error"] = "";
+		$output = "";
 		
 		if(!isset($username) || $username == "")
 		{
-			$error .= "You must enter a username to continue... <br/>";
+			$_SESSION["error"] .= "You must enter a username to continue... <br/>";
 		}
 		
 		if(!isset($password) || $password == "")
 		{
-			$error .= "You must enter a password to continue... <br/>";
+			$_SESSION["error"] .= "You must enter a password to continue... <br/>";
 		}
 		
-		if($error == "")
+		if($_SESSION["error"] == "")
 		{
 			$connecting = "Please be patient, we are retrieving your account. <br/> This may takes a few moments...";
 			$connection = db_connect();
@@ -95,7 +107,7 @@ if(isLoggedIn()) {
 			
 			if($records >= 1)
 			{
-				$output = "Last Login: " . pg_fetch_result($results, 0, "last_access");
+				$output = pg_fetch_result($results, 0, "last_access");
 				$_SESSION['output'] = $output;
 				$connection = db_connect();
 
@@ -118,13 +130,19 @@ if(isLoggedIn()) {
     		}
 				elseif($_SESSION['account_type'] == INCOMPLETE) {
 					header("Location:profile-create.php");
-				} elseif($_SESSION['account_type'] == ADMIN){
-					$_SESSION["admin_message"] = "Hello Admin, let's assess today's network traffic, system performance and account issues!";
+    		}
+				elseif($_SESSION['account_type'] == ADMIN)
+				{
+					$_SESSION["admin_message"] = "ADMINISTRATOR DASHBOARD";
 					header("Location:admin.php");
-				} else {
-					header("Location:dashboard.php");
+					unset($_SESSION["error"]);
 				}
-    		ob_flush();
+				else
+				{
+					header("Location:dashboard.php");
+					unset($_SESSION["error"]);
+				}
+    			ob_flush();
 			}
 			elseif($records < 1)
 			{		
@@ -135,13 +153,13 @@ if(isLoggedIn()) {
 				if($records >=1)
 				{
 					$password = "";
-					$output = "Invalid Password - Please try again!";
+					$_SESSION["error"] = "Invalid Password - Please try again!";
 				}
 				elseif($records < 1)
 				{
 					$username = "";
 					$password = "";
-					$output = "Username Not Found - Please try again!";
+					$_SESSION["error"] = "Username Not Found - Please try again!";
 				}
 			}
 		}
@@ -150,13 +168,6 @@ if(isLoggedIn()) {
 ?>
 
 <hr />
-
-	<p style="color:red;">
-		<?php echo $error; ?>
-	</p>
-	<p style="color:red;">
-		<?php echo $output; ?>
-	</p>
 	
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<table>
@@ -180,7 +191,13 @@ if(isLoggedIn()) {
 </form>
 
 <p class="content">
-	<?php echo $connecting ?>
+	<?php 
+		if(isset($connecting))
+		{
+			echo($connecting);
+			unset($connecting);
+		}
+	?>
 </p>
 <!-- Include Footer PHP -->
  <?php include 'footer.php'; ?>

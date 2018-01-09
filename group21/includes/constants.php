@@ -30,7 +30,7 @@
 	define("DISABLED", 'd', true);
 	
 	// define database connector values for BOTH local and server for easy swapping
-	define("DATABASE_HOST_LOCAL", 'localhost:8443', true);
+	define("DATABASE_HOST_LOCAL", 'localhost:5432', true);
 	define("DATABASE_HOST_SERVER", '127.0.0.1', true);
 	// define group database name
 	define("DATABASE_NAME", 'group21_db', true);
