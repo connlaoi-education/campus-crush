@@ -18,6 +18,8 @@ DROP TABLE IF EXISTS exercises;
 DROP TABLE IF EXISTS residences;
 DROP TABLE IF EXISTS campuses;
 DROP TABLE IF EXISTS months;
+DROP TABLE IF EXISTS interests;
+DROP TABLE IF EXISTS offensives;
 DROP TABLE IF EXISTS users;
 
 
@@ -205,6 +207,18 @@ CREATE TABLE users(
 	enroll_date DATE NOT NULL,
 	last_access TIMESTAMP NOT NULL
 	);
+
+CREATE TABLE interests(
+	sender VARCHAR(20) REFERENCES users(id),
+	target VARCHAR(20) REFERENCES users(id),
+	time_sent TIMESTAMP NOT NULL
+);
+
+CREATE TABLE offensives(
+	sender VARCHAR(20) REFERENCES users(id),
+	target VARCHAR(20) REFERENCES users(id),
+	time_sent TIMESTAMP NOT NULL
+);
 	
 -- CREATE initial user data
 INSERT INTO users(id, password, first_name, last_name, email_address, account_type, birthday, enroll_date, last_access) VALUES (
