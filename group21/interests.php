@@ -36,7 +36,11 @@
 		
 $connection = db_connect();
 //$sql = "SELECT * FROM profiles, users WHERE profiles.user_id = users.id";
-$sql = "SELECT * FROM profiles JOIN users ON profiles.user_id = users.id WHERE profiles.user_id = 'jpower'";
+//$sql = "SELECT * FROM interests JOIN profiles ON interests.target = profiles.user_id WHERE interests.sender =  'lyminh99'";
+//$results = pg_query($connection, $sql);
+//$userInfo = pg_fetch_all($results);
+
+$sql = "SELECT * FROM users, interests JOIN profiles ON interests.target = profiles.user_id WHERE interests.sender =  '" . $_SESSION['username']. "' AND users.id = interests.target;";
 $results = pg_query($connection, $sql);
 $userInfo = pg_fetch_all($results);
 echo('<div class="w3-row w3-border">');
@@ -54,10 +58,10 @@ echo("
 			for($i=0; $i < count($userInfo); $i++)
 			{
 					
-				$userName = strtolower($userInfo[$i]['id']);
+				$userName = strtolower($userInfo[$i]['user_id']);
 				
 				$age = calculate_Age($userInfo[$i]['birthday']);
-				
+				$time = $userInfo[$i]['time_sent'];
 				if($age == 0)
 				{
 					$age = "";
@@ -87,6 +91,7 @@ echo("
 									<td style='height:100%; width:auto; text-align:right; padding-left:5px;'><p>" . $city . "</p></td>\n
 									<td style='height:100%; width:auto; text-align:center; padding-left:5px;'><p>" . $gender . "</p></td>\n
 									<td style='height:100%; width:auto; text-align:center; padding-left:5px;'><p>" . $age . "</p></td>\n
+									<td style='height:100%; width:auto; text-align:center; padding-left:5px;'><p>" . $time . "</p></td>\n
 								</td>\n
 							</tr>
 						");
@@ -113,7 +118,7 @@ echo("
 
 
 
-$sql = "SELECT * FROM profiles JOIN users ON profiles.user_id = users.id WHERE profiles.user_id = 'lyminh99'";
+$sql = "SELECT * FROM users, interests JOIN profiles ON interests.target = profiles.user_id WHERE interests.target =  '" . $_SESSION['username']. "' AND users.id = interests.target;";
 $results = pg_query($connection, $sql);
 $userInfo = pg_fetch_all($results);
 
@@ -134,7 +139,7 @@ echo("
 				$userName = strtolower($userInfo[$i]['id']);
 				
 				$age = calculate_Age($userInfo[$i]['birthday']);
-				
+			    $time = $userInfo[$i]['time_sent'];
 				if($age == 0)
 				{
 					$age = "";
@@ -150,7 +155,7 @@ echo("
 				$city = ucwords(getProperty('cities', 'city_name', $userProfiles[0]['city'], 'city_id'));
 				$relationship = ucwords(getProperty('relationships', 'relationship_type', $userProfiles[0]['relationship_sought'], 'relationship_id'));
 				$religion = ucwords(getProperty('religions', 'religion_name', $userProfiles[0]['religion_sought'], 'religion_id'));
-				
+
 				if($_SESSION['account_type'] == CLIENT || $_SESSION['account_type'] == ADMIN)
 				{
 				echo("<tr class='w3-card w3-round' style='width:100%;>
@@ -164,6 +169,7 @@ echo("
 									<td style='height:100%; width:auto; text-align:right; padding-left:5px;'><p>" . $city . "</p></td>\n
 									<td style='height:100%; width:auto; text-align:center; padding-left:5px;'><p>" . $gender . "</p></td>\n
 									<td style='height:100%; width:auto; text-align:center; padding-left:5px;'><p>" . $age . "</p></td>\n
+									<td style='height:100%; width:auto; text-align:center; padding-left:5px;'><p>" . $time . "</p></td>\n
 								</td>\n
 							</tr>
 						");
