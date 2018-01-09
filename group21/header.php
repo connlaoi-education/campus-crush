@@ -73,7 +73,8 @@
 						echo('
 						<a href="./profile-display.php?user=' . $_SESSION['username'] . '" class="w3-bar-item w3-button">View Profile</a>
 						<a href="./profile-create.php" class="w3-bar-item w3-button">Manage Profile</a>
-						<a href="./user-update.php" class="w3-bar-item w3-button">Update Account</a>');
+						<a href="./user-update.php" class="w3-bar-item w3-button">Update Account</a>
+						<a href="./interests.php" class="w3-bar-item w3-button">Interests</a>');
 					}
 					
 					echo('<a href="./user-logout.php" class="w3-bar-item w3-button">Logout</a>');
