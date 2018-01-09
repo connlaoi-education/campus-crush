@@ -394,7 +394,7 @@ function buildPictureSelect($username, $mainImageID)
 		echo("<table>\n");
 		//create radio button for each picture
 		echo("<tr>\n");
-		echo("<form action=\"setMain.php\" method=\"get\">");
+		echo("<form action=\"./scripts/setMain.php\" method=\"get\">");
 		for ($i=0; $i < pg_num_rows($resImages); $i++) {
 			if($dataArray[$i]["image_id"] == $mainImageID)
 			{
@@ -423,7 +423,7 @@ function buildPictureSelect($username, $mainImageID)
 			echo("</td>\n");
 		}
 		echo("</tr>\n");
-		echo("<form action=\"deleteImages.php\" method=\"get\">");
+		echo("<form action=\"./scripts/deleteImages.php\" method=\"get\">");
 		//create checkbox for each picture
 		echo("<tr>\n");
 		for ($i=0; $i < pg_num_rows($resImages); $i++) {
