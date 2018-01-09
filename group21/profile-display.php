@@ -121,15 +121,6 @@ else
 	$userName = strtoupper($userInfoArray['id']);
 
 	$age = calculate_Age($userInfoArray["birthday"]);
-
-	if(isset($_POST['deactivate']))
-	{
-
-	}
-	if(isset($_POST['interest_user']))
-	{
-		
-	}
 }
 
 ?>
@@ -150,15 +141,48 @@ echo("<h3>This is what your profile will look to other users!</h3>");
 		<div class="w3-container w3-light-grey">
 			<div class="w3-row">
 <?php
-if ($_GET['user'] != $_SESSION['username']) {
-	echo('<form action="' . $_SERVER['PHP_SELF'] . '">');
+$interestResult = pg_execute($connection, "check_interest", array($_SESSION['username'], $_GET['user']));
+$interestResultCount = pg_num_rows($interestResult);
+
+
+if ($_GET['user'] != $_SESSION['username'] && $_SESSION['account_type'] == CLIENT && $interestResultCount == 0) {
+	echo('<form method="post" action="interested-add.php">');
 	echo('<input type="hidden" name="interest_user" value="' . $_GET['user'] . '" />');
-	echo('<input type="button" name="interested_in" value="Interested In" />');
+	echo('<input class="btn" type="submit" name="interested_in" value="Show Interest" />');
+	echo('</form>');
 }
-if ($_SESSION['account_type'] == ADMIN) {
-	echo('<form action="' . $_SERVER['PHP_SELF'] . '">');
+elseif($interestResultCount > 0)
+{
+	echo('<form method="post" action="interested-remove.php">');
+	echo('<input type="hidden" name="interest_user" value="' . $_GET['user'] . '" />');
+	echo('<input class="btn" type="submit" name="interested_in" value="Unshow Interest" />');
+	echo('</form>');
+}
+echo("\n");
+$offensiveResult = pg_execute($connection, "check_offensive", array($_SESSION['username'], $_GET['user']));
+$offensiveResultCount = pg_num_rows($offensiveResult);
+$targetAccType = getProperty("users", "account_type", $_GET['user'], "id");
+
+if ($_SESSION['account_type'] == ADMIN && $targetAccType != DISABLED)
+{
+	echo('<form method="post" action="deactivate.php">');
 	echo('<input type="hidden" name="deactivate" value="' . $_GET['user'] . '" />');
-	echo('<input type="button" name="deactivate_user" value="Deactivate User" />');
+	echo('<input class="btn" type="submit" name="deactivate_user" value="Deactivate User" />');
+	echo('</form>');
+}
+elseif($_SESSION['account_type'] == ADMIN)
+{
+	echo('<form method="post" action="reactivate.php">');
+	echo('<input type="hidden" name="reactivate" value="' . $_GET['user'] . '" />');
+	echo('<input class="btn" type="submit" name="reactivate_user" value="Reactivate User" />');
+	echo('</form>');
+}
+elseif($_SESSION['account_type'] == CLIENT && $_GET['user'] != $_SESSION['username'] && $offensiveResultCount == 0)
+{
+	echo('<form method="post" action="report.php">');
+	echo('<input type="hidden" name="deactivate" value="' . $_GET['user'] . '" />');
+	echo('<input class="btn" type="submit" name="deactivate_user" value="Report Profile" />');
+	echo('</form>');
 }
 ?>
 </div>

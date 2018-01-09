@@ -35,5 +35,5 @@
     }
   }
 
-header("Location: profile-images.php")
+header("Location: profile-images.php");
 ?>
