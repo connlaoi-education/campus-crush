@@ -32,17 +32,6 @@
 		
 		echo("<p style='color: red;'>"  . $_SESSION['output'] . "</p>");
 
-/* 		require('mass-create-script.php');
-		generateUsers();
-		if(generateUsers())
-		{
-				echo '<h3>Success</h3>';
-		}
-		else
-		{
-				echo '<h3>Failure</h3>';
-		}
-			 */
 		// Database Moderation (Delete Account, Send Password Reset Email,etc)
 		// User Summaries (Graphs, Charts, etc)
 	?>
