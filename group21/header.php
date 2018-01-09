@@ -43,42 +43,41 @@
 		
 			if(!isset($_SESSION['username']))
 			{
-				echo('<a href="./user-login.php" class="w3-bar-item w3-button">Login</a>');
-				echo('<a href="./user-register.php" class="w3-bar-item w3-button">Register</a>');
+				echo('<a href="./user-login.php" class="w3-bar-item w3-button w3-hover-blue">Login</a>');
+				echo('<a href="./user-register.php" class="w3-bar-item w3-button w3-hover-blue">Register</a>');
 			}
 			else
 			{
-				echo('<a href="./dashboard.php" class="w3-bar-item w3-button">Dashboard</a>
-						<a href="./profile-search.php" class="w3-bar-item w3-button">Search</a>');
+				echo('<a href="./dashboard.php" class="w3-bar-item w3-button w3-hover-blue">Dashboard</a>
+						<a href="./profile-search.php" class="w3-bar-item w3-button w3-hover-blue">Search</a>');
 						
 			
 				echo('
 				<div class="w3-dropdown-hover">
-					<a class="w3-bar-item w3-button">Profile</a>
+					<a class="w3-bar-item w3-button w3-hover-blue">Profile</a>
 					<div class="w3-dropdown-content w3-bar-block w3-card-4">');
 					
 					if($_SESSION['account_type'] == INCOMPLETE)
 					{
 						echo('
-						<a href="./profile-create.php" class="w3-bar-item w3-button">Complete Profile</a>
-						<a href="./user-update.php" class="w3-bar-item w3-button">Update Account</a>');
+						<a href="./profile-create.php" class="w3-bar-item w3-button w3-hover-blue">Complete Profile</a>
+						<a href="./user-update.php" class="w3-bar-item w3-button w3-hover-blue">Update Account</a>');
 					}
 					elseif($_SESSION['account_type'] == ADMIN)
 					{
 						echo('
-						<a href="./user-update.php" class="w3-bar-item w3-button">Update Account</a>');
+						<a href="./user-update.php" class="w3-bar-item w3-button w3-hover-blue">Update Account</a>');
 					}
 					elseif($_SESSION['account_type'] == CLIENT)
 					{
 						echo('
-						<a href="./profile-display.php?user=' . $_SESSION['username'] . '" class="w3-bar-item w3-button">View Profile</a>
-						<a href="./profile-create.php" class="w3-bar-item w3-button">Manage Profile</a>
-						<a href="./user-update.php" class="w3-bar-item w3-button">Update Account</a>');
+						<a href="./profile-display.php?user=' . $_SESSION['username'] . '" class="w3-bar-item w3-button w3-hover-blue">View Profile</a>
+						<a href="./profile-create.php" class="w3-bar-item w3-button w3-hover-blue">Manage Profile</a>
+						<a href="./user-update.php" class="w3-bar-item w3-button w3-hover-blue">Update Account</a>');
 					}
-					
-					echo('<a href="./user-logout.php" class="w3-bar-item w3-button">Logout</a>');
-		    echo('</div>
-			    </div>
+					echo('<a href="./user-logout.php" class="w3-bar-item w3-button w3-hover-deep-orange">Logout</a>');
+			echo('</div>
+				</div>
 	        	</div>');
 			}
 

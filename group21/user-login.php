@@ -30,26 +30,36 @@ if(isLoggedIn()) {
 
 <p class="content" style="color:green;">
 	<?php 
-			if(isset($_SESSION["register"]))
-		   {
-			 echo($_SESSION['register']);
-			 unset($_SESSION["register"]);
-		   }
-		  ?>
+		if(isset($_SESSION["register"]))
+		{
+			echo($_SESSION['register']);
+			unset($_SESSION["register"]);
+		}
+	?>
 </p>
 <p class="content" style="color:red;">
-		  <?php
-		  if(isset($_SESSION["message"]))
-		  {
+	<?php
+		if(isset($_SESSION["message"]))
+		{
 			echo($_SESSION["message"]);
 			unset($_SESSION["message"]);
-		  }
-		 if(isset($_SESSION["redirected"]))
-		  {
+		}
+		if(isset($_SESSION["redirected"]))
+		{
 			echo($_SESSION["redirected"]);
 			unset($_SESSION["redirected"]);
-		  }
-	  ?>
+		}
+		if(isset($output))
+		{
+			echo($output);
+			unset($output);
+		}
+		if(isset($error))
+		{
+			echo($error);
+			unset($error);
+		}
+	?>
 </p>
 
 <?php
@@ -95,7 +105,7 @@ if(isLoggedIn()) {
 			
 			if($records >= 1)
 			{
-				$output = "Last Login: " . pg_fetch_result($results, 0, "last_access");
+				$output = pg_fetch_result($results, 0, "last_access");
 				$_SESSION['output'] = $output;
 				$connection = db_connect();
 
@@ -109,17 +119,22 @@ if(isLoggedIn()) {
 				$_SESSION['first_name'] = $dataArray['first_name'];
 				$_SESSION['last_name'] = $dataArray['last_name'];
 
-    		setcookie("UserCookie", $_SESSION['username'], time() + COOKIE_DURATION);
+    			setcookie("UserCookie", $_SESSION['username'], time() + COOKIE_DURATION);
 
-				if($_SESSION['account_type'] == INCOMPLETE) {
+				if($_SESSION['account_type'] == INCOMPLETE)
+				{
 					header("Location:profile-create.php");
-				} elseif($_SESSION['account_type'] == ADMIN){
-					$_SESSION["admin_message"] = "Hello Admin, let's assess today's network traffic, system performance and account issues!";
+				} 
+				elseif($_SESSION['account_type'] == ADMIN)
+				{
+					$_SESSION["admin_message"] = "ADMINISTRATOR DASHBOARD";
 					header("Location:admin.php");
-				} else {
+				}
+				else
+				{
 					header("Location:dashboard.php");
 				}
-    		ob_flush();
+    			ob_flush();
 			}
 			elseif($records < 1)
 			{		
@@ -145,13 +160,6 @@ if(isLoggedIn()) {
 ?>
 
 <hr />
-
-	<p style="color:red;">
-		<?php echo $error; ?>
-	</p>
-	<p style="color:red;">
-		<?php echo $output; ?>
-	</p>
 	
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<table>
@@ -175,7 +183,13 @@ if(isLoggedIn()) {
 </form>
 
 <p class="content">
-	<?php echo $connecting ?>
+	<?php 
+		if(isset($connecting))
+		{
+			echo($connecting);
+			unset($connecting);
+		}
+	?>
 </p>
 <!-- Include Footer PHP -->
  <?php include 'footer.php'; ?>
