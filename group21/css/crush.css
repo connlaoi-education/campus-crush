@@ -1,8 +1,9 @@
 /*
-    Group 21
-	Author: Jeremy Power
-	Filename: crush.css
-    Date: September 20 2017
+	Group 21
+	Author: 		Connlaoi Smith
+	Filename: 		crush.css
+	Created:		April 2017
+    Last Modified: 	December 2017
     
 	This is the cascading stylesheet for the Group 21
     'Campus Crush' website for WEBD-3201.
@@ -237,10 +238,10 @@ em {
 
 .grow
 {
-	min-height:74.5px;
-	max-height:150px;
-	min-width:74.5px;
-	max-width:150px;
+	min-height:45px;
+	max-height:90px;
+	min-width:45px;
+	max-width:90px;
 }
 
 .grow:hover
