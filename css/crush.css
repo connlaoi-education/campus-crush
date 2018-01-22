@@ -1,0 +1,441 @@
+/*
+	Group 21
+	Author: 		Connlaoi Smith
+	Filename: 		crush.css
+	Created:		April 2017
+    Last Modified: 	December 2017
+    
+	This is the cascading stylesheet for the Group 21
+    'Campus Crush' website for WEBD-3201.
+*/
+
+body {
+	background-color: #cfd8dc;
+    margin: 0;
+	color: #455a64;
+	font-family: 'Roboto Slab', serif;
+	margin: 0;
+	line-height: 1.4 !important; 
+}
+
+.profileCardHeader {
+	color: #73ba44;
+	font-weight: bold;
+	text-align: center;
+}
+
+.btn {
+  position: relative;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  display: block;
+  width:80px;
+  height:35px;
+
+  overflow: hidden;
+
+  border-width: 0;
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+  background-color: #2ecc71;
+  color: #ecf0f1;
+  
+  transition: background-color .3s;
+}
+
+.btn:hover, .btn:focus {
+  background-color: #27ae60;
+}
+
+.btn > * {
+  position: relative;
+}
+
+.btn span {
+  display: block;
+  padding: 12px 24px;
+}
+
+.btn:before {
+  content: "";
+  
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  
+  display: block;
+  width: 0;
+  padding-top: 0;
+    
+  border-radius: 100%;
+  
+  background-color: rgba(3, 148, 245, 0.774);
+  
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.btn:active:before {
+  width: 120%;
+  padding-top: 120%;
+
+  transition: width .2s ease-out, padding-top .2s ease-out;
+}
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    background-color: #cfd8dc;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #cfd8dc;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #cfd8dc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    -webkit-animation: fadeEffect 1s;
+    animation: fadeEffect 1s;
+}
+
+/* Fade in tabs */
+@-webkit-keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+/* The container */
+.container {
+    display: inline-block;
+	color: #1c313a;
+    position: relative;
+    padding-left: 35px;
+	margin-left: 12px;
+	margin-top: 12px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+    position: absolute;
+    opacity: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 22px;
+    width: 22px;
+    background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+p {
+	font-style: italic;
+   font-family: inherit;
+}
+
+th {
+	padding: 10px;
+}
+
+textarea {
+   font-family: inherit;
+   font-size: inherit;
+}
+
+form {
+	width: 100%;
+	padding-left:10%;
+	padding-right:10%;
+	padding-bottom:6%;
+	text-align: left;
+}
+
+table{
+	display: table;
+    border-collapse: separate;
+    border-spacing: 2px;
+    border-color: none;
+	text-align: left;
+	width: 100%;
+}
+
+caption {
+	padding: 10px;
+	font-size: 24px;
+}
+
+a {
+	font-size: 20px;
+}
+
+hr {
+	width: 100%;
+}
+
+a:link {
+	color: #285C9B;
+	text-decoration: none;
+}
+a:visited {
+	color: #285C9B;
+	text-decoration: none;
+}
+a:hover {
+	color: #285C9B;
+	text-decoration: none;
+}
+a:active {
+	color: #73ba44;
+	text-decoration: none;
+}
+
+em {
+	font-size: 40pt;
+	font-style: normal;
+	font-family: 'Roboto Slab', serif;
+	text-decoration: none;
+}
+
+.tt1 {
+	font-size: 18pt;
+	font-weight: bold;
+	font-family: 'Roboto Slab', serif;
+}
+
+.inside-tables tr{
+	background-color: #73ba44;
+}
+
+.grow
+{
+	min-height:45px;
+	max-height:90px;
+	min-width:45px;
+	max-width:90px;
+}
+
+.grow:hover
+{
+	-webkit-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+	transform: scale(1.1);
+	-webkit-filter: contrast(155%); /* Safari 6.0 - 9.0 */
+    filter: contrast(155%);
+}
+
+#container
+{
+	margin-top: 0;
+	width: 100%;
+	height:100%;
+	background: #f7f7f7;
+}
+
+#header
+{
+	background: #4A7C59;
+	padding: 2% 8% 2% 8%;
+	height: 10%;
+}
+
+#header a
+{
+	height:100%;
+}
+
+#header h1
+{ 
+	margin: 0% 2% 0 2%;
+	display: inline;
+	color: #285C9B;
+}
+
+#header h2
+{ 
+	margin: auto;
+	color: #fff;
+	font-size-adjust: 0.43;
+}
+
+#header .ccmain
+{
+	font-size: 4em;
+	font-family: 'Lobster', serif;
+	text-decoration: none;
+	display:inline-block;
+	vertical-align:middle;
+}
+
+#header img
+{ 
+	vertical-align: middle;
+}
+
+#sites
+{
+	/*float: left;*/
+	background: #73D45F;
+	padding: 0 6% 0 6%;
+	font-size:20px;
+	color: #285C9B;
+
+}
+
+#sites a
+{
+	background: #73D45F;
+}
+
+#navigation
+{
+	clear: left;
+	float: left;
+	width: 240px;
+	padding: 10px 0;
+	margin: 0 20px 0 0;
+	display: inline;
+}
+
+#navigation h3 
+{ 
+	margin: 0 0 0 10px; 
+}
+
+#content-container
+{
+	height: 100%;
+	width:80%;
+	background-color: #f7f7f7;
+	display: inline;
+}
+
+#content
+{
+	float: left;
+	width: 100%;
+	height:96%;
+	text-align: center;
+	display: inline;
+}
+
+#content h2 
+{ 
+	margin: auto;
+	padding-bottom:5px;
+	color: #455a64;
+	font-weight: bold;
+}
+
+#error
+{
+	color: #ff0000 !important;
+}
+
+#content .index
+{
+	max-height:400px;
+	min-width:400px;
+	max-width:100%;
+}
+
+#footer
+{
+	clear: both;
+	font-size:0.75em;
+    background: #4A7C59;
+    text-align: left;
+    padding: 5px 15px 5px 15px;
+    width: 100%;
+	height:4%;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+	box-sizing:initial;
+}
+
+#footer img
+{
+	vertical-align: middle;
+}
+
+#map {
+  height: 450px;
+  width: 100%;
+}
